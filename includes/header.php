@@ -9,9 +9,10 @@ include_once '../config/db_connection.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>
-        <?php echo $pageTitle; ?>
+        <?php echo $title; ?>
     </title>
     <link href="../assets/libs/tabler/css/tabler.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <?php echo $styles; ?>
 </head>
 
