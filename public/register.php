@@ -1,14 +1,29 @@
 <?php
-$pageTitle = "Index";
+$title = "Register";
 $styles = "";
+include('../includes/header.inc.php');
 
-// Include the template file
-include('../templates/header.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = 'buyer';
+
+    $result = $user->register($username, $email, $password, $role);
+
+    if ($result) {
+        header('Location: register_success.php');
+        exit();
+    } else {
+        $errorMessage = 'Registration failed. Email address is already registered.';
+    }
+}
 ?>
 <div class="page page-center">
     <div class="container container-tight py-4">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36" alt=""></a>
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36"
+                    alt="Giftify"></a>
         </div>
         <form class="card card-md" action="" method="post" autocomplete="off" novalidate>
             <div class="card-body">
@@ -24,7 +39,8 @@ include('../templates/header.php');
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <div class="input-group input-group-flat">
-                        <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
+                        <input type="password" name="password" class="form-control" placeholder="Password"
+                            autocomplete="off">
                         <span class="input-group-text">
                             <a href="#" class="link-secondary" title="Show password"
                                 data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
@@ -58,28 +74,6 @@ include('../templates/header.php');
     </div>
 
     <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $role = 'buyer';
-    
-        // call the register method
-        $result = $user->register($username, $email, $password, $role);
-    
-        // handle the result
-        if ($result) {
-            // registration successful, redirect to the login page
-            header('Location: register_success.php');
-            exit();
-        } else {
-            // registration failed, display an error message
-            echo 'Registration failed. Email address is already registered.';
-        }
-    }
-    ?>
-    <?php
     $scripts = "";
-    // Include the template file
-    include('../templates/footer.php');
+    include('../includes/footer.inc.php');
     ?>

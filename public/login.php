@@ -1,14 +1,32 @@
 <?php
-$pageTitle = "Index";
+$title = "Index";
 $styles = "";
 
-// Include the template file
-include('../templates/header.php');
+include_once('../includes/header.inc.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // call the register method
+    $result = $user->login($email, $password);
+
+    // handle the result
+    if ($result) {
+        // registration successful, redirect to the login page
+        header('Location: index.php');
+        exit();
+    } else {
+        // registration failed, display an error message
+        echo 'Login failed. Please try again.';
+    }
+}
 ?>
 <div class="page page-center">
     <div class="container container-tight py-4">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36" alt=""></a>
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36"
+                    alt="Giftify"></a>
         </div>
         <div class="card card-md">
             <div class="card-body">
@@ -30,8 +48,7 @@ include('../templates/header.php');
                             <input type="password" name="password" class="form-control" placeholder="Your password"
                                 autocomplete="off">
                             <span class="input-group-text">
-                                <a href="#" class="link-secondary" title="Show password"
-                                    data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+                                <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                         stroke-linecap="round" stroke-linejoin="round">
@@ -61,29 +78,8 @@ include('../templates/header.php');
         </div>
     </div>
 </div>
-
-<?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // call the register method
-    $result = $user->login($email, $password);
-
-    // handle the result
-    if ($result) {
-        // registration successful, redirect to the login page
-        header('Location: index.php');
-        exit();
-    } else {
-        // registration failed, display an error message
-        echo 'Login failed. Please try again.';
-    }
-}
-?>
-
 <?php
 $scripts = "";
 // Include the template file
-include('../templates/footer.php');
+include_once('../includes/footer.inc.php');
 ?>

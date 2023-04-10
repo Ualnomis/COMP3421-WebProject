@@ -1,19 +1,23 @@
 <?php
-class Product {
+class Product
+{
     private $conn;
     private $table = "products";
 
-    public function __construct($conn) {
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function selectAll() {
+    public function select_all()
+    {
         $query = "SELECT * FROM " . $this->table;
         $result = $this->conn->query($query);
         return $result;
     }
 
-    public function selectOne($id) {
+    public function select_one($id)
+    {
         $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
@@ -22,21 +26,30 @@ class Product {
         return $result;
     }
 
-    public function insert($seller_id, $name, $description, $price, $image_url) {
+    public function insert($seller_id, $name, $description, $price, $image_url)
+    {
         $query = "INSERT INTO " . $this->table . " (seller_id, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
+        if (empty($image_url)) {
+            $image_url = "../assets/images/dummy_product_icon.png";
+        }
         $stmt->bind_param("issds", $seller_id, $name, $description, $price, $image_url);
         return $stmt->execute();
     }
 
-    public function update($id, $seller_id, $name, $description, $price, $image_url) {
+    public function update($id, $seller_id, $name, $description, $price, $image_url)
+    {
         $query = "UPDATE " . $this->table . " SET seller_id = ?, name = ?, description = ?, price = ?, image_url = ? WHERE id = ?";
         $stmt = $this->conn->prepare($query);
+        if (empty($image_url)) {
+            $image_url = "../assets/images/dummy_product_icon.png";
+        }
         $stmt->bind_param("issdsi", $seller_id, $name, $description, $price, $image_url, $id);
         return $stmt->execute();
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $query = "DELETE FROM " . $this->table . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);

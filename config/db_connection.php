@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-include('../includes/user.php');
+include('../classes/user.class.php');
 $user = new User($conn);
 session_start();
 ?>

@@ -1,19 +1,23 @@
 <?php
-$pageTitle = "Index";
+$title = "Index";
 $styles = "";
+$page_title = "Index";
 
-// Include the template file
-include('../templates/header.php');
-?>
-<?php
-// Include the template file
-include('../templates/navbar.php');
-?>
-<div class="page-wrapper">
 
+include_once('../includes/header.inc.php');
+include_once('../includes/navbar.inc.php');
+include_once('../includes/page-wrapper-start.inc.php');
+?>
+
+<!-- Page body -->
+<div class="page-body">
+    <div class="container-xl">
+        <!-- Content here -->
+    </div>
 </div>
+
 <?php
+include_once('../includes/page-wrapper-end.inc.php');
 $scripts = "";
-// Include the template file
-include('../templates/footer.php');
+include_once('../includes/footer.inc.php');
 ?>

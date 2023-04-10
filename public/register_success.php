@@ -1,9 +1,9 @@
 <?php
-$pageTitle = "Index";
+$title = "Index";
 $styles = "";
 
 // Include the template file
-include('../templates/header.php');
+include('../includes/header.inc.php');
 ?>
 
 
@@ -35,5 +35,5 @@ include('../templates/header.php');
     <?php
     $scripts = "";
     // Include the template file
-    include('../templates/footer.php');
+    include('../includes/footer.inc.php');
     ?>
