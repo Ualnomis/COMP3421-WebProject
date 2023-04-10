@@ -17,6 +17,7 @@ CREATE TABLE products (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
     image_url VARCHAR(255),
     FOREIGN KEY (seller_id) REFERENCES users(id)
 );
