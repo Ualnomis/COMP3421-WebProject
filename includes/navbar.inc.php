@@ -91,35 +91,40 @@
                     </div>
                     <?php
                     if (isset($_SESSION['user_id'])) {
-                        echo '<div class="nav-item dropdown">
-                        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                            aria-label="Open user menu">
-                            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                            <div class="d-none d-xl-block ps-2">
-                                <div>' . $_SESSION['user_name'] . '</div>
-                                <div class="mt-1 small text-muted">UI Designer</div>
+                        echo <<<HTML
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                                    aria-label="Open user menu">
+                                    <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                                    <div class="d-none d-xl-block ps-2">
+                                        <div>{$_SESSION['user_name']}</div>
+                                        <div class="mt-1 small text-muted">UI Designer</div>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <a href="#" class="dropdown-item">Status</a>
+                                    <a href="./profile.html" class="dropdown-item">Profile</a>
+                                    <a href="#" class="dropdown-item">Feedback</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="./settings.html" class="dropdown-item">Settings</a>
+                                    <a href="../includes/logout.inc.php" class="dropdown-item">Logout</a>
+                                </div>
                             </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <a href="#" class="dropdown-item">Status</a>
-                            <a href="./profile.html" class="dropdown-item">Profile</a>
-                            <a href="#" class="dropdown-item">Feedback</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="./settings.html" class="dropdown-item">Settings</a>
-                            <a href="../includes/logout.php" class="dropdown-item">Logout</a>
-                        </div>
-                    </div>';
+                            HTML
+                            ;
                     } else {
-                        echo '<div class="nav-item d-none d-md-flex me-3">
-                        <div class="btn-list">
-                        <a href="./register.php" class="btn btn-outline-primary">
-                        Register
-                      </a>
-                      <a href="./login.php" class="btn btn-outline-success">
-                      Login
-                    </a>
-                        </div>
-                      </div>';
+                        echo <<<HTML
+                                <div class="nav-item d-none d-md-flex me-3">
+                                <div class="btn-list">
+                                <a href="./register.php" class="btn btn-outline-primary">
+                                Register
+                            </a>
+                            <a href="./login.php" class="btn btn-outline-success">
+                            Login
+                            </a>
+                                </div>
+                            </div>
+                            HTML;
                     }
                     ?>
 
@@ -145,7 +150,7 @@
                                 </a>
                             </li>
                             <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'gift.php') echo 'active'; ?>">
-                                <a class="nav-link" href="./">
+                                <a class="nav-link" href="./gift.php">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"

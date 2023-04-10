@@ -1,14 +1,17 @@
 <?php
-class User {
+class User
+{
     private $conn;
-
-    public function __construct($conn) {
+    private $table_name = "users";
+    public function __construct($conn)
+    {
         $this->conn = $conn;
     }
 
-    public function register($username, $email, $password, $role) {
+    public function register($username, $email, $password, $role)
+    {
         // Check if email already exists in database
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM " . $this->table_name . " WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -16,18 +19,19 @@ class User {
             // Email already exists, return false
             return false;
         }
-    
+
         // Email does not exist, insert new record
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO " . $this->table_name . " (username, email, password, role) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $username, $email, $hashed_password, $role);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
-    }    
+    }
 
-    public function login($email, $password) {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+    public function login($email, $password)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM " . $this->table_name . " WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -44,7 +48,8 @@ class User {
         return false;
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_destroy();
     }
 }
