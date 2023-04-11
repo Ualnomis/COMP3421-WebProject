@@ -24,7 +24,7 @@ $cart_data = $cart->select($_SESSION['user_id']);
 $cart_id = $cart_data['id'];
 
 // Check if the product is already in the cart
-$cart_items = $cart->getCartItems($cart_id);
+$cart_items = $cart->getCartItems($cart_id)['cart_items'];
 $existing_cart_item = null;
 foreach ($cart_items as $cart_item) {
     if ($cart_item['product_id'] == $product_id) {
