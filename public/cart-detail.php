@@ -90,6 +90,10 @@ foreach ($cart_items as &$cart_item) {
                             </tr>
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end">
+    <a href="checkout.php" class="btn btn-primary">Proceed to Checkout</a>
+</div>
+
                 </div>
             </div>
         </div>

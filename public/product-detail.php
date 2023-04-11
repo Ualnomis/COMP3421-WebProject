@@ -4,6 +4,7 @@ $styles = "";
 
 include_once('../includes/header.inc.php');
 include_once('../classes/product.class.php');
+include_once('../classes/review.class.php');
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -20,10 +21,36 @@ if (isset($_GET['id'])) {
     exit();
 }
 
+// Create a new instance of the Review class with a database connection
+$review = new Review($conn);
+
 $page_title = "Gift Detail";
 
 include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
+
+// Get the current page number from the URL or set it to 1 if not specified
+$current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
+
+// Set the number of reviews to display per page
+$reviews_per_page = 3;
+
+// Calculate the offset for the current page
+$offset = ($current_page - 1) * $reviews_per_page;
+
+// Get the reviews for the current product and page
+$reviews = $review->selectByProductId($id, $reviews_per_page, $offset);
+
+
+function getTotalReviews($conn, $id)
+{
+    $stmt = $conn->prepare("SELECT COUNT(*) as total_reviews FROM reviews WHERE product_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    return $row['total_reviews'];
+}
 
 function renderActionButton($product_data)
 {
@@ -89,6 +116,73 @@ function renderActionButton($product_data)
                     </div>
                     <?= renderActionButton($product_data); ?>
                 </form>
+                <div class="row mt-3">
+                    <h2>Add a Review</h2>
+                    <form method="post" action="submit-review.php">
+                        <input type="hidden" name="product_id" value="<?= $product_data['id']; ?>">
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <select name="rating" id="rating" class="form-control" required>
+                                <option value="">Choose a Rating</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="review_text" class="form-label">Review</label>
+                            <textarea name="review_text" id="review_text" class="form-control" rows="5"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                    <div class="row mt-5">
+                        <h2>Reviews</h2>
+                        <?php while ($row = $reviews->fetch_assoc()): ?>
+                            <div class="col-12 mt-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <?= $row['rating']; ?> / 5
+                                        </h5>
+                                        <p class="card-text">
+                                            <?= $row['review_text']; ?>
+                                        </p>
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                <?= $row['created_at']; ?>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+
+                        <?php
+                        $total_reviews = getTotalReviews($conn, $id);
+                        $total_pages = ceil($total_reviews / $reviews_per_page);
+                        ?>
+
+                        <?php if ($total_pages > 1): ?>
+                            <div class="d-flex justify-content-center">
+                                <?php if ($current_page > 1): ?>
+                                    <a href="?id=<?= $id; ?>&page=<?= $current_page - 1; ?>"
+                                        class="btn btn-outline-light mt-3">Previous</a>
+                                <?php endif; ?>
+                                <?php if ($current_page < $total_pages): ?>
+                                    <a href="?id=<?= $id; ?>&page=<?= $current_page + 1; ?>"
+                                        class="btn btn-outline-light mt-3">Next</a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
+
+
+
+                </div>
             </div>
         </div>
     </div>
