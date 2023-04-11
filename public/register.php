@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="page page-center">
     <div class="container container-tight py-4 w-fit md:w-[450px]">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="../assets/images/icon.png" height="36" width="36"
+            <a href="." class="navbar-brand"><img src="../assets/images/icon.png" height="36" width="36"
                     alt="Giftify"></a>
         </div>
         <form class="card card-md" action="" method="post" autocomplete="off" novalidate>
