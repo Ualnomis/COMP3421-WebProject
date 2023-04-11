@@ -44,8 +44,11 @@ class Cart
         ");
         $stmt->bind_param('ii', $quantity, $cart_item_id);
         $stmt->execute();
+        $affected_rows = $stmt->affected_rows;
         $stmt->close();
+        return $affected_rows;
     }
+    
 
     // Delete a cart item
     public function deleteCartItem($cart_item_id)
@@ -76,22 +79,50 @@ class Cart
     // Get cart items for a given cart ID
     public function getCartItems($cart_id)
     {
+        // Query to fetch cart items
         $stmt = $this->conn->prepare("
-        SELECT shopping_cart_items.*, products.name, products.quantity AS remain_quantity, products.price * shopping_cart_items.quantity AS price, products.image_url
-        FROM shopping_cart_items
-        INNER JOIN products ON shopping_cart_items.product_id = products.id
-        WHERE cart_id = ?
-        GROUP BY shopping_cart_items.id
-    ");
-    
+            SELECT
+                shopping_cart_items.*,
+                products.name,
+                products.quantity AS remain_quantity,
+                products.price * shopping_cart_items.quantity AS sum_price,
+                products.price,
+                products.image_url
+            FROM
+                shopping_cart_items
+                INNER JOIN products ON shopping_cart_items.product_id = products.id
+            WHERE
+                shopping_cart_items.cart_id = ?
+            GROUP BY
+                shopping_cart_items.id
+        ");
         $stmt->bind_param('i', $cart_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $cart_items = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
-        return $cart_items;
+    
+        // Query to fetch total sum of sum_price
+        $stmt2 = $this->conn->prepare("
+            SELECT
+                SUM(products.price * shopping_cart_items.quantity) AS total
+            FROM
+                shopping_cart_items
+                INNER JOIN products ON shopping_cart_items.product_id = products.id
+            WHERE
+                shopping_cart_items.cart_id = ?
+        ");
+        $stmt2->bind_param('i', $cart_id);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        $total_sum_price = $result2->fetch_assoc()['total'];
+        $stmt2->close();
+    
+        return array('cart_items' => $cart_items, 'total_sum_price' => $total_sum_price);
     }
-
+    
+    
+    
 
     // Count the number of items in a given cart
     public function countItems($cart_id)

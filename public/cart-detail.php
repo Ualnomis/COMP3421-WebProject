@@ -17,16 +17,7 @@ $cart = new Cart($conn);
 $user_id = $_SESSION['user_id']; // Assumes user is logged in
 $cart_data = $cart->select($user_id);
 $cart_id = $cart_data['id'];
-$cart_items = $cart->getCartItems($cart_id);
-$total_price = 0;
-foreach ($cart_items as &$cart_item) {
-    $total_price += $cart_item['price'];
-    if ($cart_item['quantity'] > $cart_item['remain_quantity']) {
-        $cart_item['quantity'] = $cart_item['remain_quantity'];
-    }
-}
-
-
+$cart_items = $cart->getCartItems($cart_id)['cart_items'];
 ?>
 
 <!-- Page body -->
@@ -54,41 +45,56 @@ foreach ($cart_items as &$cart_item) {
                                     <td>
                                         <?= $cart_item['name']; ?>
                                     </td>
-                                    <td>
-                                        <form method="post">
+                                    <form method="post">
+                                        <input type="hidden" class="cart-item-id" value="<?= $cart_item['id']; ?>">
+                                        <td>
                                             <div class="input-group w-50">
                                                 <button class="btn btn-outline-light btn-minus-quantity">
                                                     -
                                                 </button>
                                                 <input type="number" class="form-control" name="order-quantity"
-                                                    value="<?= $cart_item['quantity']; ?>"
-                                                    min="1" max="<?= $cart_item['remain_quantity']; ?>" step="1" pattern="[0-9]*">
+                                                    value="<?= $cart_item['quantity']; ?>" min="1"
+                                                    max="<?= $cart_item['remain_quantity']; ?>" step="1" pattern="[0-9]*">
                                                 <button class="btn btn-outline-light btn-add-quantity">
                                                     +
                                                 </button>
                                             </div>
-                                        </form>
-                                    </td>
-                                    <td>
-                                    <?= $cart_item['price']; ?>
-                                    </td>
+
+                                        </td>
+                                        <td>
+                                        <td class="cart-item-sum-price">
+                                            <?= $cart_item['price']; ?>
+                                        </td>
+                                        </td>
+                                    </form>
                                     <td>
                                         <form action="delete-cart-item.php" method="post">
-                                            <input type="hidden" name="cart_item_id"
-                                                value="<?= $cart_item['id']; ?>">
+                                            <input type="hidden" name="cart_item_id" value="<?= $cart_item['id']; ?>">
                                             <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                         </form>
                                     </td>
                                 </tr>
+
                             <?php endforeach; ?>
+
+                        </tbody>
+                        <tfoot>
                             <tr>
-                                <td colspan="3"></td>
+                                <td><a href="clear-cart.php" class="btn btn-danger btn-sm">Clear Cart</a></td>
+                                <td colspan="2"></td>
                                 <th>Total Price:</th>
-                                <td>
-                                    <?php echo $total_price; ?>
+                                <td class="total-price">
+                                    <?= $cart->getCartItems($cart_id)['total_sum_price']; ?>
                                 </td>
                             </tr>
-                        </tbody>
+                            <tr>
+                                <td colspan="4"></td>
+
+                                <td>
+                                    <a href="checkout-cart.php" class="btn btn-primary btn-sm">Checkout</a>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
