@@ -25,11 +25,12 @@ $page_title = "Gift Detail";
 include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
 
-function renderActionButton($product_data) {
+function renderActionButton($product_data)
+{
     if ($product_data['quantity'] != 0) {
         return <<<HTML
             <div class="row mt-3">
-                <button class="btn btn-outline-light">
+                <button type="submit" class="btn btn-outline-light">
                     Add to Cart
                 </button>
             </div>
@@ -54,37 +55,48 @@ function renderActionButton($product_data) {
 <!-- Page body -->
 <div class="page-body">
     <div class="container-xl">
+        <div id="alert-container"></div>
         <div class="row">
             <div class="col-md-8 col-sm-12">
                 <img src="<?= $product_data['image_url']; ?>" class="w-100" />
             </div>
+
             <div class="col-md-4 col-sm-12">
-                <h1><?= $product_data['name']; ?></h1>
-                <h3><?= $product_data['description']; ?></h3>
-                HK$<?= $product_data['price']; ?>
-                <div class="mt-3">
-                    <label class="form-label">Quantity</label>
-                    <div class="input-group w-50">
-                        <button class="btn btn-outline-light" id="btn-minus-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
-                            -
-                        </button>
-                        <input type="number" class="form-control" name="order-quantity" value="<?=$product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>" min="1"
-                            max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
-                        <button class="btn btn-outline-light" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
-                            +
-                        </button>
+                <form method="post" id="add-to-cart-form">
+                    <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
+                    <h1>
+                        <?= $product_data['name']; ?>
+                    </h1>
+                    <h3>
+                        <?= $product_data['description']; ?>
+                    </h3>
+                    HK$
+                    <?= $product_data['price']; ?>
+                    <div class="mt-3">
+                        <label class="form-label">Quantity</label>
+                        <div class="input-group w-50">
+                            <button class="btn btn-outline-light" id="btn-minus-quantity"
+                                <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                                -
+                            </button>
+                            <input type="number" class="form-control" name="order-quantity"
+                                value="<?= $product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>" min="1"
+                                max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
+                            <button class="btn btn-outline-light" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                                +
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <?= renderActionButton($product_data); ?>
+                    <?= renderActionButton($product_data); ?>
+                </form>
             </div>
         </div>
     </div>
-</div>
 
-<?php
-include_once('../includes/page-wrapper-end.inc.php');
-$scripts = <<<HTML
+    <?php
+    include_once('../includes/page-wrapper-end.inc.php');
+    $scripts = <<<HTML
 <script src="../assets/js/product-detail.js"></script>
 HTML;
-include_once('../includes/footer.inc.php');
-?>
+    include_once('../includes/footer.inc.php');
+    ?>
