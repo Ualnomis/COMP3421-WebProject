@@ -61,8 +61,8 @@ foreach ($cart_items as &$cart_item) {
                                                     -
                                                 </button>
                                                 <input type="number" class="form-control" name="order-quantity"
-                                                    value="<?= $cart_item['quantity']; ?>"
-                                                    min="1" max="<?= $cart_item['remain_quantity']; ?>" step="1" pattern="[0-9]*">
+                                                    value="<?= $cart_item['quantity']; ?>" min="1"
+                                                    max="<?= $cart_item['remain_quantity']; ?>" step="1" pattern="[0-9]*">
                                                 <button class="btn btn-outline-light btn-add-quantity">
                                                     +
                                                 </button>
@@ -70,12 +70,11 @@ foreach ($cart_items as &$cart_item) {
                                         </form>
                                     </td>
                                     <td>
-                                    <?= $cart_item['price']; ?>
+                                        <?= $cart_item['price']; ?>
                                     </td>
                                     <td>
                                         <form action="delete-cart-item.php" method="post">
-                                            <input type="hidden" name="cart_item_id"
-                                                value="<?= $cart_item['id']; ?>">
+                                            <input type="hidden" name="cart_item_id" value="<?= $cart_item['id']; ?>">
                                             <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                         </form>
                                     </td>
@@ -91,8 +90,8 @@ foreach ($cart_items as &$cart_item) {
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-end">
-    <a href="checkout.php" class="btn btn-primary">Proceed to Checkout</a>
-</div>
+                        <a href="checkout.php" class="btn btn-outline-light mt-3">Proceed to Checkout</a>
+                    </div>
 
                 </div>
             </div>
