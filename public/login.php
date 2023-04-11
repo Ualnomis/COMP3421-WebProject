@@ -1,6 +1,8 @@
 <?php
 $title = "Index";
 $styles = "";
+$msg = '';
+$error = false;
 
 include_once('../includes/header.inc.php');
 include_once('../classes/cart.class.php');
@@ -26,19 +28,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         
     } else {
-        echo 'Login failed. Please try again.';
+        $error = true;
+        $msg = 'Login failed. Please try again.';
     }
 }
 ?>
 <div class="page page-center">
-    <div class="container container-tight py-4">
+    <div class="container container-tight py-4 w-fit md:w-[450px]">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36"
+            <a href="." class="navbar-brand"><img src="../assets/images/icon.png" height="36" width="36"
                     alt="Giftify"></a>
         </div>
-        <div class="card card-md">
+        <div class="card card-md flex justify-center items-center ">
             <div class="card-body">
                 <h2 class="h2 text-center mb-4">Login to your account</h2>
+                <?php if ($error): ?>
+                    <div class="alert alert-danger"><?php echo $msg; ?></div>
+                <?php endif; ?>
                 <form action="" method="post" autocomplete="off" novalidate>
                     <div class="mb-3">
                         <label class="form-label">Email address</label>
@@ -71,18 +77,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="mb-2">
                         <label class="form-check">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" class="form-check-input cursor-pointer border-white" />
                             <span class="form-check-label">Remember me on this device</span>
                         </label>
                     </div>
-                    <div class="form-footer">
+                    <div class="form-footer bg-blue-600 hover:bg-blue-400 rounded">
                         <button type="submit" class="btn btn-primary w-100">Sign in</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="text-center text-muted mt-3">
-            Don't have account yet? <a href="./register.php" tabindex="-1">Sign up</a>
+            Don't have account yet? <a href="./register.php" tabindex="-1" class="text-cyan-600">Sign up</a>
         </div>
     </div>
 </div>

@@ -1,6 +1,8 @@
 <?php
 $title = "Register";
 $styles = "";
+$error = false;
+$errorMessage = '';
 include('../includes/header.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -15,19 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header('Location: register-success.php');
         exit();
     } else {
+        $error = true;
         $errorMessage = 'Registration failed. Email address is already registered.';
     }
 }
 ?>
 <div class="page page-center">
-    <div class="container container-tight py-4">
+    <div class="container container-tight py-4 w-fit md:w-[450px]">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36"
+            <a href="." class="navbar-brand navbar-brand-autodark"><img src="../assets/images/icon.png" height="36" width="36"
                     alt="Giftify"></a>
         </div>
         <form class="card card-md" action="" method="post" autocomplete="off" novalidate>
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Create new account</h2>
+                <?php if ($error): ?>
+                    <div class="alert alert-danger"><?php echo $errorMessage; ?></div>
+                <?php endif; ?>
                 <div class="mb-3">
                     <label class="form-label">Name</label>
                     <input type="text" name="username" class="form-control" placeholder="Enter name">
@@ -58,18 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="mb-3">
                     <label class="form-check">
-                        <input type="checkbox" class="form-check-input" />
+                        <input type="checkbox" class="form-check-input border-white" />
                         <span class="form-check-label">Agree the <a href="./terms-of-service.html" tabindex="-1">terms
                                 and policy</a>.</span>
                     </label>
                 </div>
                 <div class="form-footer">
-                    <button type="submit" class="btn btn-primary w-100">Create new account</button>
+                    <button type="submit" class="btn btn-primary w-100 bg-blue-600 hover:bg-blue-400 rounded">Create new account</button>
                 </div>
             </div>
         </form>
         <div class="text-center text-muted mt-3">
-            Already have account? <a href="./sign-in.html" tabindex="-1">Sign in</a>
+            Already have account? <a href="./login.php" tabindex="-1" class="text-cyan-600">Sign in</a>
         </div>
     </div>
 
