@@ -19,16 +19,14 @@ $products = $product->select_all();
 
 function renderProductCard($row)
 {
-    $btnText = '';
-    $href = "";
+    $sold_out_badge = $row["quantity"] == 0 ? '<span class="badge bg-red">Sold Out</span>' : "";
     if (!isset($_SESSION['role']) || $_SESSION["role"] != 'seller') {
-        $btnText = $row["quantity"] != 0 ? "Add to cart" : "Sold Out";
-        $btnDisabled = $row["quantity"] == 0 ? "disabled" : "";
+        $btn_edit = "";
     } else {
-        $btnText = <<<HTML
-            <a href="./edit-product.php?id={$row['id']}">Edit</a>
+        $btn_edit = <<<HTML
+            <a class="btn btn-outline-light" href="./edit-product.php?id={$row['id']}">Edit</a>
+            <a class="btn btn-danger" href="./delete-product.php?id={$row['id']}">Delete</a>
         HTML;
-        $btnDisabled = "";
     }
 
     return <<<HTML
@@ -39,7 +37,7 @@ function renderProductCard($row)
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                            <div>{$row['name']}</div>
+                            <div>{$row['name']} {$sold_out_badge}</div>
                             <div>{$row['price']}</div>
                             <div>{$row['quantity']} left</div>
                             <div class="text-muted">{$row['description']}</div>
@@ -48,7 +46,7 @@ function renderProductCard($row)
                 </div>
                 </a>
                 <div class="card-footer">
-                    <button class="btn btn-outline-light" {$btnDisabled}>{$btnText}</button>
+                    {$btn_edit}
                 </div>
             </div>
         </div>
