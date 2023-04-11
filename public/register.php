@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $user->register($username, $email, $password, $role);
 
     if ($result) {
-        header('Location: register_success.php');
+        header('Location: register-success.php');
         exit();
     } else {
         $errorMessage = 'Registration failed. Email address is already registered.';

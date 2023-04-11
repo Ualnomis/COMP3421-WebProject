@@ -12,11 +12,11 @@ if (isset($_GET['id'])) {
     if ($product_result->num_rows > 0) {
         $product_data = $product_result->fetch_assoc();
     } else {
-        header("Location: gift.php");
+        header("Location: product.php");
         exit();
     }
 } else {
-    header("Location: gift.php");
+    header("Location: product.php");
     exit();
 }
 
