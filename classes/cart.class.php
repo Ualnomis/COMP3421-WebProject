@@ -4,6 +4,7 @@ class Cart
 {
 
     private $conn;
+    private $cart_table = 'shopping_cart';
 
     public function __construct($conn)
     {
@@ -13,11 +14,7 @@ class Cart
     // Select cart data for a given user ID
     public function select($user_id)
     {
-        $stmt = $this->conn->prepare("
-            SELECT *
-            FROM shopping_cart
-            WHERE user_id = ?
-        ");
+        $stmt = $this->conn->prepare("SELECT * FROM " . $this->cart_table . " WHERE user_id = ?");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -29,10 +26,7 @@ class Cart
     // Insert a new cart for a given user ID
     public function insert($user_id)
     {
-        $stmt = $this->conn->prepare("
-            INSERT INTO shopping_cart (user_id)
-            VALUES (?)
-        ");
+        $stmt = $this->conn->prepare("INSERT INTO " . $this->cart_table . " (user_id)VALUES (?)");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $cart_id = $stmt->insert_id;

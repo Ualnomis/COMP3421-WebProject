@@ -38,6 +38,26 @@
                                 </path>
                             </svg>
                         </a>
+                        <?php
+                            if (isset($_SESSION["role"]) && $_SESSION["role"] == "buyer") {
+                                echo <<<HTML
+                                <div class="nav-item d-none d-md-flex me-3">
+                                <a href="cart.php" class="nav-link px-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart"
+                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                                        <path d="M17 17h-11v-14h-2"></path>
+                                        <path d="M6 5l14 1l-1 7h-13"></path>
+                                    </svg>
+                                    <span class="badge badge-pill bg-red" id="cart-count"></span>
+                                </a>
+                                </div>
+                                HTML;
+                            }
+                        ?>
                         <div class="nav-item dropdown d-none d-md-flex me-3">
                             <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
                                 aria-label="Show notifications">
@@ -109,7 +129,7 @@
                                 </div>
                             </div>
                             HTML
-                            ;
+                        ;
                     } else {
                         echo <<<HTML
                                 <div class="nav-item d-none d-md-flex me-3">
@@ -130,7 +150,8 @@
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                         <ul class="navbar-nav">
-                            <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') echo 'active'; ?>">
+                            <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'index.php')
+                                echo 'active'; ?>">
                                 <a class="nav-link" href="./">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -147,7 +168,8 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'product.php') echo 'active'; ?>">
+                            <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'product.php')
+                                echo 'active'; ?>">
                                 <a class="nav-link" href="./product.php">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"

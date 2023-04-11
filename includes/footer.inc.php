@@ -4,6 +4,7 @@
 <script>
     AOS.init();
 </script>
+<script src="../assets/js/global.js"></script>
 <?php echo $scripts; ?>
 </body>
 

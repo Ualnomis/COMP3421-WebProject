@@ -14,6 +14,7 @@ include_once '../config/db_connection.php';
     <link href="../assets/libs/tabler/css/tabler.min.css" rel="stylesheet">
     <link href="../assets/css/hover-min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
     <?php echo $styles; ?>
 </head>
 
