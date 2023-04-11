@@ -65,12 +65,12 @@ function renderActionButton($product_data) {
                 <div class="mt-3">
                     <label class="form-label">Quantity</label>
                     <div class="input-group w-50">
-                        <button class="btn btn-outline-light" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                        <button class="btn btn-outline-light" id="btn-minus-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
                             -
                         </button>
-                        <input type="number" class="form-control" name="order-quantity" value="1" min="1"
-                            max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
-                        <button class="btn btn-outline-light" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                        <input type="number" class="form-control" name="order-quantity" value="<?=$product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>" min="1"
+                            max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
+                        <button class="btn btn-outline-light" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
                             +
                         </button>
                     </div>
@@ -83,6 +83,8 @@ function renderActionButton($product_data) {
 
 <?php
 include_once('../includes/page-wrapper-end.inc.php');
-$scripts = "";
+$scripts = <<<HTML
+<script src="../assets/js/product-detail.js"></script>
+HTML;
 include_once('../includes/footer.inc.php');
 ?>
