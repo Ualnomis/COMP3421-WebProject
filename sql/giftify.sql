@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- 資料庫: `giftify`
 --
-
+CREATE DATABASE giftify;
+USE giftify;
 -- --------------------------------------------------------
 
 --
