@@ -3,7 +3,6 @@ $title = "Index";
 $styles = "";
 $page_title = "";
 
-
 include_once('../includes/header.inc.php');
 include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
@@ -25,9 +24,9 @@ include_once('../includes/page-wrapper-start.inc.php');
                 </p>
             </div>
 
-            <button class="w-fit bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-aos="fade-up-right">
-                View Gifts (OnClick TODO)
-            </button>
+            <a href="product.php" class="w-fit bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-aos="fade-up-right">
+                View Gifts
+            </a>
         </div>
     </div>
     <div id="home_canvas" class=" absolute border right-0 translate-1/2  w-[600px] h-[600px] text-dark bg-white" >留空1陣+圖</div>
