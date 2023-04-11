@@ -87,13 +87,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                                     <?= $cart->getCartItems($cart_id)['total_sum_price']; ?>
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="4"></td>
 
-                                <td>
-                                    <a href="checkout-cart.php" class="btn btn-primary btn-sm">Checkout</a>
-                                </td>
-                            </tr>
                         </tfoot>
                     </table>
                     <div class="d-flex justify-content-end">
