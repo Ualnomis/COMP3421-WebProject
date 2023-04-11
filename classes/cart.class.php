@@ -77,11 +77,13 @@ class Cart
     public function getCartItems($cart_id)
     {
         $stmt = $this->conn->prepare("
-            SELECT shopping_cart_items.*, products.name, products.price
-            FROM shopping_cart_items
-            INNER JOIN products ON shopping_cart_items.product_id = products.id
-            WHERE cart_id = ?
-        ");
+        SELECT shopping_cart_items.*, products.name, products.quantity AS remain_quantity, products.price * shopping_cart_items.quantity AS price, products.image_url
+        FROM shopping_cart_items
+        INNER JOIN products ON shopping_cart_items.product_id = products.id
+        WHERE cart_id = ?
+        GROUP BY shopping_cart_items.id
+    ");
+    
         $stmt->bind_param('i', $cart_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -89,6 +91,7 @@ class Cart
         $stmt->close();
         return $cart_items;
     }
+
 
     // Count the number of items in a given cart
     public function countItems($cart_id)
