@@ -13,8 +13,8 @@ include('../includes/header.inc.php');
         <div class="container-tight py-4">
             <div class="empty">
                 <p class="empty-title">Register Success</p>
-                <p class="empty-subtitle text-muted">
-                    Register Success!
+                <p class="empty-subtitle text-white">
+                    Congratulations! You can start buying gifts in our store!
                 </p>
                 <div class="empty-action">
                     <a href="./." class="btn btn-primary">
