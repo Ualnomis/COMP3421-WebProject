@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert into database
-    if ($product->insert($seller_id, $name, $description, $price, $imageUrl)) {
+    if ($product->insert($seller_id, $name, $description, $price, $quantity, $imageUrl)) {
         // Return success response
         header('Location: product.php');
         ob_end_flush();

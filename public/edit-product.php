@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['product-price'];
     $quantity = $_POST['product-quantity'];
     $description = $_POST['product-description'];
-    $imageUrl = $product_data['image_url']; // set default image URL
+    $imageUrl = $product_data['image_url'];
 
     if (!empty($_FILES["product-img"]["tmp_name"])) {
         // Handle file upload if a file was uploaded
@@ -43,10 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imageUrl = "../assets/images/" . $fileName;
     }
 
-
-
     // Insert into database
-    if ($product->update($id, $seller_id, $name, $description, $price, $imageUrl)) {
+    if ($product->update($id, $seller_id, $name, $description, $price, $quantity, $imageUrl)) {
         // Return success response
         header('Location: product.php');
         ob_end_flush();
@@ -98,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             <div class="row mt-3">
-                <input type="submit" class="btn btn-outline-light" value="Add" />
+                <input type="submit" class="btn btn-outline-light" value="Save" />
             </div>
         </form>
     </div>

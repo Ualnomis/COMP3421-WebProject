@@ -11,7 +11,7 @@ class Product
 
     public function select_all()
     {
-        $query = $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+        $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
         $result = $this->conn->query($query);
         return $result;
     }
@@ -26,25 +26,25 @@ class Product
         return $result;
     }
 
-    public function insert($seller_id, $name, $description, $price, $image_url)
+    public function insert($seller_id, $name, $description, $price, $quantity, $image_url)
     {
-        $query = "INSERT INTO " . $this->table . " (seller_id, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO " . $this->table . " (seller_id, name, description, price, quantity, image_url) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         if (empty($image_url)) {
             $image_url = "../assets/images/dummy_product_icon.png";
         }
-        $stmt->bind_param("issds", $seller_id, $name, $description, $price, $image_url);
+        $stmt->bind_param("issdis", $seller_id, $name, $description, $price, $quantity, $image_url);
         return $stmt->execute();
     }
 
-    public function update($id, $seller_id, $name, $description, $price, $image_url)
+    public function update($id, $seller_id, $name, $description, $price, $quantity, $image_url)
     {
-        $query = "UPDATE " . $this->table . " SET seller_id = ?, name = ?, description = ?, price = ?, image_url = ? WHERE id = ?";
+        $query = "UPDATE " . $this->table . " SET seller_id = ?, name = ?, description = ?, price = ?, quantity = ?, image_url = ? WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         if (empty($image_url)) {
             $image_url = "../assets/images/dummy_product_icon.png";
         }
-        $stmt->bind_param("issdsi", $seller_id, $name, $description, $price, $image_url, $id);
+        $stmt->bind_param("issdisi", $seller_id, $name, $description, $price, $quantity, $image_url, $id);
         return $stmt->execute();
     }
 
@@ -56,4 +56,5 @@ class Product
         return $stmt->execute();
     }
 }
+
 ?>
