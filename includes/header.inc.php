@@ -11,10 +11,12 @@ include_once '../config/db_connection.php';
     <title>
         <?php echo $title; ?>
     </title>
-    <link href="../assets/libs/tabler/css/tabler.min.css" rel="stylesheet">
-    <link href="../assets/css/hover-min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="../assets/css/global.css" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+        <link href="../assets/libs/tabler/css/tabler.min.css" rel="stylesheet">
+        <link href="../assets/css/hover-min.css" rel="stylesheet">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link href="../assets/css/global.css" rel="stylesheet">
     <?php echo $styles; ?>
 </head>
 
