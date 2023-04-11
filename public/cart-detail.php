@@ -15,8 +15,7 @@ $cart = new Cart($conn);
 
 // Get the cart items for the current user
 $user_id = $_SESSION['user_id']; // Assumes user is logged in
-$cart_data = $cart->select($user_id);
-$cart_id = $cart_data['id'];
+$cart_id = $cart->select($user_id)['id'];
 $cart_items = $cart->getCartItems($cart_id)['cart_items'];
 ?>
 
@@ -63,7 +62,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                                         </td>
                                         <td>
                                         <td class="cart-item-sum-price">
-                                            <?= $cart_item['price']; ?>
+                                            <?= $cart_item['sum_price']; ?>
                                         </td>
                                         </td>
                                     </form>
