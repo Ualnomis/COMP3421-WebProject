@@ -11,7 +11,7 @@ class Product
 
     public function select_all()
     {
-        $query = "SELECT * FROM " . $this->table;
+        $query = $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
         $result = $this->conn->query($query);
         return $result;
     }
