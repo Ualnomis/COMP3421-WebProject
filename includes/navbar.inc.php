@@ -42,7 +42,7 @@
                         if (isset($_SESSION["role"]) && $_SESSION["role"] == "buyer") {
                             echo <<<HTML
                                 <div class="nav-item d-none d-md-flex me-3">
-                                <a href="cart.php" class="nav-link px-0">
+                                <a href="cart-detail.php" class="nav-link px-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart"
                                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                         fill="none" stroke-linecap="round" stroke-linejoin="round">
