@@ -96,6 +96,10 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                             </tr>
                         </tfoot>
                     </table>
+                    <div class="d-flex justify-content-end">
+                        <a href="checkout.php" class="btn btn-outline-light mt-3">Proceed to Checkout</a>
+                    </div>
+
                 </div>
             </div>
         </div>
