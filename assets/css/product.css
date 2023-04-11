@@ -1,0 +1,16 @@
+a:hover {
+    text-decoration: none;
+}
+
+.card-img-top {
+    height: 200px;
+    width: 100%;
+}
+
+.btn-outline-light a {
+    color: white;
+}
+
+.btn-outline-light a:hover {
+    color: black;
+}
