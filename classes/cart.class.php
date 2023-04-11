@@ -59,7 +59,9 @@ class Cart
         ");
         $stmt->bind_param('i', $cart_item_id);
         $stmt->execute();
+        $affected_rows = $stmt->affected_rows;
         $stmt->close();
+        return $affected_rows;
     }
 
     // Add a new item to the cart
