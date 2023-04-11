@@ -3,21 +3,29 @@ $title = "Index";
 $styles = "";
 
 include_once('../includes/header.inc.php');
+include_once('../classes/cart.class.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // call the register method
+    // call the login method
     $result = $user->login($email, $password);
 
     // handle the result
     if ($result) {
-        // registration successful, redirect to the login page
-        header('Location: index.php');
-        exit();
+        // Login
+        $cart = new Cart($conn);
+        if ($cart->select($_SESSION['user_id'])) {
+            header('Location: index.php');
+            exit();
+        } else {
+            $cart->insert($_SESSION['user_id']);
+            header('Location: index.php');
+            exit();
+        }
+        
     } else {
-        // registration failed, display an error message
         echo 'Login failed. Please try again.';
     }
 }
