@@ -547,7 +547,7 @@ function edit_Product(){
 
 function init() {
     globalInit();
-
+    addExpiryDateSlash();
     if (document.querySelector('#home_canvas')) {
         console.log("load home canvas js");
         home_canvas();
@@ -575,12 +575,78 @@ function init() {
 
 }
 
+function addExpiryDateSlash() {
+    const expiryDateInput = document.getElementById('expiry-date');
+    if (expiryDateInput) {
+      expiryDateInput.addEventListener('input', function (e) {
+        if (this.value.length === 2 && e.inputType !== 'deleteContentBackward') {
+          this.value += '/';
+        }
+      });
+    }
+  }
+  
+
+function validateForm() {
+    const form = document.getElementById("checkout-form");
+    const phone = form["buyer-phone"].value;
+    const cardNumber = form["cardnumber"].value;
+    const cardExpiry = form["cardexpiry"].value;
+    const cardCvv = form["cardcvv"].value;
+
+    // Check if the phone number is valid
+    const phoneRegex = /^\d{8}$/;
+    if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid phone number.");
+        return false;
+    }
+
+    // Check if the card number is valid
+    const cardNumberRegex = /^\d{16}$/;
+    if (!cardNumberRegex.test(cardNumber)) {
+        alert("Please enter a valid card number.");
+        return false;
+    }
+
+    // Check if the card expiry date is valid
+    const cardExpiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+    if (!cardExpiryRegex.test(cardExpiry)) {
+        alert("Please enter a valid expiry date (MM/YY).");
+        return false;
+    }
+
+    // Check if the card CVV is valid
+    const cardCvvRegex = /^\d{3}$/;
+    if (!cardCvvRegex.test(cardCvv)) {
+        alert("Please enter a valid CVV.");
+        return false;
+    }
+
+    // If all validations passed, submit the form
+    return true;
+}
+
+
+function attachFormValidation() {
+    const checkoutForm = document.getElementById("checkout-form");
+    if (checkoutForm) {
+        checkoutForm.onsubmit = validateForm;
+    }
+}
+
 // run once when page loads
 if (document.readyState === 'complete') {
-  init();
+    init();
+    attachFormValidation();
 } else {
-  document.addEventListener('DOMContentLoaded', () => init());
+    document.addEventListener('DOMContentLoaded', () => {
+        init();
+        attachFormValidation();
+    });
 }
 
 // run after every additional navigation by swup
-swup.on('contentReplaced', init);
+swup.on('contentReplaced', () => {
+    init();
+    attachFormValidation();
+});
