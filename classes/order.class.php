@@ -61,10 +61,21 @@ class Order
 
     public function get_all_orders()
     {
+        // $query = "SELECT * FROM orders";
+        // $stmt = $this->conn->prepare($query);
+        // $stmt->execute();
+        // $orders = $stmt->get_result();
+        // $stmt->close();
+        // return $orders;
+        
         $query = "SELECT * FROM orders";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $orders = $stmt->get_result();
+        $result = $stmt->get_result();
+        $orders = array();
+        while ($order = $result->fetch_assoc()) {
+            $orders[] = $order;
+        }
         $stmt->close();
         return $orders;
     }

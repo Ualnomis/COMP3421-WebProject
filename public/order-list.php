@@ -16,8 +16,14 @@ require_once('../classes/order.class.php');
 
 // Get the orders for the current user
 $user_id = $_SESSION['user_id']; // Assumes user is logged in
+$user_role = $_SESSION['role'];
 $order = new Order($conn);
-$orders = $order->get_orders_by_user_id($user_id);
+if($user_role == "buyer"){
+    $orders = $order->get_orders_by_user_id($user_id);
+} else {
+    $orders = $order->get_all_orders();
+}
+print_r($orders)
 ?>
 
 <div class="container-xl mt-3">
