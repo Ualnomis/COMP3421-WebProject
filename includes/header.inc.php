@@ -16,9 +16,9 @@ include_once '../config/db_connection.php';
         <link href="../assets/libs/tabler/css/tabler.min.css" rel="stylesheet">
         <link href="../assets/css/hover-min.css" rel="stylesheet">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <script defer src="https://unpkg.com/swup@3"></script>
         <link href="../assets/css/global.css" rel="stylesheet">
         <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
-
         <script type="importmap">
         {
             "imports": {
@@ -27,7 +27,8 @@ include_once '../config/db_connection.php';
             }
         }
         </script>
+        <script defer type="module" src="../assets/js/home.js"></script>
     <?php echo $styles; ?>
 </head>
 
-<body class="theme-dark w-full">
+<body class="theme-dark w-full overflow-hidden">

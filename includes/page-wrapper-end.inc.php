@@ -1,4 +1,5 @@
-<footer class="footer footer-transparent d-print-none">
+</main>
+<footer class="footer footer-transparent d-print-none z-10">
         <div class="container-xl">
             <div class="row text-center align-items-center flex-row-reverse">
                 <!-- <div class="col-lg-auto ms-lg-auto">
