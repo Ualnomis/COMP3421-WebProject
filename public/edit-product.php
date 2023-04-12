@@ -53,16 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quantity = (int) $quantity;
     }
 
+    if (!empty($_FILES["product-img"]["tmp_name"])) {
+        // Handle file upload if a file was uploaded
+        $targetDir = "../assets/images/";
+        $fileName = uniqid() . '_' . basename($_FILES["product-img"]["name"]);
+        $targetFile = $targetDir . $fileName;
+        move_uploaded_file($_FILES["product-img"]["tmp_name"], $targetFile);
+        $imageUrl = "../assets/images/" . $fileName;
+    }
     if (!$error) {
-        if (!empty($_FILES["product-img"]["tmp_name"])) {
-            // Handle file upload if a file was uploaded
-            $targetDir = "../assets/images/";
-            $fileName = uniqid() . '_' . basename($_FILES["product-img"]["name"]);
-            $targetFile = $targetDir . $fileName;
-            move_uploaded_file($_FILES["product-img"]["tmp_name"], $targetFile);
-            $imageUrl = "../assets/images/" . $fileName;
-        }
-
         // Insert into database
         $product->update($id, $seller_id, $name, $description, $price, $quantity, $imageUrl, $status);
         header('Location: product.php');
