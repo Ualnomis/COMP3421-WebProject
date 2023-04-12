@@ -31,8 +31,7 @@ USE giftify;
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `buyer_id` int(11) NOT NULL,
-  `order_date` datetime NOT NULL,
-  `total` decimal(10,2) NOT NULL
+  `order_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -267,3 +266,38 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+-- create the OrderStatus table
+CREATE TABLE `Order_Status` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- insert the possible statuses
+INSERT INTO `Order_Status` (`id`, `name`) VALUES
+(1, 'wait to pay'),
+(2, 'paid'),
+(3, 'shipped'),
+(4, 'cancelled');
+
+-- add the new columns to the orders table
+ALTER TABLE `orders`
+  ADD `buyer_name` varchar(255) NOT NULL AFTER `buyer_id`,
+  ADD `buyer_phone` varchar(20) NOT NULL AFTER `buyer_name`,
+  ADD `status_id` int(11) NOT NULL AFTER `order_date`,
+  ADD CONSTRAINT `FK_orders_OrderStatus` FOREIGN KEY (`status_id`) REFERENCES `Order_Status` (`id`);
+
+-- create the event to auto cancel orders
+DELIMITER ;;
+
+CREATE EVENT auto_cancel_orders
+ON SCHEDULE EVERY 1 DAY
+DO
+BEGIN
+  UPDATE `orders`
+  SET `status_id` = 4
+  WHERE `status_id` = 1 AND `order_date` < NOW() - INTERVAL 7 DAY;
+END 
+
+DELIMITER ;
