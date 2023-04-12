@@ -25,7 +25,7 @@ include_once('../includes/navbar.inc.php');
                 </p>
             </div>
 
-            <a href="product.php" class="w-fit bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded z-20" data-aos="fade-up-right">
+            <a href="product.php" class="w-fit bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded z-20 no-underline hover:no-underline" data-aos="fade-up-right">
                 View Gifts
             </a>
         </div>
