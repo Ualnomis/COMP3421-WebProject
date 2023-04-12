@@ -23,7 +23,13 @@ if($user_role == "buyer"){
 } else {
     $orders = $order->get_all_orders();
 }
-print_r($orders)
+$perPage = 1;
+$totalOrders = count($orders);
+$totalPages = ceil($totalOrders / $perPage);
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$offset = ($page - 1) * $perPage;
+$orders = array_slice($orders, $offset, $perPage);
+
 ?>
 
 <div class="container-xl mt-3">
@@ -58,6 +64,17 @@ print_r($orders)
                     <?php endif; ?>
                 </tbody>
             </table>
+
+            <div class="flex justify-center mt-5">
+                <ul class="pagination">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li>
+                            <a href="?page=<?= $i ?>" class="<?php if ($page === $i) echo 'bg-blue-500 text-white'; ?> hover:bg-blue-400 px-3 py-2 rounded"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>
