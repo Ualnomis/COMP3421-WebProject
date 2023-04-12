@@ -27,7 +27,7 @@ if (!is_valid_request()) {
     send_error_response(400, 'Invalid request.');
 } else if (!is_login()) {
     send_error_response(400, 'Please Login to add product to cart.');
-}else if (!is_buyer()) {
+} else if (!is_buyer()) {
     send_error_response(400, 'Only buyer can add to cart.');
 }
 
