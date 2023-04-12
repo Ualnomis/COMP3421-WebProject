@@ -66,8 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="btn btn-outline-light btn-rounded">
                             <label class="form-label m-1" for="product-img">Choose file</label>
                             <input type="hidden" name="product-img-prev" value="<?= $product_data['image_url']; ?>">
-                            <input type="file" class="form-control d-none" name="product-img" id="product-img"
-                                onchange="previewImage(event)" accept="image/*" multiple="false" />
+                            <input type="file" class="form-control d-none" name="product-img" id="product-img" accept="image/*" multiple="false" />
                         </div>
                     </div>
                 </div>

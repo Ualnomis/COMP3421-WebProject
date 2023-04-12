@@ -5,6 +5,22 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const swup = new Swup();
 
+function previewImage(event) {
+    var preview = document.getElementById('preview');
+    var file = event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "../assets/images/dummy_product_icon.png";
+    }
+}
+
 async function updateCartCount() {
     try {
         const response = await fetch('../includes/get-cart-count.inc.php');
@@ -505,12 +521,20 @@ const cart_details = () =>{
 }
 
 function add_Product(){
+    const productImg = document.getElementById('product-img');
 
-    
+    productImg.addEventListener('change', function(event) {
+        previewImage(event)
+    });
 }
 
 function edit_Product(){
 
+    const productImg = document.getElementById('product-img');
+
+    productImg.addEventListener('change', function(event) {
+        previewImage(event)
+    });
 }
 
 function init() {
