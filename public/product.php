@@ -33,7 +33,7 @@ function renderProductCard($row)
         <div class="col-3">
             <div class="card hvr-grow w-100 h-100">
                 <a href="./product-detail.php?id={$row['id']}" class="d-block">
-                <img src="{$row['image_url']}" class="card-img-top img-fiuld">
+                <img src="{$row['image_url']}" class="card-img-top img-fiuld h-[250px]">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
