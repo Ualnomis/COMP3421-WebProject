@@ -1,12 +1,7 @@
 <?php
 $title = "Order List";
 $styles = <<<HTML
-<style>
-    .order-row {
-        background-color: #2563eb;
-        color: white;
-    }
-</style>
+
 HTML;
 $page_title = "Order List";
 
@@ -23,7 +18,7 @@ if ($user_role == "buyer") {
 } else {
     $orders = $order->get_all_orders();
 }
-$perPage = 1;
+$perPage = 10;
 $totalOrders = count($orders);
 $totalPages = ceil($totalOrders / $perPage);
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -67,17 +62,11 @@ $orders = array_slice($orders, $offset, $perPage);
                                     <?= $order['status_name'] ?>
                                 </td>
                                 <td>
-                                    <?php
-                                    if ($order['status_id'] === 1 && $_SESSION['role'] == 'buyer') {
-                                        echo <<<HTML
-                                             <a href="./checkout.php?order_id={$order['id']}" class="btn btn-primary">Checkout Now</a>
-                                            HTML;
-                                    } else {
-                                        echo <<<HTML
-                                            <a href="#" ><i class="fa-solid fa-magnifying-glass"></i></a>
-                                            HTML;
-                                    }
-                                    ?>
+                                    <?php if ($order['status_id'] === 1 && $_SESSION['role'] == 'buyer'): ?>
+                                        <a href="./checkout.php?order_id=<?= $order['id'] ?>" class="btn btn-primary">Checkout Now</a>
+                                    <?php else: ?>
+                                        <a href="./order_items.php?order_id=<?= $order['id'] ?>"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
