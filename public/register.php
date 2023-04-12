@@ -10,16 +10,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = 'buyer';
+    $agree = isset($_POST['agree']);
+    // print($agree);
 
-    $result = $user->register($username, $email, $password, $role);
-
-    if ($result) {
-        echo '<script>window.location.replace("register-success.php");</script>';
-        exit();
-    } else {
+    // Validate username
+    if (empty($username)) {
         $error = true;
-        $errorMessage = 'Registration failed. Email address is already registered.';
+        $errorMessage = 'Please enter a username.';
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        $error = true;
+        $errorMessage = 'Username can only contain letters, numbers, and underscores.';
+    }
+
+    // Validate email
+    if (empty($email)) {
+        $error = true;
+        $errorMessage = 'Please enter an email address.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = true;
+        $errorMessage = 'Please enter a valid email address.';
+    }
+
+     // Validate password
+     if (empty($password)) {
+        $error = true;
+        $errorMessage = 'Please enter a password.';
+    } elseif (strlen($password) < 5) {
+        $error = true;
+        $errorMessage = 'Password must be at least 5 characters long.';
+    }
+
+    // Validate agree checkbox
+    if (!$agree) {
+        $error = true;
+        $errorMessage = 'Please agree to the terms and policy.';
+    }
+
+    if (!$error) {
+        // If there are no errors, proceed with registration
+        $role = 'buyer';
+        $result = $user->register($username, $email, $password, $role);
+        if ($result) {
+            echo '<script>window.location.replace("register-success.php");</script>';
+            exit();
+        } else {
+            $error = true;
+            $errorMessage = 'Registration failed. Email address is already registered.';
+        }
     }
 }
 ?>
@@ -65,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="mb-3">
                     <label class="form-check">
-                        <input type="checkbox" class="form-check-input border-white cursor-pointer" />
+                        <input type="checkbox" name="agree" class="form-check-input border-white cursor-pointer"/>
                         <span class="form-check-label">Agree the <a href="./terms-of-service.html" tabindex="-1">terms
                                 and policy</a>.</span>
                     </label>
