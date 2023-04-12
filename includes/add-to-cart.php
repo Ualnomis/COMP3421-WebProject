@@ -20,11 +20,11 @@ function is_login()
 
 function is_valid_request()
 {
-    return $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id']);
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
 }
 
 if (!is_valid_request()) {
-    send_error_response(400, 'Invalid request or Please Login First.');
+    send_error_response(400, 'Invalid request.');
 } else if (!is_login()) {
     send_error_response(400, 'Please Login to add product to cart.');
 }else if (!is_buyer()) {
