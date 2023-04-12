@@ -79,7 +79,12 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td><a href="clear-cart.php" class="btn btn-danger btn-sm">Clear Cart</a></td>
+                                <td>
+                                    <form action="clear-cart.php" method="post">
+                                        <input type="hidden" name="clear_cart_id" value="<?= $cart_id; ?>">
+                                        <button type="submit"  class="btn btn-danger btn-sm">Clear Cart</button>
+                                    </form>    
+                                </td>
                                 <td colspan="2"></td>
                                 <th>Total Price:</th>
                                 <td class="total-price">

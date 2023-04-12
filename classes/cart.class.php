@@ -64,6 +64,21 @@ class Cart
         return $affected_rows;
     }
 
+    //remove all cart item
+    public function removeAllCartItem($card_id)
+    {
+        print "hi";
+        $stmt = $this->conn->prepare("
+        DELETE FROM shopping_cart_items
+        WHERE cart_id = ?
+        ");
+        $stmt->bind_param('i', $card_id);
+        $stmt->execute();
+        $affected_rows = $stmt->affected_rows;
+        $stmt->close();
+        return $affected_rows;
+    }
+
     // Add a new item to the cart
     public function addItem($cart_id, $product_id, $quantity)
     {
