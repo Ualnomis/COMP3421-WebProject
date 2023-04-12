@@ -38,14 +38,18 @@ class Order
         $query = "
         SELECT
         orders.*,
+        Order_Status.name AS status_name,
         SUM(order_items.price) AS total
     FROM
         orders
         INNER JOIN order_items ON orders.id = order_items.order_id
+        INNER JOIN Order_Status ON orders.status_id = Order_Status.id
     WHERE
         orders.buyer_id = ?
     GROUP BY
-        orders.id";
+        orders.id
+    
+        ";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $user_id);
         $stmt->execute();

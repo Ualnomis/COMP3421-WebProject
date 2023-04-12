@@ -18,7 +18,7 @@ require_once('../classes/order.class.php');
 $user_id = $_SESSION['user_id']; // Assumes user is logged in
 $user_role = $_SESSION['role'];
 $order = new Order($conn);
-if($user_role == "buyer"){
+if ($user_role == "buyer") {
     $orders = $order->get_orders_by_user_id($user_id);
 } else {
     $orders = $order->get_all_orders();
@@ -44,20 +44,44 @@ $orders = array_slice($orders, $offset, $perPage);
                         <th>Date</th>
                         <th>Total Price</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (is_array($orders)) : ?>
-                        <?php foreach ($orders as $order) : ?>
+                    <?php if (is_array($orders)): ?>
+                        <?php foreach ($orders as $order): ?>
                             <tr class="order-row">
-                                <td><?= $order['id'] ?></td>
-                                <td><?= $order['buyer_id'] ?></td>
-                                <td><?= $order['order_date'] ?></td>
-                                <td>$<?= number_format($order['total'], 2) ?></td>
-                                <td><a href="#" ><i class="fa-solid fa-magnifying-glass"></i></a></td>
+                                <td>
+                                    <?= $order['id'] ?>
+                                </td>
+                                <td>
+                                    <?= $order['buyer_id'] ?>
+                                </td>
+                                <td>
+                                    <?= $order['order_date'] ?>
+                                </td>
+                                <td>$
+                                    <?= $order['total'] ?>
+                                </td>
+                                <td>
+                                    <?= $order['status_name'] ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($order['status_id'] === 1) {
+                                        echo <<<HTML
+                                             <a href="./checkout.php?id={$order['id']}" class="btn btn-primary">Checkout Now</a>
+                                            HTML;
+                                    } else {
+                                        echo <<<HTML
+                                            <a href="#" ><i class="fa-solid fa-magnifying-glass"></i></a>
+                                            HTML;
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
-                    <?php else : ?>
+                    <?php else: ?>
                         <tr>
                             <td colspan="4">No orders found.</td>
                         </tr>
@@ -69,7 +93,8 @@ $orders = array_slice($orders, $offset, $perPage);
                 <ul class="pagination">
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <li>
-                            <a href="?page=<?= $i ?>" class="<?php if ($page === $i) echo 'bg-blue-500 text-white'; ?> hover:bg-blue-400 px-3 py-2 rounded"><?= $i ?></a>
+                            <a href="?page=<?= $i ?>" class="<?php if ($page === $i)
+                                  echo 'bg-blue-500 text-white'; ?> hover:bg-blue-400 px-3 py-2 rounded"><?= $i ?></a>
                         </li>
                     <?php endfor; ?>
                 </ul>
