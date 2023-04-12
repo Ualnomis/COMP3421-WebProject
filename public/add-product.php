@@ -49,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Content here -->
         <form method="post" enctype="multipart/form-data">
             <div class="row row-cards">
-                <div class="col-4">
-                    <img id="preview" src="../assets/images/dummy_product_icon.png" class="img-fiuld" />
-                    <div class="d-flex justify-content-center mt-3">
+                <div class="col-4 flex flex-wrap justify-center items-center">
+                    <img id="preview" src="../assets/images/dummy_product_icon.png" class="img-fiuld w-[200px] h-auto flex-1" />
+                    <div class="d-flex justify-content-center mt-3 flex-1">
                         <div class="btn btn-outline-light btn-rounded">
                             <label class="form-label m-1" for="product-img">Choose file</label>
                             <input type="file" class="form-control d-none" name="product-img" id="product-img"
