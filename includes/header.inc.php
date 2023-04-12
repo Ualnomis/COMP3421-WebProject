@@ -19,6 +19,7 @@ include_once '../config/db_connection.php';
         <script defer src="https://unpkg.com/swup@3"></script>
         <link href="../assets/css/global.css" rel="stylesheet">
         <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+        <script src="https://kit.fontawesome.com/9621f1d513.js" crossorigin="anonymous"></script>
         <script type="importmap">
         {
             "imports": {

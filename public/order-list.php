@@ -17,7 +17,7 @@ require_once('../classes/order.class.php');
 // Get the orders for the current user
 $user_id = $_SESSION['user_id']; // Assumes user is logged in
 $order = new Order($conn);
-$orders = $order->get_order_by_id($user_id);
+$orders = $order->get_orders_by_user_id($user_id);
 ?>
 
 <div class="container-xl mt-3">
@@ -28,6 +28,7 @@ $orders = $order->get_order_by_id($user_id);
                 <thead>
                     <tr>
                         <th>Order ID</th>
+                        <th>Buyer ID</th>
                         <th>Date</th>
                         <th>Total Price</th>
                         <th>Status</th>
@@ -38,9 +39,10 @@ $orders = $order->get_order_by_id($user_id);
                         <?php foreach ($orders as $order) : ?>
                             <tr class="order-row">
                                 <td><?= $order['id'] ?></td>
-                                <td><?= $order['created_at'] ?></td>
-                                <td>$<?= number_format($order['total_price'], 2) ?></td>
-                                <td><?= $order['status'] ?></td>
+                                <td><?= $order['buyer_id'] ?></td>
+                                <td><?= $order['order_date'] ?></td>
+                                <td>$<?= number_format($order['total'], 2) ?></td>
+                                <td><a href="#" ><i class="fa-solid fa-magnifying-glass"></i></a></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>

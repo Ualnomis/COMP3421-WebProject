@@ -33,15 +33,30 @@ class Order
         return $affected_rows;
     }
 
-    public function get_order_by_id($id)
+    // public function get_orders_by_user_id($id)
+    // {
+    //     $query = "SELECT * FROM orders WHERE user_id = ?";
+    //     $stmt = $this->conn->prepare($query);
+    //     $stmt->bind_param("i", $id);
+    //     $stmt->execute();
+    //     $order = $stmt->get_result()->fetch_assoc();
+    //     $stmt->close();
+    //     return $order;
+    // }
+
+    public function get_orders_by_user_id($user_id)
     {
-        $query = "SELECT * FROM orders WHERE id = ?";
+        $query = "SELECT * FROM orders WHERE buyer_id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $order = $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result();
+        $orders = array();
+        while ($order = $result->fetch_assoc()) {
+            $orders[] = $order;
+        }
         $stmt->close();
-        return $order;
+        return $orders;
     }
 
     public function get_all_orders()
