@@ -1,6 +1,6 @@
 async function updateCartCount() {
     try {
-        const response = await fetch('../includes/get-cart-count.php');
+        const response = await fetch('../includes/get-cart-count.inc.php');
         const count = await response.text();
         const badge = document.getElementById('cart-count');
         if (count > 0) {
