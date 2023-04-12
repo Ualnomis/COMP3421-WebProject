@@ -2,6 +2,7 @@
 require_once '../config/db_connection.php';
 require_once '../classes/cart.class.php';
 require_once '../classes/order.class.php';
+require_once('../classes/product.class.php');
 
 function isPostDataValid($post_data)
 {
@@ -48,6 +49,10 @@ function processOrder($post_data, $conn)
         $order->update_order($post_data['order_id'], $buyer_name, $post_data['buyer-phone'], $buyer_address, 4);
         return false;
     } else {
+        $product = new Product($conn);
+        foreach ($order_items as $order_item) {
+            $product->decrease_product_quantity($order_item['product_id'], $order_item['quantity']);
+        }
         $order->update_order($post_data['order_id'], $buyer_name, $post_data['buyer-phone'], $buyer_address, 2);
         $conn->commit(); // Commit transaction
         return true;

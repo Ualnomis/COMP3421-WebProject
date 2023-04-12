@@ -55,6 +55,17 @@ class Product
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
+
+    public function decrease_product_quantity($product_id, $quantity_to_decrease)
+    {
+        $query = "UPDATE " . $this->table . " SET quantity = quantity - ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $quantity_to_decrease, $product_id);
+        $stmt->execute();
+        $affected_rows = $stmt->affected_rows;
+        $stmt->close();
+        return $affected_rows;
+    }
 }
 
 ?>
