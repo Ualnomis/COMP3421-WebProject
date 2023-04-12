@@ -31,4 +31,4 @@ include_once '../config/db_connection.php';
     <?php echo $styles; ?>
 </head>
 
-<body class="theme-dark w-full overflow-hidden">
+<body id='body' class="theme-dark w-full ">

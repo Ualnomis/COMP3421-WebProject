@@ -1,3 +1,5 @@
+
+
 <div class="page">
     <div class="sticky-top">
         <header class="navbar navbar-expand-md navbar-light d-print-none">
@@ -100,10 +102,7 @@
                 <div class="visible navbar-collapse" id="navbar-menu">
                     <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                         <ul class="navbar-nav">
-                            <li class="nav-item 
-                            <?php if (basename($_SERVER['PHP_SELF']) == 'index.php')
-                                echo 'active'; ?>
-                                ">
+                            <li id='home_li' class="nav-item ">
                                 <a class="nav-link" href="./">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -120,8 +119,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'product.php')
-                                echo 'active'; ?>">
+                            <li id="gift_li" class="nav-item ">
                                 <a class="nav-link" href="./product.php">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gift" viewBox="0 0 16 16">
