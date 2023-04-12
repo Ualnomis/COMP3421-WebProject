@@ -1,5 +1,7 @@
 <?php
 $title = "Order Items";
+$styles = <<<HTML
+HTML;
 $page_title = "Order Items";
 
 include_once('../includes/header.inc.php');
