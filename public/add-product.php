@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!-- Page body -->
-<div class="page-body">
+<div class="page-body" id="add_product">
     <div class="container-xl">
         <!-- Content here -->
         <form method="post" enctype="multipart/form-data">

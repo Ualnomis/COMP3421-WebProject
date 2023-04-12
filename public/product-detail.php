@@ -190,7 +190,7 @@ function renderActionButton($product_data)
     <?php
     include_once('../includes/page-wrapper-end.inc.php');
     $scripts = <<<HTML
-<script src="../assets/js/product-detail.js"></script>
+<!-- <script defer src="../assets/js/product-detail.js"></script> -->
 HTML;
     include_once('../includes/footer.inc.php');
     ?>

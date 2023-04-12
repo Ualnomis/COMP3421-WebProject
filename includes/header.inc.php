@@ -28,7 +28,7 @@ include_once '../config/db_connection.php';
             }
         }
         </script>
-        <script defer type="module" src="../assets/js/home.js"></script>
+        <script defer type="module" src="../assets/js/main.js"></script>
     <?php echo $styles; ?>
 </head>
 

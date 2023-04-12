@@ -20,7 +20,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
 ?>
 
 <!-- Page body -->
-<div class="page-body">
+<div class="page-body" id="cart_detail">
     <div class="container-xl">
         <!-- Content here -->
         <div class="row">
@@ -106,7 +106,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
 <?php
 include_once('../includes/page-wrapper-end.inc.php');
 $scripts = <<<HTML
-<script src="../assets/js/cart-detail.js"></script>
+<!-- <script src="../assets/js/cart-detail.js"></script> -->
 HTML;
 include_once('../includes/footer.inc.php');
 ?>

@@ -57,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!-- Page body -->
-<div class="page-body">
+<div class="page-body" id="edit_product">
     <div class="container-xl">
         <!-- Content here -->
         <form method="post" enctype="multipart/form-data">
             <div class="row row-cards">
-                <div class="col-4">
-                    <img id="preview" src="<?= $product_data['image_url']; ?>" class="img-fiuld" />
-                    <div class="d-flex justify-content-center mt-3">
+                <div class="col-4 flex flex-wrap justify-center items-center">
+                    <img id="preview" src="<?= $product_data['image_url']; ?>" class="img-fiuld w-[200px] h-auto flex-1" />
+                    <div class="d-flex justify-content-center mt-3 flex-1">
                         <div class="btn btn-outline-light btn-rounded">
                             <label class="form-label m-1" for="product-img">Choose file</label>
                             <input type="hidden" name="product-img-prev" value="<?= $product_data['image_url']; ?>">
