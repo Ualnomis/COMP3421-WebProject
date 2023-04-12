@@ -20,6 +20,217 @@ async function updateCartCount() {
     }
 }
 
+async function updateCartItems() {
+    try {
+        const response = await fetch('../includes/update-cart.inc.php');
+        const cartItemsJSON = await response.text();
+        const cartItems = JSON.parse(cartItemsJSON);
+
+        let totalSumPrice = 0;
+        for (const cartItem of cartItems) {
+          totalSumPrice += cartItem.quantity * cartItem.price;
+        }
+        totalSumPrice = totalSumPrice.toFixed(2);
+        console.log(cartItems);
+
+        const cartBody = document.getElementById('cart-body');
+
+        // Loop through the cart items and generate the HTML for each item
+        let cartItemsHTML = '';
+        if(cartItems.length > 0){
+            for (const cartItem of cartItems) {
+                cartItemsHTML += `
+                    <tr>
+                    <td>
+                        <img class="cart-item-img w-[200px] h-auto" src="${cartItem.image_url}" />
+                    </td>
+                    <td>${cartItem.name}</td>
+                    <form method="post">
+                        <input type="hidden" class="cart-item-id" value="${cartItem.id}">
+                        <td>
+                        <div class="input-group w-fit">
+                            <button class="btn btn-outline-light btn-minus-quantity">
+                            -
+                            </button>
+                            <input type="number" class="form-control" name="order-quantity"
+                            value="${cartItem.quantity}" min="1"
+                            max="${cartItem.remain_quantity}" step="1" pattern="[0-9]*">
+                            <button class="btn btn-outline-light btn-add-quantity">
+                            +
+                            </button>
+                        </div>
+                        </td>
+                        <td class="cart-item-sum-price">${cartItem.sum_price}</td>
+                    </form>
+                    <td>
+                        <form action="../includes/delete-cart-item.inc.php" method="post">
+                        <input type="hidden" name="cart_item_id" value="${cartItem.id}">
+                        <button type="submit"
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
+                        </form>
+                    </td>
+                    </tr>
+                `;
+                }
+        }else{
+            cartItemsHTML += `
+                <tr>
+                    <td colspan="5" class="text-center">No items in cart</td>
+                </tr>
+            `;
+        }
+
+        // Set the HTML content of the cart body with the generated cart items HTML
+        cartBody.innerHTML = cartItemsHTML;
+
+        const cartFoot = document.getElementById('cart-foot');
+
+        // Check if there are any cart items
+        if (cartItems.length > 0) {
+        // Generate the HTML for the cart footer
+        const cartFootHTML = `
+            <tr>
+                <td>
+                    <form action="../includes/clear-cart.php" method="post"
+                    onsubmit="return confirm('Are you sure you want to clear your cart?');">
+                    <button type="submit"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear Cart</button>
+                    </form>
+                </td>
+                <td colspan="2"></td>
+                <th>Total Price:</th>
+                <td class="total-price">${totalSumPrice}</td>
+            </tr>
+        `;
+
+            // Set the HTML content of the cart foot with the generated cart footer HTML
+            cartFoot.innerHTML = cartFootHTML;
+        } else {
+            // If there are no cart items, clear the HTML content of the cart foot
+            cartFoot.innerHTML = '';
+        }
+
+        const cartCheckout = document.getElementById('cart-checkout');
+
+        // Check if there are any cart items
+        if (cartItems.length > 0) {
+            // Generate the HTML for the cart checkout button
+            const cartCheckoutHTML = `
+                <div class="d-flex justify-content-end">
+                    <form method="post" action="../includes/checkout-cart.php">
+                        <button type="submit" class="btn btn-outline-light mt-3">Proceed to Checkout</button>
+                    </form>
+                </div>
+            `;
+
+            // Set the HTML content of the cart checkout with the generated HTML
+            cartCheckout.innerHTML = cartCheckoutHTML;
+        } else {
+            // If there are no cart items, clear the HTML content of the cart checkout
+            cartCheckout.innerHTML = '';
+        }
+
+        
+    const plusBtns = document.querySelectorAll('.btn-add-quantity');
+    const minusBtns = document.querySelectorAll('.btn-minus-quantity');
+    const inputFields = document.querySelectorAll('input[name="order-quantity"]');
+    // Loop over all elements and add event listeners
+    for (let i = 0; i < plusBtns.length; i++) {
+        console.log(inputFields)
+        const plusBtn = plusBtns[i];
+        const minusBtn = minusBtns[i];
+        const inputField = inputFields[i];
+        const maxValue = parseInt(inputField.getAttribute('max'));
+    
+        // Helper functions
+        function getCurrentValue() {
+            return parseInt(inputField.value);
+        }
+    
+        function changeQuantity(delta) {
+            const currentValue = getCurrentValue();
+            const newValue = currentValue + delta;
+    
+            if (newValue >= 1 && newValue <= maxValue) {
+                inputField.value = newValue;
+            }
+        }
+    
+        function triggerChangeEvent() {
+            const event = new Event('change');
+            inputField.dispatchEvent(event);
+        }
+    
+        // Event listeners
+        plusBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            changeQuantity(1);
+            triggerChangeEvent();
+        });
+    
+        minusBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            changeQuantity(-1);
+            triggerChangeEvent();
+        });
+    
+    
+        inputField.addEventListener('change', () => {
+            const cartItemId = inputField.closest('tr').querySelector('.cart-item-id').value;
+            let newQuantity = getCurrentValue();
+            const sumPriceElement = inputField.closest('tr').querySelector('.cart-item-sum-price');
+            if (isNaN(newQuantity) || newQuantity > maxValue || newQuantity.toString().indexOf('e') !== -1) {
+                inputField.value = maxValue;
+                newQuantity = maxValue;
+            }
+            
+            // Disable buttons
+            plusBtn.disabled = true;
+            minusBtn.disabled = true;
+    
+            // Send an AJAX request to update the quantity in the database
+            fetch('../includes/update-cart-item.inc.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    cart_item_id: cartItemId,
+                    quantity: newQuantity,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        // Update the sum price
+                        sumPriceElement.textContent = data.new_sum_price;
+    
+                        // Update the total price
+                        const totalPriceElement = document.querySelector('.total-price');
+                        totalPriceElement.textContent = data.new_total_price;
+                    } else {
+                        // Handle error
+                        alert('Error updating quantity.');
+                    }
+                })
+                .catch((error) => {
+                    // Handle error
+                    alert('Error updating quantity: ' + error);
+                })
+                .finally(() => {
+                    // Re-enable buttons
+                    plusBtn.disabled = false;
+                    minusBtn.disabled = false;
+                });
+        });
+    }
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 function globalInit() {
     console.log("load global.js")
     
@@ -277,11 +488,10 @@ function home_canvas() {
 
 }
 
-function cart_details() {
-    const plusBtns = document.querySelectorAll('.btn-add-quantity');
-    const minusBtns = document.querySelectorAll('.btn-minus-quantity');
-    const inputFields = document.querySelectorAll('input[name="order-quantity"]');
-    
+const cart_details = () =>{
+    updateCartCount()
+    updateCartItems()
+
     const clearCartButtons = document.querySelectorAll('[data-confirm]');
     clearCartButtons.forEach(button => {
         button.addEventListener('click', function(event) {
@@ -292,95 +502,6 @@ function cart_details() {
         });
     });
     
-    // Loop over all elements and add event listeners
-    for (let i = 0; i < plusBtns.length; i++) {
-        const plusBtn = plusBtns[i];
-        const minusBtn = minusBtns[i];
-        const inputField = inputFields[i];
-        const maxValue = parseInt(inputField.getAttribute('max'));
-    
-        // Helper functions
-        function getCurrentValue() {
-            return parseInt(inputField.value);
-        }
-    
-        function changeQuantity(delta) {
-            const currentValue = getCurrentValue();
-            const newValue = currentValue + delta;
-    
-            if (newValue >= 1 && newValue <= maxValue) {
-                inputField.value = newValue;
-            }
-        }
-    
-        function triggerChangeEvent() {
-            const event = new Event('change');
-            inputField.dispatchEvent(event);
-        }
-    
-        // Event listeners
-        plusBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            changeQuantity(1);
-            triggerChangeEvent();
-        });
-    
-        minusBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            changeQuantity(-1);
-            triggerChangeEvent();
-        });
-    
-    
-        inputField.addEventListener('change', () => {
-            const cartItemId = inputField.closest('tr').querySelector('.cart-item-id').value;
-            let newQuantity = getCurrentValue();
-            const sumPriceElement = inputField.closest('tr').querySelector('.cart-item-sum-price');
-            if (isNaN(newQuantity) || newQuantity > maxValue || newQuantity.toString().indexOf('e') !== -1) {
-                inputField.value = maxValue;
-                newQuantity = maxValue;
-            }
-            
-            // Disable buttons
-            plusBtn.disabled = true;
-            minusBtn.disabled = true;
-    
-            // Send an AJAX request to update the quantity in the database
-            fetch('../includes/update-cart-item.inc.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    cart_item_id: cartItemId,
-                    quantity: newQuantity,
-                }),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        // Update the sum price
-                        sumPriceElement.textContent = data.new_sum_price;
-    
-                        // Update the total price
-                        const totalPriceElement = document.querySelector('.total-price');
-                        totalPriceElement.textContent = data.new_total_price;
-                    } else {
-                        // Handle error
-                        alert('Error updating quantity.');
-                    }
-                })
-                .catch((error) => {
-                    // Handle error
-                    alert('Error updating quantity: ' + error);
-                })
-                .finally(() => {
-                    // Re-enable buttons
-                    plusBtn.disabled = false;
-                    minusBtn.disabled = false;
-                });
-        });
-    }
 }
 
 function add_Product(){
