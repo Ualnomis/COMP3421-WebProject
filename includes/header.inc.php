@@ -17,7 +17,17 @@ include_once '../config/db_connection.php';
         <link href="../assets/css/hover-min.css" rel="stylesheet">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link href="../assets/css/global.css" rel="stylesheet">
+        <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+        <script type="importmap">
+        {
+            "imports": {
+            "three": "https://unpkg.com/three@0.151.3/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.151.3/examples/jsm/"
+            }
+        }
+        </script>
     <?php echo $styles; ?>
 </head>
 
-<body class="theme-dark">
+<body class="theme-dark w-full">

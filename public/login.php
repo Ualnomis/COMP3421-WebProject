@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <form action="" method="post" autocomplete="off" novalidate>
                     <div class="mb-3">
                         <label class="form-label">Email address</label>
-                        <input type="email" name="email" class="form-control" placeholder="your@email.com"
+                        <input type="email" name="email" class="form-control focus:text-dark" placeholder="your@email.com"
                             autocomplete="off">
                     </div>
                     <div class="mb-2">

@@ -5,14 +5,15 @@ $page_title = "";
 
 include_once('../includes/header.inc.php');
 include_once('../includes/navbar.inc.php');
-include_once('../includes/page-wrapper-start.inc.php');
+// include_once('../includes/page-wrapper-start.inc.php');
 ?>
 
 <!-- Page body -->
-<div class="page-body">
-    <div class="w-fit xl:h-[70%] flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:px-36 sm:p-8 p-6 max-xl:gap-7 absolute z-10">
+<script type="module" src="../assets/js/home.js"></script>
+<div class="page-body m-0 p-0 overflow-hidden">
+    <div class="w-fit xl:h-[70%] flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:px-36 sm:p-8 p-6 max-xl:gap-7 absolute z-10 select-none">
         <!-- Content here -->
-        <div class=" flex-1 xl:justify-center justify-start flex flex-col gap-10">
+        <div class=" flex-1 xl:justify-center justify-start flex flex-col gap-10 z-10">
             <div data-aos="fade-down-right">
                 <h1 class="xl:text-[6rem] text-[3rem] xl:leading-[7rem] leading-[3rem] font-black text-white">
                     Find <br class="xl:block hidden" /> Your Perfect Fit.
@@ -24,12 +25,12 @@ include_once('../includes/page-wrapper-start.inc.php');
                 </p>
             </div>
 
-            <a href="product.php" class="w-fit bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-aos="fade-up-right">
+            <a href="product.php" class="w-fit bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded z-20" data-aos="fade-up-right">
                 View Gifts
             </a>
         </div>
     </div>
-    <div id="home_canvas" class=" absolute border right-0 translate-1/2  w-[600px] h-[600px] text-dark bg-white" >留空1陣+圖</div>
+    <div id="home_canvas" class=" absolute w-full h-[calc(100%_-_56px)]" ></div>
 </div>
 
 <?php

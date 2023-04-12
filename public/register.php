@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="mb-3">
                     <label class="form-check">
-                        <input type="checkbox" class="form-check-input border-white" />
+                        <input type="checkbox" class="form-check-input border-white cursor-pointer" />
                         <span class="form-check-label">Agree the <a href="./terms-of-service.html" tabindex="-1">terms
                                 and policy</a>.</span>
                     </label>
