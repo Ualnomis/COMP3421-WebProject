@@ -35,7 +35,7 @@ function renderProductCard($row)
         return <<<HTML
           <div></div>
         HTML;
-      }
+    }
 
     return <<<HTML
         <div class="col-3">
@@ -66,6 +66,13 @@ function renderProductCard($row)
 <!-- Page body -->
 <div class="page-body">
     <div class="container-xl">
+        <?php
+        if (isset($_GET['deleted'])) {
+            if ($_GET['deleted'] === 'true') {
+                echo '<div class="alert alert-success">Product deleted successfully.</div>';
+            }
+        }
+        ?>
         <div class="row row-cards">
             <?php
             if (isset($_SESSION['role']) && $_SESSION["role"] === 'seller') {
