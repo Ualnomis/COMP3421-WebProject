@@ -76,10 +76,25 @@ class Order
 
     public function get_all_orders()
     {
-        $query = "SELECT * FROM orders";
+        $query = "
+        SELECT
+        orders.*,
+        Order_Status.name AS status_name,
+        SUM(order_items.price) AS total
+    FROM
+        orders
+        INNER JOIN order_items ON orders.id = order_items.order_id
+        INNER JOIN Order_Status ON orders.status_id = Order_Status.id
+    GROUP BY
+        orders.id
+        ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $orders = $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result();
+        $orders = array();
+        while ($order = $result->fetch_assoc()) {
+            $orders[] = $order;
+        }
         $stmt->close();
         return $orders;
     }
