@@ -56,7 +56,7 @@ for (let i = 0; i < plusBtns.length; i++) {
         minusBtn.disabled = true;
 
         // Send an AJAX request to update the quantity in the database
-        fetch('../includes/update-cart-item.php', {
+        fetch('../includes/update-cart-item.inc.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
