@@ -20,15 +20,19 @@ const gift_li = document.getElementById('gift_li');
 
 function checkUrl() {
     const currentUrl = window.location.href;
-  
-    if (currentUrl.includes('product')) {
-        gift_li.classList.add('active');
-        home_li.classList.remove('active');
-        body.classList.remove('overflow-hidden');
-    } else {
-        home_li.classList.add('active');
-        gift_li.classList.remove('active');
-        body.classList.add('overflow-hidden');
+
+    try{
+        if (currentUrl.includes('product')) {
+            gift_li.classList.add('active');
+            home_li.classList.remove('active');
+            body.classList.remove('overflow-hidden');
+        } else {
+            home_li.classList.add('active');
+            gift_li.classList.remove('active');
+            body.classList.add('overflow-hidden');
+        }  
+    }catch(error){
+
     }
   }
 
@@ -37,12 +41,11 @@ checkUrl();
 window.addEventListener('popstate', function(event) {checkUrl();});
 document.addEventListener('click', function(event) {
     try{
-        event.preventDefault();
         const url = event.target.href;
         window.history.pushState(null, null, url);
-        checkUrl(); 
+        checkUrl();  
     }catch(error){
-        console.error(error);
+
     }
   });
 
