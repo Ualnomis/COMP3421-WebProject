@@ -20,12 +20,18 @@ $products = $product->select_all();
 function renderProductCard($row)
 {
     $sold_out_badge = $row["quantity"] == 0 ? '<span class="badge bg-red">Sold Out</span>' : "";
-    if (!isset($_SESSION['role']) || $_SESSION["role"] != 'seller') {
-        $btn_edit = "";
-    } else {
+    if (isset($_SESSION['role']) && $_SESSION["role"] === 'seller') {
         $btn_edit = <<<HTML
             <a class="btn btn-outline-light" href="./edit-product.php?id={$row['id']}">Edit</a>
             <a class="btn btn-danger" href="./delete-product.php?id={$row['id']}">Delete</a>
+        HTML;
+    } else {
+        $btn_edit = <<<HTML
+        HTML;
+    }
+
+    if ($row['status'] === 'hide' && (!isset($_SESSION['role']) || !($_SESSION["role"] === 'seller'))) {
+        return <<<HTML
         HTML;
     }
 
@@ -60,7 +66,7 @@ function renderProductCard($row)
     <div class="container-xl">
         <div class="row row-cards">
             <?php
-            if (isset($_SESSION['role']) && $_SESSION["role"] == 'seller') {
+            if (isset($_SESSION['role']) && $_SESSION["role"] === 'seller') {
                 echo <<<HTML
                 <div class="col-3">
                     <a href="./add-product.php" class="">

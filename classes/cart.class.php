@@ -110,6 +110,8 @@ class Cart
                 INNER JOIN products ON shopping_cart_items.product_id = products.id
             WHERE
                 shopping_cart_items.cart_id = ?
+                AND
+                products.status = 'show'
             GROUP BY
                 shopping_cart_items.id
         ");
@@ -128,6 +130,8 @@ class Cart
                 INNER JOIN products ON shopping_cart_items.product_id = products.id
             WHERE
                 shopping_cart_items.cart_id = ?
+                AND
+                products.status = 'show'
         ");
         $stmt2->bind_param('i', $cart_id);
         $stmt2->execute();
@@ -146,7 +150,7 @@ class Cart
             products.quantity AS remain_quantity
         FROM shopping_cart_items
         INNER JOIN products ON shopping_cart_items.product_id = products.id
-        WHERE cart_id = ? AND product_id = ?
+        WHERE cart_id = ? AND product_id = ? AND status = 'show'
     ");
         $stmt->bind_param('ii', $cart_id, $product_id);
         $stmt->execute();
@@ -162,7 +166,8 @@ class Cart
         $stmt = $this->conn->prepare("
             SELECT COUNT(*)
             FROM shopping_cart_items
-            WHERE cart_id = ?
+            INNER JOIN products ON shopping_cart_items.product_id = products.id
+            WHERE cart_id = ? AND status = 'show'
         ");
         $stmt->bind_param('i', $cart_id);
         $stmt->execute();

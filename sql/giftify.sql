@@ -61,7 +61,8 @@ CREATE TABLE `products` (
   `description` text DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 0,
-  `image_url` varchar(255) DEFAULT NULL
+  `image_url` varchar(255) DEFAULT NULL,
+  `status` enum('show', 'hide', 'deleted') NOT NULL DEFAULT 'show'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

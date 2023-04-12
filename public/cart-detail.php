@@ -17,6 +17,7 @@ $cart = new Cart($conn);
 $user_id = $_SESSION['user_id']; // Assumes user is logged in
 $cart_id = $cart->select($user_id)['id'];
 $cart_items = $cart->getCartItems($cart_id)['cart_items'];
+
 ?>
 
 <!-- Page body -->

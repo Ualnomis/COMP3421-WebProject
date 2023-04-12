@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['product-price'];
     $quantity = $_POST['product-quantity'];
     $description = $_POST['product-description'];
+    $status = $_POST['product-status'];
     $imageUrl = $product_data['image_url'];
 
     if (!empty($_FILES["product-img"]["tmp_name"])) {
@@ -44,14 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert into database
-    if ($product->update($id, $seller_id, $name, $description, $price, $quantity, $imageUrl)) {
+    if ($product->update($id, $seller_id, $name, $description, $price, $quantity, $imageUrl, $status)) {
         // Return success response
         header('Location: product.php');
         ob_end_flush();
         exit();
-    } else {
-        // Return error response
-        echo "Error adding product";
     }
 }
 ?>
@@ -92,6 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label class="form-label">Product Description</label>
                         <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
                             placeholder="Description"><?= $product_data['description']; ?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Display</label>
+                        <select class="form-control form-select" name="product-status">
+                            <option value="show" <?php if ($product_data['status'] === 'show') { echo "selected"; } ?>>Show</option>
+                            <option value="hide" <?php if ($product_data['status'] === 'hide') { echo "selected"; } ?>>Hide</option>
+                        </select>
                     </div>
                 </div>
             </div>

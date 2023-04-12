@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['product-price'];
     $quantity = $_POST['product-quantity'];
     $description = $_POST['product-description'];
+    $status = $_POST['product-status'];
     $imageUrl = "../assets/images/dummy_product_icon.png"; // set default image URL
 
     if (!empty($_FILES["product-img"]["tmp_name"])) {
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert into database
-    if ($product->insert($seller_id, $name, $description, $price, $quantity, $imageUrl)) {
+    if ($product->insert($seller_id, $name, $description, $price, $quantity, $imageUrl, $status)) {
         // Return success response
         header('Location: product.php');
         ob_end_flush();
@@ -50,7 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="post" enctype="multipart/form-data">
             <div class="row row-cards">
                 <div class="col-4 flex flex-wrap justify-center items-center">
-                    <img id="preview" src="../assets/images/dummy_product_icon.png" class="img-fiuld w-[200px] h-auto flex-1" />
+                    <img id="preview" src="../assets/images/dummy_product_icon.png"
+                        class="img-fiuld w-[200px] h-auto flex-1" />
                     <div class="d-flex justify-content-center mt-3 flex-1">
                         <div class="btn btn-outline-light btn-rounded">
                             <label class="form-label m-1" for="product-img">Choose file</label>
@@ -78,6 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label class="form-label">Product Description</label>
                         <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
                             placeholder="Description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Display</label>
+                        <select class="form-control form-select" name="product-status">
+                            <option value="show">Show</option>
+                            <option value="hide">Hide</option>
+                        </select>
                     </div>
                 </div>
             </div>
