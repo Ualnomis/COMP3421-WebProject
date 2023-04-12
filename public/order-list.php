@@ -8,14 +8,19 @@ $page_title = "Order List";
 include_once('../includes/header.inc.php');
 include_once('../includes/navbar.inc.php');
 require_once('../classes/order.class.php');
+if (!isset($_SESSION['role'])) {
+    echo <<<HTML
+    <script>window.location.replace("../public/");</script>
+    HTML;
+}
 
 // Get the orders for the current user
 $user_id = $_SESSION['user_id']; // Assumes user is logged in
 $user_role = $_SESSION['role'];
 $order = new Order($conn);
-if ($user_role == "buyer") {
+if ($_SESSION['role'] == "buyer") {
     $orders = $order->get_orders_by_user_id($user_id);
-} else {
+} else if ($_SESSION['role'] == "seller") {
     $orders = $order->get_all_orders();
 }
 $perPage = 10;
