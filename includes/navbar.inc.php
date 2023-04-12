@@ -63,11 +63,15 @@
                     </div>
                     <?php
                     if (isset($_SESSION['user_id'])) {
+                        $fistChar = ucfirst(substr($_SESSION['user_name'], 0, 1));
                         echo <<<HTML
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                                     aria-label="Open user menu">
-                                    <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                                    <!-- <span class="avatar avatar-sm" id="avatar"></span> -->
+                                    <div class="rounded-full overflow-hidden bg-gray-500 text-white w-10 h-10 flex items-center justify-center">
+                                    <span class="text-lg font-medium">$fistChar</span>
+                                    </div>
                                     <div class="d-none d-xl-block ps-2">
                                         <div>{$_SESSION['user_name']}</div>
                                         <div class="mt-1 small text-muted">{$_SESSION['role']}</div>
