@@ -33,20 +33,19 @@ class Order
         return $affected_rows;
     }
 
-    // public function get_orders_by_user_id($id)
-    // {
-    //     $query = "SELECT * FROM orders WHERE user_id = ?";
-    //     $stmt = $this->conn->prepare($query);
-    //     $stmt->bind_param("i", $id);
-    //     $stmt->execute();
-    //     $order = $stmt->get_result()->fetch_assoc();
-    //     $stmt->close();
-    //     return $order;
-    // }
-
     public function get_orders_by_user_id($user_id)
     {
-        $query = "SELECT * FROM orders WHERE buyer_id = ?";
+        $query = "
+        SELECT
+        orders.*,
+        SUM(order_items.price) AS total
+    FROM
+        orders
+        INNER JOIN order_items ON orders.id = order_items.order_id
+    WHERE
+        orders.buyer_id = ?
+    GROUP BY
+        orders.id";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
@@ -149,7 +148,6 @@ class Order
         SUM(order_items.price) AS total
     FROM
         order_items
-        INNER JOIN products ON order_items.product_id = products.id
     WHERE
         order_items.order_id = ?
     ");
