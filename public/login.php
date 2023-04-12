@@ -76,12 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </span>
                         </div>
                     </div>
-                    <div class="mb-2">
+                    <!-- <div class="mb-2">
                         <label class="form-check">
                             <input type="checkbox" class="form-check-input cursor-pointer border-white" />
                             <span class="form-check-label">Remember me on this device</span>
                         </label>
-                    </div>
+                    </div> -->
                     <div class="form-footer bg-blue-600 hover:bg-blue-400 rounded">
                         <button type="submit" class="btn btn-primary w-100">Sign in</button>
                     </div>

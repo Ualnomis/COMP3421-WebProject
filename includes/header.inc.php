@@ -8,6 +8,7 @@ include_once '../config/db_connection.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/icon.png" />
     <title>
         <?php echo $title; ?>
     </title>

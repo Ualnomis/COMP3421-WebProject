@@ -3,7 +3,14 @@ $title = "Register";
 $styles = "";
 $error = false;
 $errorMessage = '';
+
+$username ='';
+$email = '';
+$password = '';
+$agree = false;
+
 include('../includes/header.inc.php');
+include_once('../classes/cart.class.php');
 include_once('../includes/navbar.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -51,6 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $role = 'buyer';
         $result = $user->register($username, $email, $password, $role);
         if ($result) {
+            // call the login method
+            $result = $user->login($email, $password);
+            $cart = new Cart($conn);
+            if ($cart->select($_SESSION['user_id'])) {
+            } else {
+                $cart->insert($_SESSION['user_id']);
+            }
             echo '<script>window.location.replace("register-success.php");</script>';
             exit();
         } else {
@@ -66,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <a href="." class="navbar-brand"><img src="../assets/images/icon.png" height="36" width="36"
                     alt="Giftify"></a>
         </div>
-        <form class="card card-md" action="" method="post" autocomplete="off" novalidate>
+        <form class="card card-md" action="#" method="post" autocomplete="off" novalidate id="register_form">
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Create new account</h2>
                 <?php if ($error): ?>
@@ -74,16 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endif; ?>
                 <div class="mb-3">
                     <label class="form-label">Name</label>
-                    <input type="text" name="username" class="form-control" placeholder="Enter name">
+                    <input type="text" name="username" class="form-control" placeholder="Enter name" value="<?php echo $username?>">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email address</label>
-                    <input type="email" name="email" class="form-control" placeholder="Enter email">
+                    <input type="email" name="email" class="form-control" placeholder="Enter email" value="<?php echo $email?>">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <div class="input-group input-group-flat">
-                        <input type="password" name="password" class="form-control" placeholder="Password"
+                        <input type="password" name="password" class="form-control" placeholder="Password" value="<?php echo $password?>"
                             autocomplete="off">
                         <span class="input-group-text">
                             <a href="#" class="link-secondary" title="Show password"
@@ -102,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="mb-3">
                     <label class="form-check">
-                        <input type="checkbox" name="agree" class="form-check-input border-white cursor-pointer"/>
+                        <input type="checkbox" name="agree" class="form-check-input border-white cursor-pointer" <?php if($agree) echo 'checked'?>/>
                         <span class="form-check-label">Agree the <a href="./terms-of-service.html" tabindex="-1">terms
                                 and policy</a>.</span>
                     </label>
