@@ -65,18 +65,26 @@ class Cart
     }
 
     //remove all cart item
-    public function removeAllCartItem($card_id)
+    public function removeAllCartItem($cart_id)
     {
-        print "hi";
         $stmt = $this->conn->prepare("
         DELETE FROM shopping_cart_items
         WHERE cart_id = ?
         ");
-        $stmt->bind_param('i', $card_id);
+        $stmt->bind_param('i', $cart_id);
         $stmt->execute();
         $affected_rows = $stmt->affected_rows;
         $stmt->close();
-        return $affected_rows;
+
+        // $stmt = $this->conn->prepare("
+        // DELETE FROM shopping_cart
+        // WHERE id = ?
+        // ");
+        // $stmt->bind_param('i', $cart_id);
+        // $stmt->execute();
+        // $affected_rows = $stmt->affected_rows;
+        // $stmt->close();
+        // return $affected_rows;
     }
 
     // Add a new item to the cart
