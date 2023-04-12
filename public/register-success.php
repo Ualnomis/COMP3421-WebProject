@@ -4,6 +4,7 @@ $styles = "";
 
 // Include the template file
 include('../includes/header.inc.php');
+include_once('../includes/navbar.inc.php');
 ?>
 
 
@@ -33,6 +34,7 @@ include('../includes/header.inc.php');
         </div>
     </div>
     <?php
+    include_once('../includes/page-wrapper-end.inc.php');
     $scripts = "";
     // Include the template file
     include('../includes/footer.inc.php');
