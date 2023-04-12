@@ -20,13 +20,13 @@ class Order
         return $insert_id;
     }
 
-    public function update_order($id, $buyer_id, $buyer_name, $buyer_phone, $address, $status_id)
+    public function update_order($id, $buyer_name, $buyer_phone, $buyer_address, $status_id)
     {
         $query = "UPDATE orders
-                  SET buyer_id = ?, buyer_name = ?, buyer_phone = ?, address = ?, status_id = ?
+                  SET buyer_name = ?, buyer_phone = ?, buyer_address = ?, status_id = ?
                   WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("isssii", $buyer_id, $buyer_name, $buyer_phone, $address, $status_id, $id);
+        $stmt->bind_param("sssii", $buyer_name, $buyer_phone, $buyer_address, $status_id, $id);
         $stmt->execute();
         $affected_rows = $stmt->affected_rows;
         $stmt->close();
@@ -59,23 +59,23 @@ class Order
         return $orders;
     }
 
+    public function get_order_by_id($id)
+    {
+        $query = "SELECT * FROM orders WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $order = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $order;
+    }
+
     public function get_all_orders()
     {
-        // $query = "SELECT * FROM orders";
-        // $stmt = $this->conn->prepare($query);
-        // $stmt->execute();
-        // $orders = $stmt->get_result();
-        // $stmt->close();
-        // return $orders;
-        
         $query = "SELECT * FROM orders";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $orders = array();
-        while ($order = $result->fetch_assoc()) {
-            $orders[] = $order;
-        }
+        $orders = $stmt->get_result()->fetch_assoc();
         $stmt->close();
         return $orders;
     }
@@ -104,24 +104,62 @@ class Order
 
     public function get_order_item_by_id($id)
     {
-        $query = "SELECT * FROM order_items WHERE id = ?";
+        $query = "
+            SELECT
+                order_items.*,
+                products.name,
+                products.image_url
+            FROM
+                order_items
+                INNER JOIN products ON order_items.product_id = products.id
+            WHERE
+                order_items.id = ?
+        ";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $order = $stmt->get_result()->fetch_assoc();
+        $order_item = $stmt->get_result()->fetch_assoc();
         $stmt->close();
-        return $order;
+        return $order_item;
     }
 
     public function get_order_item_by_order_id($order_id)
     {
-        $query = "SELECT * FROM order_items WHERE order_id = ?";
+        $query = "
+            SELECT
+            order_items.*,
+            products.name,
+            products.image_url,
+            products.price AS product_price
+        FROM
+            order_items
+            INNER JOIN products ON order_items.product_id = products.id
+        WHERE
+            order_items.order_id = ?
+        ";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $order_id);
         $stmt->execute();
         $order_items = $stmt->get_result();
         $stmt->close();
-        return $order_items;
+
+        // Query to fetch total sum of sum_price
+        $stmt2 = $this->conn->prepare("
+        SELECT
+        SUM(order_items.price) AS total
+    FROM
+        order_items
+        INNER JOIN products ON order_items.product_id = products.id
+    WHERE
+        order_items.order_id = ?
+    ");
+        $stmt2->bind_param('i', $order_id);
+        $stmt2->execute();
+        $total_price = $stmt2->get_result();
+        $total_sum_price = $total_price->fetch_assoc()['total'];
+        $stmt2->close();
+
+        return array('order_items' => $order_items, 'total_sum_price' => $total_sum_price);
     }
 }
 

@@ -39,7 +39,8 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                             <?php foreach ($cart_items as $cart_item): ?>
                                 <tr>
                                     <td>
-                                        <img class="cart-item-img w-[200px] h-auto" src="<?php echo $cart_item['image_url']; ?>" />
+                                        <img class="cart-item-img w-[200px] h-auto"
+                                            src="<?php echo $cart_item['image_url']; ?>" />
                                     </td>
                                     <td>
                                         <?= $cart_item['name']; ?>
@@ -69,7 +70,8 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                                     <td>
                                         <form action="../includes/delete-cart-item.inc.php" method="post">
                                             <input type="hidden" name="cart_item_id" value="<?= $cart_item['id']; ?>">
-                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
+                                            <button type="submit"
+                                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -80,9 +82,12 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                         <tfoot>
                             <tr>
                                 <td>
-                                <form action="../includes/clear-cart.php" method="post" onsubmit="return confirm('Are you sure you want to clear your cart?');">
-                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear Cart</button>
-                                </form>
+                                    <form action="../includes/clear-cart.php" method="post"
+                                        onsubmit="return confirm('Are you sure you want to clear your cart?');">
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear
+                                            Cart</button>
+                                    </form>
                                 </td>
                                 <td colspan="2"></td>
                                 <th>Total Price:</th>
@@ -94,9 +99,10 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                         </tfoot>
                     </table>
                     <div class="d-flex justify-content-end">
-                        <a href="checkout.php" class="btn btn-outline-light mt-3">Proceed to Checkout</a>
+                        <form method="post" action="../includes/checkout-cart.php">
+                            <button type="submit" class="btn btn-outline-light mt-3">Proceed to Checkout</button>
+                        </form>
                     </div>
-
                 </div>
             </div>
         </div>
