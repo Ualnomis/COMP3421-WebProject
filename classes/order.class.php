@@ -1,61 +1,101 @@
 <?php
-class order
+class Order
 {
     private $conn;
-    private $table = "orders";
 
-    public function __construct($conn)
+    public function __construct($db)
     {
-        $this->conn = $conn;
+        $this->conn = $db;
     }
 
-    public function select_all()
+    public function insert_order($buyer_id, $buyer_name, $buyer_phone, $address, $status_id)
     {
-        $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
-        $result = $this->conn->query($query);
-        return $result;
+        $query = "INSERT INTO orders (buyer_id, buyer_name, buyer_phone, address, order_date, status_id)
+                  VALUES (?, ?, ?, ?, NOW(), ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("isssi", $buyer_id, $buyer_name, $buyer_phone, $address, $status_id);
+        $insert_id = $stmt->insert_id;
+        $stmt->close();
+        return $insert_id;
     }
 
-    function getOrderByUser($user_id){
-
-    }
-
-    function checkoutProduct($cart_product, $user_id, $total){
-        
-        $stmt = $this->conn->prepare("
-        INSERT INTO orders (buyer_id, order_date, total)
-        VALUES (?, ?, ?)
-        ");
-        $stmt->bind_param('iii', $user_id, date("Y-m-d"), $total);
+    public function update_order($id, $buyer_id, $buyer_name, $buyer_phone, $address, $status_id)
+    {
+        $query = "UPDATE orders
+                  SET buyer_id = ?, buyer_name = ?, buyer_phone = ?, address = ?, status_id = ?
+                  WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("isssii", $buyer_id, $buyer_name, $buyer_phone, $address, $status_id, $id);
         $stmt->execute();
-        $order_id = $stmt->insert_id;
+        $affected_rows = $stmt->affected_rows;
         $stmt->close();
+        return $affected_rows;
+    }
 
-        $stmt = $this->conn->prepare("
-        INSERT INTO order_items (order_id, product_id, quantity, price)
-        VALUES (?, ?, ?, ?)
-        ");
-        for ($i = 0; $i < count($cart_product); $i++) {
-            $product_id = $cart_product[$i]['product_id'];
-            $quantity = $cart_product[$i]['quantity'];
-            $price = $cart_product[$i]['price'];
-            $stmt->bind_param('iiii', $order_id, $product_id, $quantity, $price);
-            $stmt->execute();
-        }
+    public function get_order_by_id($id)
+    {
+        $query = "SELECT * FROM orders WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $order = $stmt->get_result()->fetch_assoc();
         $stmt->close();
-
+        return $order;
     }
 
-    function updateOrder(){
-
-
+    public function get_all_orders()
+    {
+        $query = "SELECT * FROM orders";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $orders = $stmt->get_result();
+        $stmt->close();
+        return $orders;
     }
 
-    function deleteOrder(){
-
-
+    public function insert_order_item($order_id, $product_id, $quantity, $price)
+    {
+        $query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iiid", $order_id, $product_id, $quantity, $price);
+        $stmt->execute();
+        $insert_id = $stmt->insert_id;
+        $stmt->close();
+        return $insert_id;
     }
 
+    public function update_order_item($id, $order_id, $product_id, $quantity, $price)
+    {
+        $query = "UPDATE order_items SET order_id = ?, product_id = ?, quantity = ?, price = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iiidi", $order_id, $product_id, $quantity, $price, $id);
+        $stmt->execute();
+        $affected_rows = $stmt->affected_rows;
+        $stmt->close();
+        return $affected_rows;
+    }
 
+    public function get_order_item_by_id($id)
+    {
+        $query = "SELECT * FROM order_items WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $order = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $order;
+    }
+
+    public function get_order_item_by_order_id($order_id)
+    {
+        $query = "SELECT * FROM order_items WHERE order_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+        $order_items = $stmt->get_result();
+        $stmt->close();
+        return $order_items;
+    }
 }
+
 ?>
