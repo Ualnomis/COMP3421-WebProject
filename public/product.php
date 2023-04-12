@@ -27,13 +27,15 @@ function renderProductCard($row)
         HTML;
     } else {
         $btn_edit = <<<HTML
+        <div></div>
         HTML;
     }
 
-    if ($row['status'] === 'hide' && (!isset($_SESSION['role']) || !($_SESSION["role"] === 'seller'))) {
+    if ($row["status"] === 'hide' && (!isset($_SESSION["role"]) || !($_SESSION["role"] === "seller"))) {
         return <<<HTML
+          <div></div>
         HTML;
-    }
+      }
 
     return <<<HTML
         <div class="col-3">
