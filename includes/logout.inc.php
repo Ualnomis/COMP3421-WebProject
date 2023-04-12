@@ -1,6 +1,6 @@
 <?php
 include_once '../config/db_connection.php';
 $user->logout();
-header('Location: ../public/index.php');
+header('Location: ../public/');
 exit();
 ?>
