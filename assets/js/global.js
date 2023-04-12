@@ -22,7 +22,7 @@ function checkUrl() {
     const currentUrl = window.location.href;
 
     try{
-        if (currentUrl.includes('product')) {
+        if (currentUrl.includes('php')) {
             gift_li.classList.add('active');
             home_li.classList.remove('active');
             body.classList.remove('overflow-hidden');

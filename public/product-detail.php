@@ -13,11 +13,11 @@ if (isset($_GET['id'])) {
     if ($product_result->num_rows > 0) {
         $product_data = $product_result->fetch_assoc();
     } else {
-        header("Location: product.php");
+        echo '<script>window.location.replace("product.php");</script>';
         exit();
     }
 } else {
-    header("Location: product.php");
+    echo '<script>window.location.replace("product.php");</script>';
     exit();
 }
 
@@ -136,7 +136,7 @@ function renderActionButton($product_data)
                             <textarea name="review_text" id="review_text" class="form-control" rows="5"
                                 required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit Review</button>
                     </form>
                     <div class="row mt-5">
                         <h2>Reviews</h2>

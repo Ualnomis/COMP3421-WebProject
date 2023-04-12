@@ -39,7 +39,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                             <?php foreach ($cart_items as $cart_item): ?>
                                 <tr>
                                     <td>
-                                        <img class="cart-item-img" src="<?php echo $cart_item['image_url']; ?>" />
+                                        <img class="cart-item-img w-[200px] h-auto" src="<?php echo $cart_item['image_url']; ?>" />
                                     </td>
                                     <td>
                                         <?= $cart_item['name']; ?>
