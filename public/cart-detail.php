@@ -80,9 +80,9 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                         <tfoot>
                             <tr>
                                 <td>
-                                    <form action="../includes/clear-cart.php" method="post">
-                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear Cart</button>
-                                    </form>    
+                                <form action="../includes/clear-cart.php" method="post" onsubmit="return confirm('Are you sure you want to clear your cart?');">
+                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear Cart</button>
+                                </form>
                                 </td>
                                 <td colspan="2"></td>
                                 <th>Total Price:</th>

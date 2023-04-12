@@ -2,6 +2,16 @@ const plusBtns = document.querySelectorAll('.btn-add-quantity');
 const minusBtns = document.querySelectorAll('.btn-minus-quantity');
 const inputFields = document.querySelectorAll('input[name="order-quantity"]');
 
+const clearCartButtons = document.querySelectorAll('[data-confirm]');
+clearCartButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+        const confirmed = confirm(button.dataset.confirm);
+        if (!confirmed) {
+            event.preventDefault();
+        }
+    });
+});
+
 // Loop over all elements and add event listeners
 for (let i = 0; i < plusBtns.length; i++) {
     const plusBtn = plusBtns[i];
@@ -91,3 +101,4 @@ for (let i = 0; i < plusBtns.length; i++) {
             });
     });
 }
+
