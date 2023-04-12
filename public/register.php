@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $user->register($username, $email, $password, $role);
 
     if ($result) {
-        header('Location: register-success.php');
+        echo '<script>window.location.replace("register-success.php");</script>';
         exit();
     } else {
         $error = true;

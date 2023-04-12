@@ -1,6 +1,6 @@
 <?php
 include_once '../config/db_connection.php';
 $user->logout();
-header('Location: ../public/');
+echo '<script>window.location.replace("../public/");</script>';
 exit();
 ?>

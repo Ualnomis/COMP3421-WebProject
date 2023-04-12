@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Login
         $cart = new Cart($conn);
         if ($cart->select($_SESSION['user_id'])) {
-            header('Location: index.php');
+            echo '<script>window.location.replace("index.php");</script>';
             exit();
         } else {
             $cart->insert($_SESSION['user_id']);
-            header('Location: index.php');
+            echo '<script>window.location.replace("index.php");</script>';
             exit();
         }
         
