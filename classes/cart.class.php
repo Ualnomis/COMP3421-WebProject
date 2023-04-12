@@ -100,6 +100,7 @@ class Cart
             SELECT
                 shopping_cart_items.*,
                 products.name,
+                products.id AS product_id,
                 products.quantity AS remain_quantity,
                 products.price * shopping_cart_items.quantity AS sum_price,
                 products.price,
