@@ -48,7 +48,7 @@ $orders = array_slice($orders, $offset, $perPage);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (is_array($orders)): ?>
+                    <?php if (is_array($orders) && count($orders) > 0): ?>
                         <?php foreach ($orders as $order): ?>
                             <tr class="order-row">
                                 <td>

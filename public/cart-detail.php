@@ -36,6 +36,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                             </tr>
                         </thead>
                         <tbody>
+                          <?php if (is_array($cart_items) && count($cart_items) > 0): ?>
                             <?php foreach ($cart_items as $cart_item): ?>
                                 <tr>
                                     <td>
@@ -77,32 +78,39 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                                 </tr>
 
                             <?php endforeach; ?>
-
+                          <?php else: ?>
+                              <tr>
+                                  <td colspan="4">No cart items found.</td>
+                              </tr>
+                          <?php endif; ?>    
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td>
-                                    <form action="../includes/clear-cart.php" method="post"
-                                        onsubmit="return confirm('Are you sure you want to clear your cart?');">
-                                        <button type="submit"
-                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear
-                                            Cart</button>
-                                    </form>
-                                </td>
-                                <td colspan="2"></td>
-                                <th>Total Price:</th>
-                                <td class="total-price">
-                                    <?= $cart->getCartItems($cart_id)['total_sum_price']; ?>
-                                </td>
-                            </tr>
-
+                            <?php if (is_array($cart_items) && count($cart_items) > 0): ?>
+                                <tr>
+                                    <td>
+                                        <form action="../includes/clear-cart.php" method="post"
+                                            onsubmit="return confirm('Are you sure you want to clear your cart?');">
+                                            <button type="submit"
+                                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear
+                                                Cart</button>
+                                        </form>
+                                    </td>
+                                    <td colspan="2"></td>
+                                    <th>Total Price:</th>
+                                    <td class="total-price">
+                                        <?= $cart->getCartItems($cart_id)['total_sum_price']; ?>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>  
                         </tfoot>
                     </table>
+                    <?php if (is_array($cart_items) && count($cart_items) > 0): ?>
                     <div class="d-flex justify-content-end">
                         <form method="post" action="../includes/checkout-cart.php">
                             <button type="submit" class="btn btn-outline-light mt-3">Proceed to Checkout</button>
                         </form>
                     </div>
+                    <?php endif; ?>  
                 </div>
             </div>
         </div>
