@@ -8,12 +8,13 @@ class Order
         $this->conn = $db;
     }
 
-    public function insert_order($buyer_id, $buyer_name, $buyer_phone, $address, $status_id)
+    public function insert_order($buyer_id, $buyer_name, $buyer_phone, $buyer_address, $status_id)
     {
-        $query = "INSERT INTO orders (buyer_id, buyer_name, buyer_phone, address, order_date, status_id)
+        $query = "INSERT INTO orders (buyer_id, buyer_name, buyer_phone, buyer_address, order_date, status_id)
                   VALUES (?, ?, ?, ?, NOW(), ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("isssi", $buyer_id, $buyer_name, $buyer_phone, $address, $status_id);
+        $stmt->bind_param("isssi", $buyer_id, $buyer_name, $buyer_phone, $buyer_address, $status_id);
+        $stmt->execute();
         $insert_id = $stmt->insert_id;
         $stmt->close();
         return $insert_id;
