@@ -4,6 +4,7 @@ $styles = "";
 $error = false;
 $errorMessage = '';
 include('../includes/header.inc.php');
+include_once('../includes/navbar.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
@@ -80,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <?php
+    include_once('../includes/page-wrapper-end.inc.php');
     $scripts = "";
     include('../includes/footer.inc.php');
     ?>

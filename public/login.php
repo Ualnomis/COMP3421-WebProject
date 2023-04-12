@@ -6,6 +6,7 @@ $error = false;
 
 include_once('../includes/header.inc.php');
 include_once('../classes/cart.class.php');
+include_once('../includes/navbar.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
@@ -93,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 <?php
+include_once('../includes/page-wrapper-end.inc.php');
 $scripts = "";
 // Include the template file
 include_once('../includes/footer.inc.php');
