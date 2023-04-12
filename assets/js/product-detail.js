@@ -49,7 +49,7 @@ function showAlert(alertType, message) {
 document.getElementById('add-to-cart-form').addEventListener('submit', (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
-  fetch('../includes/add-to-cart.php', {
+  fetch('../includes/add-to-cart.inc.php', {
     method: 'POST',
     body: formData
   }).then(handleResponse)
