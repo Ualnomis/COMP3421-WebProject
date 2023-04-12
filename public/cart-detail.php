@@ -69,7 +69,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                                     <td>
                                         <form action="../includes/delete-cart-item.inc.php" method="post">
                                             <input type="hidden" name="cart_item_id" value="<?= $cart_item['id']; ?>">
-                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -81,7 +81,7 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
                             <tr>
                                 <td>
                                     <form action="../includes/clear-cart.php" method="post">
-                                        <button type="submit" class="btn btn-danger btn-sm">Clear Cart</button>
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Clear Cart</button>
                                     </form>    
                                 </td>
                                 <td colspan="2"></td>
