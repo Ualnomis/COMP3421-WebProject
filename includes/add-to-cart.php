@@ -41,7 +41,7 @@ if ($quantity <= 0) {
 $cart = new Cart($conn);
 $cart_data = $cart->select($_SESSION['user_id']);
 $cart_id = $cart_data['id'];
-$existing_cart_item = $cart->findCartItem($cart_id, $product_id);
+$existing_cart_item = $cart->find_cart_item($cart_id, $product_id);
 
 if ($existing_cart_item) {
     $new_quantity = $existing_cart_item['quantity'] + $quantity;
@@ -49,7 +49,7 @@ if ($existing_cart_item) {
     if ($new_quantity <= $existing_cart_item['remain_quantity']) {
         $add_cart_result = $cart->updateCartItem($existing_cart_item['id'], $new_quantity);
     } else {
-        send_error_response(400, 'Not enough quantity to add');
+        send_error_response(400, 'Not enough quantity to add.');
     }
 } else {
     $add_cart_result = $cart->addItem($cart_id, $product_id, $quantity);

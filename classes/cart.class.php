@@ -48,7 +48,7 @@ class Cart
         $stmt->close();
         return $affected_rows;
     }
-    
+
 
     // Delete a cart item
     public function deleteCartItem($cart_item_id)
@@ -117,7 +117,7 @@ class Cart
         $result = $stmt->get_result();
         $cart_items = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
-    
+
         // Query to fetch total sum of sum_price
         $stmt2 = $this->conn->prepare("
             SELECT
@@ -133,12 +133,27 @@ class Cart
         $result2 = $stmt2->get_result();
         $total_sum_price = $result2->fetch_assoc()['total'];
         $stmt2->close();
-    
+
         return array('cart_items' => $cart_items, 'total_sum_price' => $total_sum_price);
     }
-    
-    
-    
+
+    public function find_cart_item($cart_id, $product_id)
+    {
+        $stmt = $this->conn->prepare("
+        SELECT
+            shopping_cart_items.*,
+            products.quantity AS remain_quantity
+        FROM shopping_cart_items
+        INNER JOIN products ON shopping_cart_items.product_id = products.id
+        WHERE cart_id = ? AND product_id = ?
+    ");
+        $stmt->bind_param('ii', $cart_id, $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cart_item = $result->fetch_assoc();
+        $stmt->close();
+        return $cart_item;
+    }
 
     // Count the number of items in a given cart
     public function countItems($cart_id)
