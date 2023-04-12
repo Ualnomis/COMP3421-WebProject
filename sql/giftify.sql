@@ -283,8 +283,9 @@ INSERT INTO `Order_Status` (`id`, `name`) VALUES
 
 -- add the new columns to the orders table
 ALTER TABLE `orders`
-  ADD `buyer_name` varchar(255) NOT NULL AFTER `buyer_id`,
-  ADD `buyer_phone` varchar(20) NOT NULL AFTER `buyer_name`,
+  ADD `buyer_name` varchar(255) NULL AFTER `buyer_id`,
+  ADD `buyer_phone` varchar(20) NULL AFTER `buyer_name`,
+  ADD `address` varchar(20) NULL AFTER `buyer_phone`,
   ADD `status_id` int(11) NOT NULL AFTER `order_date`,
   ADD CONSTRAINT `FK_orders_OrderStatus` FOREIGN KEY (`status_id`) REFERENCES `Order_Status` (`id`);
 
