@@ -84,8 +84,8 @@ function renderActionButton($product_data)
     <div class="container-xl">
         <div id="alert-container"></div>
         <div class="row">
-            <div class="col-md-8 col-sm-12">
-                <img src="<?= $product_data['image_url']; ?>" class="w-100" />
+            <div class="col-md-8 col-sm-12 flex justify-center items-center">
+                <img src="<?= $product_data['image_url']; ?>" class="w-[300px] h-auto" />
             </div>
 
             <div class="col-md-4 col-sm-12">

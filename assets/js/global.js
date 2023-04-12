@@ -41,8 +41,6 @@ checkUrl();
 window.addEventListener('popstate', function(event) {checkUrl();});
 document.addEventListener('click', function(event) {
     try{
-        const url = event.target.href;
-        window.history.pushState(null, null, url);
         checkUrl();  
     }catch(error){
 
