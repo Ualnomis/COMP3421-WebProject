@@ -40,7 +40,7 @@
                             </svg>
                         </a>
                         <?php
-                        if (isset($_SESSION["role"]) && $_SESSION["role"] == "buyer") {
+                        if (isset($_SESSION["role"]) && $_SESSION["role"] === "buyer") {
                             echo <<<HTML
                                 <div class="nav-item d-none d-md-flex me-3">
                                 <a href="cart-detail.php" class="nav-link px-0">

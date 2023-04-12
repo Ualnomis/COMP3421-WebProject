@@ -64,13 +64,38 @@ $orders = array_slice($orders, $offset, $perPage);
                                     <?= $order['total'] ?>
                                 </td>
                                 <td>
-                                    <?= $order['status_name'] ?>
+                                    <div class="datagrid-item">
+                                        <div class="datagrid-content">
+                                            <?php if ($order['status_id'] === 1): ?>
+                                                <span class="status status-red">
+                                                    <?= $order['status_name'] ?>
+                                                </span>
+                                            <?php endif; ?>
+                                            <?php if ($order['status_id'] === 2): ?>
+                                                <span class="status status-green">
+                                                    <?= $order['status_name'] ?>
+                                                </span>
+                                            <?php endif; ?>
+                                            <?php if ($order['status_id'] === 3): ?>
+                                                <span class="status status-blue">
+                                                    <?= $order['status_name'] ?>
+                                                </span>
+                                            <?php endif; ?>
+                                            <?php if ($order['status_id'] === 4): ?>
+                                                <span class="status status-grey">
+                                                    <?= $order['status_name'] ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
                                     <?php if ($order['status_id'] === 1 && $_SESSION['role'] == 'buyer'): ?>
-                                        <a href="./checkout.php?order_id=<?= $order['id'] ?>" class="btn btn-primary">Checkout Now</a>
+                                        <a href="./checkout.php?order_id=<?= $order['id'] ?>" class="btn btn-primary">Checkout
+                                            Now</a>
                                     <?php else: ?>
-                                        <a href="./order_items.php?order_id=<?= $order['id'] ?>"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                        <a href="./order_items.php?order_id=<?= $order['id'] ?>"><i
+                                                class="fa-solid fa-magnifying-glass"></i></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>

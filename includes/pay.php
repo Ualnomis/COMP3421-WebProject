@@ -3,7 +3,7 @@ require_once '../config/db_connection.php';
 require_once '../classes/cart.class.php';
 require_once '../classes/order.class.php';
 require_once('../classes/product.class.php');
-
+$error_msg = "";
 function isPostDataValid($post_data)
 {
     $required_fields = [
@@ -27,6 +27,7 @@ function isPostDataValid($post_data)
 
 function processOrder($post_data, $conn)
 {
+    global $error_msg;
     $order = new Order($conn);
     $buyer_name = "{$post_data['buyer-first-name']} {$post_data['buyer-last-name']}";
     $buyer_address = "{$post_data['buyer-home-address']}, {$post_data['buyer-city']}, {$post_data['buyer-region']}";
@@ -42,11 +43,18 @@ function processOrder($post_data, $conn)
             $not_enough_quantity = true;
             break;
         }
+        if ($order_item['status'] != 'show') {
+            $conn->rollback(); // Rollback transaction
+            $order->update_order($post_data['order_id'], $buyer_name, $post_data['buyer-phone'], $buyer_address, 4);
+            $error_msg = "There are removed products.";
+            return false;
+        }
     }
 
     if ($not_enough_quantity) {
         $conn->rollback(); // Rollback transaction
         $order->update_order($post_data['order_id'], $buyer_name, $post_data['buyer-phone'], $buyer_address, 4);
+        $error_msg = "Not enough Quantity";
         return false;
     } else {
         $product = new Product($conn);
@@ -65,7 +73,7 @@ if (isPostDataValid($_POST)) {
     } else {
         echo <<<HTML
         <script>
-            alert("Order Cancelled: Not enough Quantity");
+            alert("Order Cancelled: {$error_msg}");
             window.location.replace("../public/product.php");
         </script>
         HTML;

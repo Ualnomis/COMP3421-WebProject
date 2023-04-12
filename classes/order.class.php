@@ -127,7 +127,8 @@ class Order
             SELECT
                 order_items.*,
                 products.name,
-                products.image_url
+                products.image_url,
+                products.status
             FROM
                 order_items
                 INNER JOIN products ON order_items.product_id = products.id
@@ -149,7 +150,8 @@ class Order
             order_items.*,
             products.name,
             products.image_url,
-            products.price AS product_price
+            products.price AS product_price,
+            products.status
         FROM
             order_items
             INNER JOIN products ON order_items.product_id = products.id
