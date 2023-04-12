@@ -75,16 +75,7 @@ class Cart
         $stmt->execute();
         $affected_rows = $stmt->affected_rows;
         $stmt->close();
-
-        // $stmt = $this->conn->prepare("
-        // DELETE FROM shopping_cart
-        // WHERE id = ?
-        // ");
-        // $stmt->bind_param('i', $cart_id);
-        // $stmt->execute();
-        // $affected_rows = $stmt->affected_rows;
-        // $stmt->close();
-        // return $affected_rows;
+        return $affected_rows;
     }
 
     // Add a new item to the cart
@@ -96,9 +87,9 @@ class Cart
         ");
         $stmt->bind_param('iii', $cart_id, $product_id, $quantity);
         $stmt->execute();
-        $cart_item_id = $stmt->insert_id;
+        $affected_rows = $stmt->affected_rows;
         $stmt->close();
-        return $cart_item_id;
+        return $affected_rows;
     }
 
     // Get cart items for a given cart ID

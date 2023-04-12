@@ -2,46 +2,63 @@
 include_once '../config/db_connection.php';
 include_once '../classes/cart.class.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(400);
-    echo json_encode(array('error' => 'Invalid request.'));
+function send_error_response($code, $message)
+{
+    http_response_code($code);
+    echo json_encode(array('error' => $message));
     exit();
 }
 
-// Get the product ID and quantity from the request
+function is_buyer()
+{
+    return isset($_SESSION['role']) && $_SESSION['role'] === 'buyer';
+}
+function is_login()
+{
+    return isset($_SESSION['role']);
+}
+
+function is_valid_request()
+{
+    return $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id']);
+}
+
+if (!is_valid_request()) {
+    send_error_response(400, 'Invalid request or Please Login First.');
+} else if (!is_login()) {
+    send_error_response(400, 'Please Login to add product to cart.');
+}else if (!is_buyer()) {
+    send_error_response(400, 'Only buyer can add to cart.');
+}
+
 $product_id = $_POST['product-id'];
 $quantity = $_POST['order-quantity'];
 
 if ($quantity <= 0) {
-    http_response_code(400);
-    echo json_encode(array('error' => 'Invalid order quantity.'));
-    exit();
+    send_error_response(400, 'Invalid order quantity.');
 }
 
-// Initialize the cart object and get the user's cart ID
 $cart = new Cart($conn);
 $cart_data = $cart->select($_SESSION['user_id']);
 $cart_id = $cart_data['id'];
+$existing_cart_item = $cart->findCartItem($cart_id, $product_id);
 
-// Check if the product is already in the cart
-$cart_items = $cart->getCartItems($cart_id)['cart_items'];
-$existing_cart_item = null;
-foreach ($cart_items as $cart_item) {
-    if ($cart_item['product_id'] == $product_id) {
-        $existing_cart_item = $cart_item;
-        break;
-    }
-}
-
-// If the product is already in the cart, update the quantity
 if ($existing_cart_item) {
     $new_quantity = $existing_cart_item['quantity'] + $quantity;
-    $cart->updateCartItem($existing_cart_item['id'], $new_quantity);
+
+    if ($new_quantity <= $existing_cart_item['remain_quantity']) {
+        $add_cart_result = $cart->updateCartItem($existing_cart_item['id'], $new_quantity);
+    } else {
+        send_error_response(400, 'Not enough quantity to add');
+    }
 } else {
-    // Add the new item to the cart
-    $cart->addItem($cart_id, $product_id, $quantity);
+    $add_cart_result = $cart->addItem($cart_id, $product_id, $quantity);
 }
 
-http_response_code(200);
-exit();
+if ($add_cart_result > 0) {
+    http_response_code(200);
+    exit();
+} else {
+    send_error_response(400, 'Fail to add cart.');
+}
 ?>
