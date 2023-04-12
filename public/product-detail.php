@@ -54,28 +54,42 @@ function getTotalReviews($conn, $id)
 
 function renderActionButton($product_data)
 {
-    if ($product_data['quantity'] != 0) {
-        return <<<HTML
-            <div class="row mt-3">
-                <button type="submit" class="btn btn-outline-light">
-                    Add to Cart
-                </button>
-            </div>
-            <div class="row mt-3">
-                <button class="btn btn-outline-light">
-                    Buy
-                </button>
-            </div>
-        HTML;
-    } else {
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'seller') {
         return <<<HTML
         <div class="row mt-3">
-            <button class="btn btn-outline-light" disabled>
-                Sold Out
+            <a href="./edit-product.php?id={$_GET['id']}" class="btn btn-outline-light">
+                Edit
+            </a>
+            <button class="btn btn-outline-light mt-3">
+                Delete
             </button>
         </div>
-        HTML;
+    HTML;
+    } else {
+        if ($product_data['quantity'] != 0) {
+            return <<<HTML
+                <div class="row mt-3">
+                    <button type="submit" class="btn btn-outline-light">
+                        Add to Cart
+                    </button>
+                </div>
+                <div class="row mt-3">
+                    <button class="btn btn-outline-light">
+                        Buy
+                    </button>
+                </div>
+            HTML;
+        } else {
+            return <<<HTML
+            <div class="row mt-3">
+                <button class="btn btn-outline-light" disabled>
+                    Sold Out
+                </button>
+            </div>
+            HTML;
+        }
     }
+
 }
 ?>
 
@@ -99,89 +113,91 @@ function renderActionButton($product_data)
                     </h3>
                     HK$
                     <?= $product_data['price']; ?>
-                    <div class="mt-3">
-                        <label class="form-label">Quantity</label>
-                        <div class="input-group w-50">
-                            <button class="btn btn-outline-light" id="btn-minus-quantity"
-                                <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
-                                -
-                            </button>
-                            <input type="number" class="form-control" name="order-quantity"
-                                value="<?= $product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>" min="1"
-                                max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
-                            <button class="btn btn-outline-light" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
-                                +
-                            </button>
+                    <?php if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
+                        <div class="mt-3">
+                            <label class="form-label">Quantity</label>
+                            <div class="input-group w-50">
+                                <button class="btn btn-outline-light" id="btn-minus-quantity"
+                                    <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                                    -
+                                </button>
+                                <input type="number" class="form-control" name="order-quantity"
+                                    value="<?= $product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>" min="1"
+                                    max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
+                                <button class="btn btn-outline-light" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                                    +
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                     <?= renderActionButton($product_data); ?>
                 </form>
-                <div class="row mt-3">
-                    <h2>Add a Review</h2>
-                    <form method="post" action="submit-review.php">
-                        <input type="hidden" name="product_id" value="<?= $product_data['id']; ?>">
-                        <div class="mb-3">
-                            <label for="rating" class="form-label">Rating</label>
-                            <select name="rating" id="rating" class="form-control" required>
-                                <option value="">Choose a Rating</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="review_text" class="form-label">Review</label>
-                            <textarea name="review_text" id="review_text" class="form-control" rows="5"
-                                required></textarea>
-                        </div>
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit Review</button>
-                    </form>
-                    <div class="row mt-5">
-                        <h2>Reviews</h2>
-                        <?php while ($row = $reviews->fetch_assoc()): ?>
-                            <div class="col-12 mt-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <?= $row['rating']; ?> / 5
-                                        </h5>
-                                        <p class="card-text">
-                                            <?= $row['review_text']; ?>
-                                        </p>
-                                        <p class="card-text">
-                                            <small class="text-muted">
-                                                <?= $row['created_at']; ?>
-                                            </small>
-                                        </p>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'buyer'): ?>
+                    <div class="row mt-3">
+                        <h2>Add a Review</h2>
+                        <form method="post" action="submit-review.php">
+                            <input type="hidden" name="product_id" value="<?= $product_data['id']; ?>">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">Rating</label>
+                                <select name="rating" id="rating" class="form-control" required>
+                                    <option value="">Choose a Rating</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="review_text" class="form-label">Review</label>
+                                <textarea name="review_text" id="review_text" class="form-control" rows="5"
+                                    required></textarea>
+                            </div>
+                            <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit
+                                Review</button>
+                        </form>
+                        <div class="row mt-5">
+                            <h2>Reviews</h2>
+                            <?php while ($row = $reviews->fetch_assoc()): ?>
+                                <div class="col-12 mt-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <?= $row['rating']; ?> / 5
+                                            </h5>
+                                            <p class="card-text">
+                                                <?= $row['review_text']; ?>
+                                            </p>
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                    <?= $row['created_at']; ?>
+                                                </small>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endwhile; ?>
+                            <?php endwhile; ?>
 
-                        <?php
-                        $total_reviews = getTotalReviews($conn, $id);
-                        $total_pages = ceil($total_reviews / $reviews_per_page);
-                        ?>
+                            <?php
+                            $total_reviews = getTotalReviews($conn, $id);
+                            $total_pages = ceil($total_reviews / $reviews_per_page);
+                            ?>
 
-                        <?php if ($total_pages > 1): ?>
-                            <div class="d-flex justify-content-center">
-                                <?php if ($current_page > 1): ?>
-                                    <a href="?id=<?= $id; ?>&page=<?= $current_page - 1; ?>"
-                                        class="btn btn-outline-light mt-3">Previous</a>
-                                <?php endif; ?>
-                                <?php if ($current_page < $total_pages): ?>
-                                    <a href="?id=<?= $id; ?>&page=<?= $current_page + 1; ?>"
-                                        class="btn btn-outline-light mt-3">Next</a>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-
-
-
-
+                            <?php if ($total_pages > 1): ?>
+                                <div class="d-flex justify-content-center">
+                                    <?php if ($current_page > 1): ?>
+                                        <a href="?id=<?= $id; ?>&page=<?= $current_page - 1; ?>"
+                                            class="btn btn-outline-light mt-3">Previous</a>
+                                    <?php endif; ?>
+                                    <?php if ($current_page < $total_pages): ?>
+                                        <a href="?id=<?= $id; ?>&page=<?= $current_page + 1; ?>"
+                                            class="btn btn-outline-light mt-3">Next</a>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
