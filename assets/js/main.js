@@ -253,18 +253,26 @@ function globalInit() {
     const body = document.querySelector('body');
     const home_li = document.getElementById('home_li');
     const gift_li = document.getElementById('gift_li');
+    const team_li = document.getElementById('team_li');
     
     function checkUrl() {
         const currentUrl = window.location.href;
     
         try{
-            if (currentUrl.includes('php')) {
+            if (currentUrl.includes('product.php')) {
                 gift_li.classList.add('active');
                 home_li.classList.remove('active');
+                team_li.classList.remove('active');
+                body.classList.remove('overflow-hidden');
+            } else if (currentUrl.includes('team-member.php')) {
+                team_li.classList.add('active');
+                home_li.classList.remove('active');
+                gift_li.classList.remove('active');
                 body.classList.remove('overflow-hidden');
             } else {
                 home_li.classList.add('active');
                 gift_li.classList.remove('active');
+                team_li.classList.remove('active');
                 body.classList.add('overflow-hidden');
             }  
         }catch(error){

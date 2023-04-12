@@ -139,7 +139,7 @@
                             <?php
                             if (isset($_SESSION['role']) && $_SESSION['role'] === 'seller') {
                                 echo <<<HTML
-                                    <li id="gift_li" class="nav-item ">
+                                    <li id="team_li" class="nav-item ">
                                         <a class="nav-link" href="./team-member.php">
                                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
