@@ -123,7 +123,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `icon_url`, `role`) VALUES
-(1, 'admin', 'admin', 'admin', NULL, 'seller'),
+(1, 'admin', 'admin', '$2y$10$fNW/xSrNA7svkYmwq.05cO.N3jSUn03OEk0sX6TsuKSBN./DSvpTG', NULL, 'seller'),
 (2, 'abc123', 'abc123', '$2y$10$ea5lEinMxspPJO1fdk12Ku1bGGi1BW2paeqQbpxWmiwhD9w2hJMmi', NULL, 'buyer');
 
 --
