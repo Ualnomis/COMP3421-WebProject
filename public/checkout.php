@@ -131,7 +131,7 @@ if (isset($_GET['order_id'])) {
                                     <?= $order_item['name']; ?>
                                 </div>
                                 <div class="col-4">
-                                    $HKD
+                                    HKD$
                                     <?= $order_item['price']; ?>
                                 </div>
 
