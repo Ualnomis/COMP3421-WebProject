@@ -5,11 +5,12 @@ $styles = <<<HTML
 HTML;
 $page_title = "Edit Gift";
 
-
 include_once('../includes/header.inc.php');
 include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
 require_once('../classes/product.class.php');
+
+$error = '';
 
 if (isset($_GET['id']) && $_SESSION['role'] == 'seller') {
     $id = $_GET['id'];
@@ -35,18 +36,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['product-status'];
     $imageUrl = $product_data['image_url'];
 
-    if (!empty($_FILES["product-img"]["tmp_name"])) {
-        // Handle file upload if a file was uploaded
-        $targetDir = "../assets/images/";
-        $fileName = uniqid() . '_' . basename($_FILES["product-img"]["name"]);
-        $targetFile = $targetDir . $fileName;
-        move_uploaded_file($_FILES["product-img"]["tmp_name"], $targetFile);
-        $imageUrl = "../assets/images/" . $fileName;
+    // Validation
+    if (strlen($name) > 255) {
+        $name = substr($name, 0, 255);
     }
 
-    // Insert into database
-    if ($product->update($id, $seller_id, $name, $description, $price, $quantity, $imageUrl, $status)) {
-        // Return success response
+    if (!is_numeric($price)) {
+        $error = 'Price must be a number.';
+    } else {
+        $price = number_format((float) $price, 2, '.', '');
+    }
+
+    if (!is_numeric($quantity)) {
+        $error = 'Quantity must be a number.';
+    } else {
+        $quantity = (int) $quantity;
+    }
+
+    if (!$error) {
+        if (!empty($_FILES["product-img"]["tmp_name"])) {
+            // Handle file upload if a file was uploaded
+            $targetDir = "../assets/images/";
+            $fileName = uniqid() . '_' . basename($_FILES["product-img"]["name"]);
+            $targetFile = $targetDir . $fileName;
+            move_uploaded_file($_FILES["product-img"]["tmp_name"], $targetFile);
+            $imageUrl = "../assets/images/" . $fileName;
+        }
+
+        // Insert into database
+        $product->update($id, $seller_id, $name, $description, $price, $quantity, $imageUrl, $status);
         header('Location: product.php');
         ob_end_flush();
         exit();
@@ -54,26 +72,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
+
 <!-- Page body -->
 <div class="page-body" id="edit_product">
     <div class="container-xl">
         <!-- Content here -->
         <form method="post" enctype="multipart/form-data">
+            <?php if ($error): ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $error; ?>
+                </div>
+            <?php endif; ?>
             <div class="row row-cards">
                 <div class="col-4 flex flex-wrap justify-center items-center">
-                    <img id="preview" src="<?= $product_data['image_url']; ?>" class="img-fiuld w-[200px] h-auto flex-1" />
+                    <img id="preview" src="<?= $product_data['image_url']; ?>"
+                        class="img-fiuld w-[200px] h-auto flex-1" />
                     <div class="d-flex justify-content-center mt-3 flex-1">
                         <div class="btn btn-outline-light btn-rounded">
                             <label class="form-label m-1" for="product-img">Choose file</label>
                             <input type="hidden" name="product-img-prev" value="<?= $product_data['image_url']; ?>">
-                            <input type="file" class="form-control d-none" name="product-img" id="product-img" accept="image/*" multiple="false" />
+                            <input type="file" class="form-control d-none" name="product-img" id="product-img"
+                                accept="image/*" multiple="false" />
                         </div>
                     </div>
                 </div>
                 <div class="col-8">
                     <div class="mb-3">
                         <label class="form-label">Product Name</label>
-                        <input type="text" class="form-control" name="product-name" placeholder="Input placeholder" value="<?= $product_data['name']; ?>">
+                        <input type="text" class="form-control" name="product-name" placeholder="Input placeholder"
+                            value="<?= $product_data['name']; ?>">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Product Price</label>
@@ -93,8 +121,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-3">
                         <label class="form-label">Display</label>
                         <select class="form-control form-select" name="product-status">
-                            <option value="show" <?php if ($product_data['status'] === 'show') { echo "selected"; } ?>>Show</option>
-                            <option value="hide" <?php if ($product_data['status'] === 'hide') { echo "selected"; } ?>>Hide</option>
+                            <option value="show" <?php if ($product_data['status'] === 'show') {
+                                echo "selected";
+                            } ?>>
+                                Show</option>
+                            <option value="hide" <?php if ($product_data['status'] === 'hide') {
+                                echo "selected";
+                            } ?>>
+                                Hide</option>
                         </select>
                     </div>
                 </div>
