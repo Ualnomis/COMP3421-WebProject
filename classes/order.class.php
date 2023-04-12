@@ -1,4 +1,5 @@
 <?php
+require_once('../classes/product.class.php');
 class Order
 {
     private $conn;
@@ -162,6 +163,15 @@ class Order
         $stmt2->close();
 
         return array('order_items' => $order_items, 'total_sum_price' => $total_sum_price);
+    }
+
+    public function check_product_quantity($product_id, $required_quantity)
+    {
+        $product = new Product($this->conn);
+        $product_result = $product->select_one($product_id);
+        $product_data = $product_result->fetch_assoc();
+
+        return $product_data['quantity'] >= $required_quantity;
     }
 }
 

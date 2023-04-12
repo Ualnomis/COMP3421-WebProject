@@ -53,15 +53,15 @@ if (isset($_GET['order_id'])) {
                                 <div class="col-sm-6 col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" name="buyer-last-name"
-                                            value="">
+                                        <input type="text" class="form-control" placeholder="Last Name"
+                                            name="buyer-last-name" value="">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" name="buyer-phone"
-                                            value="">
+                                        <input type="text" class="form-control" placeholder="Last Name"
+                                            name="buyer-phone" value="">
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
@@ -122,6 +122,9 @@ if (isset($_GET['order_id'])) {
 
                                 <div class="col-2">
                                     <img src="<?= $order_item['image_url']; ?>" />
+                                    <span class="badge badge-pill bg-red">
+                                        <?= $order_item['quantity'] ?>
+                                    </span>
                                 </div>
                                 <div class="col-6">
                                     <?= $order_item['name']; ?>

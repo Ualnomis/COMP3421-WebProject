@@ -30,12 +30,42 @@ function processOrder($post_data, $conn)
     $buyer_name = "{$post_data['buyer-first-name']} {$post_data['buyer-last-name']}";
     $buyer_address = "{$post_data['buyer-home-address']}, {$post_data['buyer-city']}, {$post_data['buyer-region']}";
 
-    $order->update_order($post_data['order_id'], $buyer_name, $post_data['buyer-phone'], $buyer_address, 2);
+    // Start transaction
+    $conn->begin_transaction();
+
+    // Check product quantity
+    $order_items = $order->get_order_item_by_order_id($post_data['order_id'])['order_items'];
+    $not_enough_quantity = false;
+    foreach ($order_items as $order_item) {
+        if (!$order->check_product_quantity($order_item['product_id'], $order_item['quantity'])) {
+            $not_enough_quantity = true;
+            break;
+        }
+    }
+
+    if ($not_enough_quantity) {
+        $conn->rollback(); // Rollback transaction
+        $order->update_order($post_data['order_id'], $buyer_name, $post_data['buyer-phone'], $buyer_address, 4);
+        return false;
+    } else {
+        $order->update_order($post_data['order_id'], $buyer_name, $post_data['buyer-phone'], $buyer_address, 2);
+        $conn->commit(); // Commit transaction
+        return true;
+    }
 }
 
 if (isPostDataValid($_POST)) {
-    processOrder($_POST, $conn);
-    echo '<script>window.location.replace("../public/order-list.php");</script>';
+    if (processOrder($_POST, $conn)) {
+        echo '<script>window.location.replace("../public/order-list.php");</script>';
+    } else {
+        echo <<<HTML
+        <script>
+            alert("Order Cancelled: Not enough Quantity");
+            window.location.replace("../public/product.php");
+        </script>
+        HTML;
+    }
+
 } else {
     echo '<script>window.location.replace("../public/checkout.php?order_id=' . $order_id . '&success=fail");</script>';
 }

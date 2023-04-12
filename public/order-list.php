@@ -70,7 +70,7 @@ $orders = array_slice($orders, $offset, $perPage);
                                     <?php
                                     if ($order['status_id'] === 1) {
                                         echo <<<HTML
-                                             <a href="./checkout.php?id={$order['id']}" class="btn btn-primary">Checkout Now</a>
+                                             <a href="./checkout.php?order_id={$order['id']}" class="btn btn-primary">Checkout Now</a>
                                             HTML;
                                     } else {
                                         echo <<<HTML
