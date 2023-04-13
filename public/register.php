@@ -4,27 +4,33 @@ $styles = "";
 $error = false;
 $errorMessage = '';
 
-$username ='';
-$email = '';
-$password = '';
-$agree = false;
+
 
 include('../includes/header.inc.php');
 include_once('../classes/cart.class.php');
 include_once('../includes/navbar.inc.php');
 
+if(isset($_SESSION['role']) && $_SESSION['role'] != 'seller') {
+    echo '<script>window.location.replace("../public/cart-detail.php");</script>';
+}
+
+$user_name ='';
+$email = '';
+$user_password = '';
+$agree = false;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
+    $user_name = $_POST['username'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $user_password = $_POST['password'];
     $agree = isset($_POST['agree']);
     // print($agree);
 
     // Validate username
-    if (empty($username)) {
+    if (empty($user_name)) {
         $error = true;
         $errorMessage = 'Please enter a username.';
-    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $user_name)) {
         $error = true;
         $errorMessage = 'Username can only contain letters, numbers, and underscores.';
     }
@@ -39,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
      // Validate password
-     if (empty($password)) {
+     if (empty($user_password)) {
         $error = true;
         $errorMessage = 'Please enter a password.';
-    } elseif (strlen($password) < 5) {
+    } elseif (strlen($user_password) < 5) {
         $error = true;
         $errorMessage = 'Password must be at least 5 characters long.';
     }
@@ -61,10 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$error) {
         
-        $result = $user->register($username, $email, $password, $role);
+        $result = $user->register($user_name, $email, $user_password, $role);
         if ($result) {
             // call the login method
-            $result = $user->login($email, $password);
+            $result = $user->login($email, $user_password);
             $cart = new Cart($conn);
             if ($cart->select($_SESSION['user_id'])) {
             } else {
@@ -94,13 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endif; ?>
                 <div class="mb-3">
                     <label class="form-label">User name</label>
-                    <input type="text" name="username" class="form-control" placeholder="Enter name" value="<?php echo $username?>">
+                    <input type="text" name="username" class="form-control" placeholder="Enter name" value="<?php echo $user_name?>">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email address</label>
                     <input type="email" name="email" class="form-control" placeholder="Enter email" value="<?php echo $email?>">
                 </div>
-                <?php if(isset($_SESSION['role'])): ?>
+                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'seller'): ?>
                 <div class="mb-3">
                     <label for="role" class="form-label">Role:</label>
                     <select class="form-control" id="role" name="role">
@@ -112,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <div class="input-group input-group-flat">
-                        <input type="password" name="password" class="form-control" placeholder="Password" value="<?php echo $password?>"
+                        <input type="password" name="password" class="form-control" placeholder="Password" value="<?php echo $user_password?>"
                             autocomplete="off">
                         <span class="input-group-text">
                             <a href="#" class="link-secondary" title="Show password"
