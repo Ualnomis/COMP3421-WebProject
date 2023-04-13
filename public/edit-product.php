@@ -83,57 +83,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?= $error; ?>
                 </div>
             <?php endif; ?>
-            <div class="row row-cards">
-                <div class="col-4 flex flex-wrap justify-center items-center">
-                    <img id="preview" src="<?= $product_data['image_url']; ?>"
-                        class="img-fiuld w-[200px] h-auto flex-1" />
-                    <div class="d-flex justify-content-center mt-3 flex-1">
-                        <div class="btn btn-outline-dark btn-rounded">
-                            <label class="form-label m-1" for="product-img">Choose file</label>
-                            <input type="hidden" name="product-img-prev" value="<?= $product_data['image_url']; ?>">
-                            <input type="file" class="form-control d-none" name="product-img" id="product-img"
-                                accept="image/*" multiple="false" />
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"></h1>
+                    <div class="row row-cards">
+                        <div class="col-4 flex flex-wrap justify-center items-center">
+                            <img id="preview" src="<?= $product_data['image_url']; ?>"
+                                class="img-fiuld w-[200px] h-auto flex-1" />
+                            <div class="d-flex justify-content-center mt-3 flex-1">
+                                <div class="btn btn-outline-dark btn-rounded">
+                                    <label class="form-label m-1" for="product-img">Choose file</label>
+                                    <input type="hidden" name="product-img-prev"
+                                        value="<?= $product_data['image_url']; ?>">
+                                    <input type="file" class="form-control d-none" name="product-img" id="product-img"
+                                        accept="image/*" multiple="false" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" name="product-name"
+                                    placeholder="Input placeholder" value="<?= $product_data['name']; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Product Price</label>
+                                <input type="text" class="form-control" name="product-price"
+                                    placeholder="Input placeholder" min="0" value="<?= $product_data['price']; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Product Quantity</label>
+                                <input type="number" class="form-control" name="product-quantity"
+                                    placeholder="Input placeholder" min="0" step="1"
+                                    value="<?= $product_data['quantity']; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Product Description</label>
+                                <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
+                                    placeholder="Description"><?= $product_data['description']; ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Display</label>
+                                <select class="form-control form-select" name="product-status">
+                                    <option value="show" <?php if ($product_data['status'] === 'show') {
+                                        echo "selected";
+                                    } ?>>
+                                        Show</option>
+                                    <option value="hide" <?php if ($product_data['status'] === 'hide') {
+                                        echo "selected";
+                                    } ?>>
+                                        Hide</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <input type="submit" class="btn btn-outline-green " value="Add" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
-                    <div class="mb-3">
-                        <label class="form-label">Product Name</label>
-                        <input type="text" class="form-control" name="product-name" placeholder="Input placeholder"
-                            value="<?= $product_data['name']; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Price</label>
-                        <input type="text" class="form-control" name="product-price" placeholder="Input placeholder"
-                            min="0" value="<?= $product_data['price']; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Quantity</label>
-                        <input type="number" class="form-control" name="product-quantity"
-                            placeholder="Input placeholder" min="0" step="1" value="<?= $product_data['quantity']; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Description</label>
-                        <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
-                            placeholder="Description"><?= $product_data['description']; ?></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Display</label>
-                        <select class="form-control form-select" name="product-status">
-                            <option value="show" <?php if ($product_data['status'] === 'show') {
-                                echo "selected";
-                            } ?>>
-                                Show</option>
-                            <option value="hide" <?php if ($product_data['status'] === 'hide') {
-                                echo "selected";
-                            } ?>>
-                                Hide</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <input type="submit" class="btn btn-outline-dark" value="Save" />
             </div>
         </form>
     </div>
