@@ -4,8 +4,72 @@ require_once('../classes/order.class.php');
 $order = new Order($conn);
 $order_id = $_GET['order_id'];
 $order_items_data = $order->get_order_item_by_order_id($order_id);
+$order_data = $order->get_order_by_id($order_id);
+if (!isset($_SESSION)) {
+    echo "Please Login First";
+    exit();
+} else if ($_SESSION['role'] === 'buyer' && $order_data['buyer_id'] != $_SESSION['user_id']) {
+    echo "Invalid List Order Request.";
+    exit();
+}
+
+$status = "";
+
+if ($order_data['status_id'] === 1) {
+    $status = '<span class="status status-red">' . $order_data['status_name'] . '</span>';
+} else if ($order_data['status_id'] === 2) {
+    $status = '<span class="status status-green">' . $order_data['status_name'] . '</span>';
+} else if ($order_data['status_id'] === 3) {
+    $status = '<span class="status status-blue">' . $order_data['status_name'] . '</span>';
+} else if ($order_data['status_id'] === 4) {
+    $status = '<span class="status status-grey">' . $order_data['status_name'] . '</span>';
+}
 
 $html = <<<HTML
+<div class="row">
+    <div class="row mt-1">
+        <div class="col">
+            Buyer Name:
+        </div>
+        <div class="col">
+            {$order_data['buyer_name']}
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col">
+            Buyer Phone:
+        </div>
+        <div class="col">
+        {$order_data['buyer_phone']}
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col">
+            Buyer Address:
+        </div>
+        <div class="col">
+        {$order_data['buyer_address']}
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col">
+            Order date:
+        </div>
+        <div class="col">
+        {$order_data['order_date']}
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col">
+            Status:
+        </div>
+        <div class="col">
+            {$status}
+        </div>
+    </div>
+    </div>
+HTML;
+$html .= <<<HTML
     <div class="row">
         <div class="col-12">
             <h1>Order Items</h1>

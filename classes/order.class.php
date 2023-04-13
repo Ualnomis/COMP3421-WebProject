@@ -47,8 +47,10 @@ class Order
         INNER JOIN Order_Status ON orders.status_id = Order_Status.id
     WHERE
         orders.buyer_id = ?
+    
     GROUP BY
         orders.id
+    ORDER BY orders.id DESC
     
         ";
         $stmt = $this->conn->prepare($query);
@@ -65,7 +67,15 @@ class Order
 
     public function get_order_by_id($id)
     {
-        $query = "SELECT * FROM orders WHERE id = ?";
+        $query = "SELECT 
+        orders.*,
+        Order_Status.name AS status_name
+        FROM 
+            orders 
+            INNER JOIN Order_Status ON orders.status_id = Order_Status.id
+        WHERE orders.id = ?
+        ORDER BY orders.id DESC
+        ";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -74,7 +84,8 @@ class Order
         return $order;
     }
 
-    public function get_all_order_status() {
+    public function get_all_order_status()
+    {
         $query = "
             SELECT
                 *

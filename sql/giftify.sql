@@ -286,7 +286,7 @@ INSERT INTO `Order_Status` (`id`, `name`) VALUES
 ALTER TABLE `orders`
   ADD `buyer_name` varchar(255) NULL AFTER `buyer_id`,
   ADD `buyer_phone` varchar(20) NULL AFTER `buyer_name`,
-  ADD `buyer_address` varchar(20) NULL AFTER `buyer_phone`,
+  ADD `buyer_address` varchar(255) NULL AFTER `buyer_phone`,
   ADD `status_id` int(11) NOT NULL AFTER `order_date`,
   ADD CONSTRAINT `FK_orders_OrderStatus` FOREIGN KEY (`status_id`) REFERENCES `Order_Status` (`id`);
 

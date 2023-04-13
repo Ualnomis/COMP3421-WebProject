@@ -48,7 +48,6 @@ foreach ($all_order_status as $order_status) {
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Buyer ID</th>
                             <th>Date</th>
                             <th>Total Price</th>
                             <th>Status</th>
@@ -61,9 +60,6 @@ foreach ($all_order_status as $order_status) {
                                 <tr class="order-row">
                                     <td>
                                         <?= $order['id'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $order['buyer_id'] ?>
                                     </td>
                                     <td>
                                         <?= $order['order_date'] ?>
