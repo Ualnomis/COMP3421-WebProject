@@ -97,5 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 include_once('../includes/page-wrapper-end.inc.php');
 $scripts = "";
 // Include the template file
+$modals = <<<HTML
+HTML;
 include_once('../includes/footer.inc.php');
 ?>

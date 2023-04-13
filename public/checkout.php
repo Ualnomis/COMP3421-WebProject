@@ -153,5 +153,7 @@ if (isset($_GET['order_id'])) {
 </div>
 <?php
 include_once('../includes/page-wrapper-end.inc.php');
+$modals = <<<HTML
+HTML;
 include_once('../includes/footer.inc.php');
 ?>

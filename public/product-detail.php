@@ -116,18 +116,18 @@ function renderActionButton($product_data)
                         <label class="form-label">HK$</label>
                         <input type="text" class="form-control" value="<?= $product_data['price']; ?>" readonly>
                     </div>
-                    
+
                     <?php if ((isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
                         <div class="mb-3">
-                        <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
-                        <label class="form-label">Quantity</label>
-                        <input type="text" class="form-control" value="<?= $product_data['quantity']; ?>" readonly>
-                    </div>
+                            <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
+                            <label class="form-label">Quantity</label>
+                            <input type="text" class="form-control" value="<?= $product_data['quantity']; ?>" readonly>
+                        </div>
                     <?php endif; ?>
 
 
 
-                    
+
                     <?php if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
                         <div class="mt-3">
                             <label class="form-label">Quantity</label>
@@ -222,6 +222,8 @@ function renderActionButton($product_data)
     include_once('../includes/page-wrapper-end.inc.php');
     $scripts = <<<HTML
 <!-- <script defer src="../assets/js/product-detail.js"></script> -->
+HTML;
+    $modals = <<<HTML
 HTML;
     include_once('../includes/footer.inc.php');
     ?>

@@ -101,5 +101,7 @@ include_once('../includes/page-wrapper-end.inc.php');
 $scripts = <<<HTML
 <script src="../assets/js/add-product.js"></script>
 HTML;
+$modals = <<<HTML
+HTML;
 include_once('../includes/footer.inc.php');
 ?>

@@ -134,5 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php
     include_once('../includes/page-wrapper-end.inc.php');
     $scripts = "";
+    $modals = <<<HTML
+HTML;
     include('../includes/footer.inc.php');
     ?>

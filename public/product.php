@@ -103,5 +103,7 @@ function renderProductCard($row)
 <?php
 include_once('../includes/page-wrapper-end.inc.php');
 $scripts = "";
+$modals = <<<HTML
+HTML;
 include_once('../includes/footer.inc.php');
 ?>

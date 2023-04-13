@@ -36,6 +36,7 @@ include_once('../includes/navbar.inc.php');
     <?php
     include_once('../includes/page-wrapper-end.inc.php');
     $scripts = "";
-    // Include the template file
+    $modals = <<<HTML
+HTML;
     include('../includes/footer.inc.php');
     ?>
