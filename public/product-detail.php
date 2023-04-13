@@ -72,11 +72,12 @@ function renderActionButton($product_data)
                     </button>
                 </div>
                 <div class="row mt-3">
-                    <button class="btn btn-outline-light">
-                        Buy
-                    </button>
+                <button id="btn-buy" class="btn btn-outline-light">
+    Buy
+</button>
+
                 </div>
-            HTML;
+HTML;
         } else {
             return <<<HTML
             <div class="row mt-3">

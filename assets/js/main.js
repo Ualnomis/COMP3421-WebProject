@@ -301,13 +301,13 @@ function globalInit() {
 
 function product_details() {
 
-    try{
+    try {
         // Get the + and - buttons and the input field
         const plusBtn = document.querySelector('#btn-add-quantity');
         const minusBtn = document.querySelector('#btn-minus-quantity');
         const inputField = document.querySelector('input[name="order-quantity"]');
-        const maxValue =  parseInt(inputField.getAttribute('max'));
-
+        const maxValue = parseInt(inputField.getAttribute('max'));
+        const buyBtn = document.querySelector('#btn-buy');
         // Helper functions
         function getCurrentValue() {
             return parseInt(inputField.value);
@@ -350,6 +350,42 @@ function product_details() {
             document.getElementById('alert-container').innerHTML = alertHtml;
         }
 
+        buyBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            handleBuy();
+        });
+
+        function handleBuy() {
+            const formData = new FormData();
+            formData.append('product-id', document.querySelector('input[name="product-id"]').value);
+            formData.append('order-quantity', document.querySelector('input[name="order-quantity"]').value);
+
+            fetch('../includes/checkout-buy.inc.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        response.json().then(data => {
+                            const order_id = data.order_id;
+                            window.location.href = `../public/checkout.php?order_id=${order_id}`;
+                        });
+                    } else {
+                        response.json().then(data => {
+                            showAlert('danger', data.error);
+                        })
+                            .catch(() => {
+                                showAlert('danger', 'Failed to purchase product.');
+                            });
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    showAlert('danger', 'An error occurred while purchasing the product.');
+                });
+        }
+
+
         document.getElementById('add-to-cart-form').addEventListener('submit', (event) => {
             event.preventDefault();
             const formData = new FormData(event.target);
@@ -379,7 +415,7 @@ function product_details() {
         }
 
         updateCartCount();
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 
