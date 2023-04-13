@@ -65,7 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container-xl mt-3">
     <div class="row">
         <div class="col-12">
-            <h1>Edit User</h1>
             <?php if (isset($error)) { ?>
                 <div class="alert alert-danger" role="alert">
                     <?= $error ?>
