@@ -13,13 +13,13 @@
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
-                    <div class="d-none d-md-flex">
+                    <div class="d-md-flex">
 
 
                         <?php
                         if (isset($_SESSION["role"]) && $_SESSION["role"] === "buyer") {
                             echo <<<HTML
-                                <div class="nav-item d-none d-md-flex me-3">
+                                <div class="nav-item d-md-flex me-3">
                                 <a href="cart-detail.php" class="nav-link px-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart"
                                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -64,7 +64,7 @@
                         ;
                     } else {
                         echo <<<HTML
-                                <div class="nav-item d-none d-md-flex me-3">
+                                <div class="nav-item d-md-flex me-3">
                                 <div class="btn-list">
                                 <a href="./register.php" class="btn btn-outline-primary">
                                 Register
