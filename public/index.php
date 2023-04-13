@@ -15,7 +15,7 @@ include_once('../includes/navbar.inc.php');
         <!-- Content here -->
         <div class=" flex-1 xl:justify-center justify-start flex flex-col gap-10">
             <div >
-                <h1 class="xl:text-[6rem] text-[3rem] xl:leading-[7rem] leading-[3rem] font-black text-white">
+                <h1 class="xl:text-[6rem] text-[3rem] xl:leading-[7rem] leading-[3rem] font-black text-black">
                     Find <br class="xl:block hidden" /> Your Perfect Fit.
                 </h1> 
             </div>
