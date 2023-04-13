@@ -558,6 +558,23 @@ function home_canvas() {
 
 }
 
+const eye = () =>{
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eye");
+    const tooltip = new bootstrap.Tooltip(eyeIcon)
+    console.log(tooltip);
+    
+    eyeIcon.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    });
+
+    tooltip.hide();
+}
+
 const cart_details = () => {
     updateCartCount()
     updateCartItems()
@@ -696,6 +713,16 @@ function init() {
     if (document.querySelector("#list-order")) {
         console.log("load list-order-detail js");
         listOrderDetail();
+    }
+
+    if(document.querySelector("#login_page")){
+        console.log("load login js");
+        eye();
+    }
+
+    if(document.querySelector("#register_page")){
+        console.log("load register js");
+        eye();
     }
 }
 

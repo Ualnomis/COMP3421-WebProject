@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-<div class="page page-center">
+<div class="page page-center" id="login_page">
     <div class="container container-tight py-4 w-fit md:w-[450px]">
         <div class="text-center mb-4">
             <a href="." class="navbar-brand"><img src="../assets/images/icon.png" height="36" width="36"
@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="mb-2">
                         <div class="input-group input-group-flat">
-                            <input type="password" name="password" class="form-control" placeholder="Your password"
+                            <input id="password" type="password" name="password" class="form-control" placeholder="Your password"
                                 autocomplete="off">
-                            <span class="input-group-text border-[#6B7280]">
+                            <span class="input-group-text border-[#6B7280]" id="eye">
                                 <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
