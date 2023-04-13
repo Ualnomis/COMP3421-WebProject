@@ -5,8 +5,10 @@ require_once('../classes/order.class.php');
 
 if (!isset($_SESSION['user_id'])) {
     echo '<script>window.location.replace("../public/");</script>';
+    exit;
 } else if ($_SESSION['role'] === 'seller') {
     echo '<script>window.location.replace("../public/");</script>';
+    exit;
 } else if ($_SESSION['role'] === 'buyer') {
 
 }
