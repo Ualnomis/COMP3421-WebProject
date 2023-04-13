@@ -168,7 +168,7 @@ HTML;
                                 </select>
                             </div>
                             
-                            <button type="submit" class="btn btn-green mt-3">Update Status</button>
+                            <button type="submit" class="btn btn-outline-green mt-3">Update Status</button>
                         </form>
                     </div>
 HTML;
