@@ -84,19 +84,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php } ?>
                     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
                         <div class="form-group pt-2">
-                            <label for="id">User ID:</label>
+                            <label class="form-label required" for="id">User ID:</label>
                             <input type="text" class="form-control" id="id" name="id" value="<?= $user_data['id'] ?>"
                                 disabled>
                             <input type="hidden" name="userid" value="<?= $user_id ?>">
                         </div>
                         <div class="form-group pt-2">
-                            <label for="email">Email:</label>
+                            <label class="form-label required" for="email">Email:</label>
                             <input type="email" class="form-control" id="email" name="email"
                                 value="<?= $user_data['email'] ?>">
                         </div>
                         <?php if ($user_role == "seller"): ?>
                             <div class="form-group pt-3">
-                                <label for="role">Role:</label>
+                                <label class="form-label required" for="role">Role:</label>
                                 <select class="form-control" id="role" name="role">
                                     <option value="buyer" <?= ($user_data['role'] == 'buyer') ? 'selected' : '' ?>>Buyer
                                     </option>
@@ -106,11 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         <?php endif; ?>
                         <div class="form-group pt-3">
-                            <label for="password">Password:</label>
+                            <label class="form-label required" for="password">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="form-group pt-3">
-                            <label for="confirm_password">Confirm Password:</label>
+                            <label class="form-label required" for="confirm_password">Confirm Password:</label>
                             <input type="password" class="form-control" id="confirm_password" name="confirm_password"
                                 required>
                         </div>
