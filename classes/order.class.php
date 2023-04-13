@@ -1,5 +1,5 @@
 <?php
-include('./product.class.php');
+require_once('../classes/product.class.php');
 class Order
 {
     private $conn;
