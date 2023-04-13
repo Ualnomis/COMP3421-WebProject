@@ -47,15 +47,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errorMessage = 'Password must be at least 5 characters long.';
     }
 
-    // Validate agree checkbox
-    if (!$agree) {
-        $error = true;
-        $errorMessage = 'Please agree to the terms and policy.';
+    if(empty($_SESSION['role'])){
+        // Validate agree checkbox
+        if (!$agree) {
+            $error = true;
+            $errorMessage = 'Please agree to the terms and policy.';
+        }
+        // If there are no errors, proceed with registration
+        $role = 'buyer';
+    }else{
+        $role = $_POST['role'];
     }
 
     if (!$error) {
-        // If there are no errors, proceed with registration
-        $role = 'buyer';
+        
         $result = $user->register($username, $email, $password, $role);
         if ($result) {
             // call the login method
@@ -71,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = true;
             $errorMessage = 'Registration failed. Email address is already registered.';
         }
+
     }
 }
 ?>
@@ -87,13 +93,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="alert alert-danger"><?php echo $errorMessage; ?></div>
                 <?php endif; ?>
                 <div class="mb-3">
-                    <label class="form-label">Name</label>
+                    <label class="form-label">User name</label>
                     <input type="text" name="username" class="form-control" placeholder="Enter name" value="<?php echo $username?>">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email address</label>
                     <input type="email" name="email" class="form-control" placeholder="Enter email" value="<?php echo $email?>">
                 </div>
+                <?php if(isset($_SESSION['role'])): ?>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role:</label>
+                    <select class="form-control" id="role" name="role">
+                        <option value="buyer">Buyer</option>
+                        <option value="seller" selected>Seller</option>
+                    </select>
+                </div>
+                <?php endif; ?>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <div class="input-group input-group-flat">
@@ -114,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </span>
                     </div>
                 </div>
+                <?php if(empty($_SESSION['role'])): ?>
                 <div class="mb-3">
                     <label class="form-check">
                         <input type="checkbox" name="agree" class="form-check-input border-black cursor-pointer" <?php if($agree) echo 'checked'?>/>
@@ -121,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 and policy</a>.</span>
                     </label>
                 </div>
+                <?php endif; ?>
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary w-100 bg-blue-600 hover:bg-blue-400 rounded">Create new account</button>
                 </div>
