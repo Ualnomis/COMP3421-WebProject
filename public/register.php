@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="input-group input-group-flat">
                         <input type="password" name="password" class="form-control" placeholder="Password" value="<?php echo $user_password?>"
                             autocomplete="off">
-                        <span class="input-group-text">
+                        <span class="input-group-text border-[#6B7280]">
                             <a href="#" class="link-secondary" title="Show password"
                                 data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"

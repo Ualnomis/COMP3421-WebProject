@@ -57,16 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             autocomplete="off">
                     </div>
                     <div class="mb-2">
-                        <label class="form-label">
-                            Password
-                            <span class="form-label-description">
-                                <a href="./forgot-password.html">I forgot password</a>
-                            </span>
-                        </label>
                         <div class="input-group input-group-flat">
                             <input type="password" name="password" class="form-control" placeholder="Your password"
                                 autocomplete="off">
-                            <span class="input-group-text">
+                            <span class="input-group-text border-[#6B7280]">
                                 <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
