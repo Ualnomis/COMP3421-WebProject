@@ -34,4 +34,4 @@ include_once '../config/db_connection.php';
     <?php echo $styles; ?>
 </head>
 
-<body id='body' class="theme-dark w-full hover:no-underline">
+<body id='body' class="theme-light w-full hover:no-underline">
