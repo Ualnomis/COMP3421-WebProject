@@ -8,6 +8,10 @@ include_once('../includes/header.inc.php');
 include_once('../classes/cart.class.php');
 include_once('../includes/navbar.inc.php');
 
+if(isset($_SESSION['role'])) {
+    echo '<script>window.location.replace("../public/");</script>';
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];

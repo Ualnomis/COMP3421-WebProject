@@ -11,7 +11,7 @@ include_once('../classes/cart.class.php');
 include_once('../includes/navbar.inc.php');
 
 if(isset($_SESSION['role']) && $_SESSION['role'] != 'seller') {
-    echo '<script>window.location.replace("../public/cart-detail.php");</script>';
+    echo '<script>window.location.replace("../public/");</script>';
 }
 
 $user_name ='';
