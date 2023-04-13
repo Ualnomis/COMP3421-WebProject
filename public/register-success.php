@@ -14,7 +14,7 @@ include_once('../includes/navbar.inc.php');
         <div class="container-tight py-4">
             <div class="empty">
                 <p class="empty-title">Register Success</p>
-                <p class="empty-subtitle text-white">
+                <p class="empty-subtitle text-black">
                     Congratulations! You can start buying gifts in our store!
                 </p>
                 <div class="empty-action">
