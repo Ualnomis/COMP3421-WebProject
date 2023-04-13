@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </select>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <input type="submit" class="btn btn-outline-green " value="Add" />
+                                <input type="submit" class="btn btn-outline-dark w-100 " value="Save" />
                             </div>
                         </div>
                     </div>
