@@ -1,6 +1,14 @@
 <?php
 $title = "Users";
 $styles = <<<HTML
+<style>
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>
 HTML;
 $page_title = "";
 
@@ -14,7 +22,10 @@ $users = $user->getAllUsers();
 <div class="container-xl mt-3">
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title">Users</h1>
+            <div class="card-header d-flex justify-content-between"> 
+                <h1 class="card-title">Users</h1>
+                <a href="register.php" class="btn btn-primary add-user-btn">Add User</a>
+            </div>
             <div class="row row-cards">
                 <div class="col-12">
                     <table class="table">
