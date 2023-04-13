@@ -29,6 +29,14 @@ $totalPages = ceil($totalOrders / $perPage);
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($page - 1) * $perPage;
 $orders = array_slice($orders, $offset, $perPage);
+$status_option = <<<HTML
+HTML;
+$all_order_status = $order->get_all_order_status();
+foreach ($all_order_status as $order_status) {
+    $status_option .= <<<HTML
+    <option value="{$order_status['id']}">{$order_status['name']}</option>
+    HTML;
+}
 
 ?>
 <div class="page-body" id="list-order">
@@ -95,7 +103,7 @@ $orders = array_slice($orders, $offset, $perPage);
                                                 Now</a>
                                         <?php else: ?>
                                             <button class="btn btn-primary view-order-details" data-bs-toggle="modal"
-                                                data-bs-target="#orderDetailsModal" data-order-id="<?= $order['id'] ?>">
+                                                data-bs-target="#orderDetailsModal" data-order-id="<?= $order['id'] ?>" data-order-status="<?= $order['status_id'] ?>">
                                                 View Details
                                             </button>
                                         <?php endif; ?>
@@ -148,17 +156,17 @@ HTML;
 
     if ($user_role == 'seller') {
         $modals .= <<<HTML
-                    <div class="modal-footer">
-                    <form id="updateOrderStatusForm">
-                        <input type="hidden" name="order_id" id="order_id">
-                        <div class="form-group">
-                            <label for="order_status">Update Order Status:</label>
-                            <select class="form-select" name="order_status" id="order_status">
-                                <!-- Add options for order statuses here -->
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    <div class="modal-footer w-100">
+                        <form id="updateOrderStatusForm" class="w-100">
+                            <input type="hidden" name="order_id" id="order_id">
+                            <div class="form-group">
+                                <label for="order_status">Status:</label>
+                                <select class="form-select mt-1" name="order_status" id="order_status">
+                                    {$status_option}
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-green mt-3">Update Status</button>
                         </form>
                     </div>
 HTML;

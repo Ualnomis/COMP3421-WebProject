@@ -74,6 +74,20 @@ class Order
         return $order;
     }
 
+    public function get_all_order_status() {
+        $query = "
+            SELECT
+                *
+            FROM
+                order_status
+        ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $order_status = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $order_status;
+    }
+
     public function get_all_orders()
     {
         $query = "

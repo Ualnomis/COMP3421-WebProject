@@ -564,8 +564,11 @@ function listOrderDetail() {
     for (let button of viewOrderDetailsButtons) {
         button.addEventListener('click', function () {
             const orderId = button.getAttribute('data-order-id');
-            if (orderIdInput) {
+            const orderStatus = this.getAttribute('data-order-status');
+            if (orderIdInput && orderStatus) {
                 orderIdInput.value = orderId;
+                const orderStatusDropdown = document.getElementById('order_status');
+                orderStatusDropdown.value = orderStatus;
             }
             fetchOrderDetails(orderId);
         });
@@ -585,11 +588,11 @@ function listOrderDetail() {
     if (updateOrderStatusForm) {
         updateOrderStatusForm.addEventListener('submit', function (event) {
             event.preventDefault();
-    
+
             const formData = new FormData(updateOrderStatusForm);
             const orderId = formData.get('order_id');
             const orderStatus = formData.get('order_status');
-    
+
             updateOrderStatus(orderId, orderStatus);
         });
     }
@@ -598,7 +601,7 @@ function listOrderDetail() {
     function updateOrderStatus(orderId, orderStatus) {
         // Send an AJAX request to update the order status
         // Replace `./update_order_status.php` with the path to your PHP script for updating the order status
-        fetch('./update_order_status.php', {
+        fetch('../includes/update-order-status.inc.php', {
             method: 'POST',
             body: new FormData(updateOrderStatusForm)
         })
@@ -608,9 +611,13 @@ function listOrderDetail() {
                     // Update the UI to reflect the new status, e.g., close the modal and show a success message
                     orderDetailsModal.querySelector('.btn-close').click();
                     alert('Order status updated successfully');
+                    location.reload();
+                    return;
                 } else {
                     // Show an error message if the update failed
                     alert('Error updating order status');
+                    location.reload();
+                    return;
                 }
             });
     }
