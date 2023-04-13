@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UserTest::testLoginWithValidCredentialsReturnsTrue":8,"UserTest::testLoginWithInvalidCredentialsReturnsFalse":8},"times":[]}

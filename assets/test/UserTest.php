@@ -8,7 +8,7 @@ class UserTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->conn = new mysqli("localhost", "username", "password", "database_name");
+        $this->conn =  new mysqli("localhost", "root", "", "giftify");
         $this->user = new User($this->conn);
     }
 
