@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UserTest::testRegister":8,"UserTest::testLogin":8,"UserTest::testLogout":8,"UserTest::testSelectUserByID":8,"UserTest::testGetAllUsers":8,"UserTest::testUpdateUser":8},"times":[]}

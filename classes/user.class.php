@@ -1,6 +1,7 @@
 <?php
-class User
-{
+
+class User 
+{ 
     private $conn;
     private $table_name = "users";
     public function __construct($conn)
