@@ -36,7 +36,7 @@ function renderProductCard($row)
     }
 
     return <<<HTML
-        <div class="col-3">
+        <div class="col-md-4 col-lg-3 col-sm-6">
             <div class="card hvr-grow w-100 h-100">
                 <a href="./product-detail.php?id={$row['id']}" class="d-block hover:no-underline">
                 <img src="{$row['image_url']}" class="card-img-top img-fiuld h-[250px]" style="object-fit: contain; object-position: center;">
