@@ -111,28 +111,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="col-8">
                             <div class="mb-3">
-                                <label class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="product-name"
-                                    placeholder="Input placeholder" value="<?= $product_data['name']; ?>">
+                                <label class="form-label required">Product Name</label>
+                                <input type="text" class="form-control required" name="product-name"
+                                    placeholder="Input placeholder" value="<?= $product_data['name']; ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Product Price</label>
+                                <label class="form-label required">Product Price</label>
                                 <input type="text" class="form-control" name="product-price"
-                                    placeholder="Input placeholder" min="0" value="<?= $product_data['price']; ?>">
+                                    placeholder="Input placeholder" min="0" value="<?= $product_data['price']; ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Product Quantity</label>
+                                <label class="form-label required">Product Quantity</label>
                                 <input type="number" class="form-control" name="product-quantity"
                                     placeholder="Input placeholder" min="0" step="1"
-                                    value="<?= $product_data['quantity']; ?>">
+                                    value="<?= $product_data['quantity']; ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Product Description</label>
+                                <label class="form-label required">Product Description</label>
                                 <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
-                                    placeholder="Description"><?= $product_data['description']; ?></textarea>
+                                    placeholder="Description" style="border: black 1px solid;" required><?= $product_data['description']; ?></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Display</label>
+                                <label class="form-label required">Display</label>
                                 <select class="form-control form-select" name="product-status">
                                     <option value="show" <?php if ($product_data['status'] === 'show') {
                                         echo "selected";
@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </select>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <input type="submit" class="btn btn-outline-dark w-100 " value="Save" />
+                                <input type="submit" class="btn btn-outline-green" value="Save" />
                             </div>
                         </div>
                     </div>

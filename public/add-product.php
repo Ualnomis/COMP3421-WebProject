@@ -76,28 +76,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="col-8">
                             <div class="mb-3">
-                                <label class="form-label">Product Name</label>
+                                <label class="form-label required">Product Name</label>
                                 <input type="text" class="form-control" name="product-name"
-                                    placeholder="Input placeholder">
+                                    placeholder="Product Name" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Product Price</label>
+                                <label class="form-label required">Product Price</label>
                                 <input type="number" class="form-control" name="product-price"
-                                    placeholder="Input placeholder" min="0">
+                                    placeholder="Product Price" min="0" value="0" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Product Quantity</label>
+                                <label class="form-label required">Product Quantity</label>
                                 <input type="number" class="form-control" name="product-quantity"
-                                    placeholder="Input placeholder" min="0">
+                                    placeholder="Product Quantity" min="0" value="0" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Product Description</label>
+                                <label class="form-label required">Product Description</label>
                                 <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
-                                    placeholder="Description"></textarea>
+                                    placeholder="Product Description" style="border: black 1px solid;" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Display</label>
-                                <select class="form-control form-select" name="product-status">
+                                <label class="form-label required">Display</label>
+                                <select class="form-control form-select" name="product-status" required>
                                     <option value="show">Show</option>
                                     <option value="hide">Hide</option>
                                 </select>

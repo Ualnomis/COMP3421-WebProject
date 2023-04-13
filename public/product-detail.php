@@ -1,6 +1,8 @@
 <?php
 $title = "Gift Detail";
-$styles = "";
+$styles = <<<HTML
+<link href="../assets/css/product-detail.css" rel="stylesheet">
+HTML;
 
 include_once('../includes/header.inc.php');
 include_once('../classes/product.class.php');
@@ -108,25 +110,25 @@ HTML;
                             <div class="mb-3">
                                 <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
                                 <label class="form-label">Product Name</label>
-                                <input type="text" class="form-control" value="<?= $product_data['name']; ?>" readonly>
+                                <input type="text" class="form-control data-holder" value="<?= $product_data['name']; ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
-                                <label class="form-label">Product Description:</label>
-                                <input type="text" class="form-control" value="<?= $product_data['description']; ?>"
-                                    readonly>
+                                <label class="form-label">Product Description</label>
+                                <textarea class="form-control data-holder" data-bs-toggle="autosize" name="product-description"
+                                    placeholder="Product Description" readonly><?= $product_data['description']; ?></textarea>
                             </div>
                             <div class="mb-3">
                                 <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
                                 <label class="form-label">HK$</label>
-                                <input type="text" class="form-control" value="<?= $product_data['price']; ?>" readonly>
+                                <input type="text" class="form-control data-holder" value="<?= $product_data['price']; ?>" readonly>
                             </div>
 
                             <?php if ((isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
                                 <div class="mb-3">
                                     <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
                                     <label class="form-label">Quantity</label>
-                                    <input type="text" class="form-control" value="<?= $product_data['quantity']; ?>"
+                                    <input type="text" class="form-control data-holder" value="<?= $product_data['quantity']; ?>"
                                         readonly>
                                 </div>
                             <?php endif; ?>

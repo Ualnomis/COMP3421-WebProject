@@ -68,7 +68,6 @@ function renderProductCard($row)
                             <div>{$row['name']} {$sold_out_badge}</div>
                             <div>{$row['price']}</div>
                             <div>{$row['quantity']} left</div>
-                            <div class="text-muted">{$row['description']}</div>
                         </div>
                     </div>
                 </div>
