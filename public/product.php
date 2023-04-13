@@ -24,7 +24,7 @@ function renderProductCard($row)
         $cart_footer = <<<HTML
             <div class="card-footer d-flex justify-content-end">
         
-            <a class="btn btn-outline-light" href="./edit-product.php?id={$row['id']}">Edit</a>
+            <a class="btn btn-outline-dark" href="./edit-product.php?id={$row['id']}">Edit</a>
             <a class="btn btn-danger ms-3" href="./delete-product.php?id={$row['id']}">Delete</a>
             </div>
         HTML;

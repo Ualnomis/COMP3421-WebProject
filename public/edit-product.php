@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <img id="preview" src="<?= $product_data['image_url']; ?>"
                         class="img-fiuld w-[200px] h-auto flex-1" />
                     <div class="d-flex justify-content-center mt-3 flex-1">
-                        <div class="btn btn-outline-light btn-rounded">
+                        <div class="btn btn-outline-dark btn-rounded">
                             <label class="form-label m-1" for="product-img">Choose file</label>
                             <input type="hidden" name="product-img-prev" value="<?= $product_data['image_url']; ?>">
                             <input type="file" class="form-control d-none" name="product-img" id="product-img"
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             <div class="row mt-3">
-                <input type="submit" class="btn btn-outline-light" value="Save" />
+                <input type="submit" class="btn btn-outline-dark" value="Save" />
             </div>
         </form>
     </div>

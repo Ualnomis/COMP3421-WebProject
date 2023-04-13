@@ -65,13 +65,13 @@ async function updateCartItems() {
                         <input type="hidden" class="cart-item-id" value="${cartItem.id}">
                         <td>
                         <div class="input-group w-fit">
-                            <button class="btn btn-outline-light btn-minus-quantity">
+                            <button class="btn btn-outline-dark btn-minus-quantity">
                             -
                             </button>
                             <input type="number" class="form-control" name="order-quantity"
                             value="${cartItem.quantity}" min="1"
                             max="${cartItem.remain_quantity}" step="1" pattern="[0-9]*">
-                            <button class="btn btn-outline-light btn-add-quantity">
+                            <button class="btn btn-outline-dark btn-add-quantity">
                             +
                             </button>
                         </div>
@@ -134,7 +134,7 @@ async function updateCartItems() {
             const cartCheckoutHTML = `
                 <div class="d-flex justify-content-end">
                     <form method="post" action="../includes/checkout-cart.php">
-                        <button type="submit" class="btn btn-outline-light mt-3">Proceed to Checkout</button>
+                        <button type="submit" class="btn btn-outline-dark mt-3">Proceed to Checkout</button>
                     </form>
                 </div>
             `;

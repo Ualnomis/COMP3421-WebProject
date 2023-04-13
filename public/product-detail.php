@@ -57,7 +57,7 @@ function renderActionButton($product_data)
     if (isset($_SESSION['role']) && $_SESSION['role'] === 'seller') {
         return <<<HTML
         <div class="row mt-3">
-            <a href="./edit-product.php?id={$_GET['id']}" class="btn btn-outline-light">
+            <a href="./edit-product.php?id={$_GET['id']}" class="btn btn-outline-dark">
                 Edit
             </a>
             <a class="btn btn-danger  mt-3" href="./delete-product.php?id={$_GET['id']}">Delete</a>
@@ -67,12 +67,12 @@ function renderActionButton($product_data)
         if ($product_data['quantity'] != 0) {
             return <<<HTML
                 <div class="row mt-3">
-                    <button type="submit" class="btn btn-outline-light">
+                    <button type="submit" class="btn btn-outline-dark">
                         Add to Cart
                     </button>
                 </div>
                 <div class="row mt-3">
-                <button id="btn-buy" class="btn btn-outline-light">
+                <button id="btn-buy" class="btn btn-outline-dark">
     Buy
 </button>
 
@@ -81,7 +81,7 @@ HTML;
         } else {
             return <<<HTML
             <div class="row mt-3">
-                <button class="btn btn-outline-light" disabled>
+                <button class="btn btn-outline-dark" disabled>
                     Sold Out
                 </button>
             </div>
@@ -133,14 +133,14 @@ HTML;
                         <div class="mt-3">
                             <label class="form-label">Quantity</label>
                             <div class="input-group w-50">
-                                <button class="btn btn-outline-light" id="btn-minus-quantity"
+                                <button class="btn btn-outline-dark" id="btn-minus-quantity"
                                     <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
                                     -
                                 </button>
                                 <input type="number" class="form-control" name="order-quantity"
                                     value="<?= $product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>" min="1"
                                     max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
-                                <button class="btn btn-outline-light" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                                <button class="btn btn-outline-dark" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
                                     +
                                 </button>
                             </div>

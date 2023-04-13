@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <img id="preview" src="../assets/images/dummy_product_icon.png"
                         class="img-fiuld w-[200px] h-auto flex-1" />
                     <div class="d-flex justify-content-center mt-3 flex-1">
-                        <div class="btn btn-outline-light btn-rounded">
+                        <div class="btn btn-outline-dark btn-rounded">
                             <label class="form-label m-1" for="product-img">Choose file</label>
                             <input type="file" class="form-control d-none" name="product-img" id="product-img" accept="image/*" multiple="false" />
                         </div>
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             <div class="row mt-3">
-                <input type="submit" class="btn btn-outline-light" value="Add" />
+                <input type="submit" class="btn btn-outline-dark" value="Add" />
             </div>
         </form>
     </div>

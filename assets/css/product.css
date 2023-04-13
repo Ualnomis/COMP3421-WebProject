@@ -7,10 +7,10 @@ a:hover {
     width: 100%;
 }
 
-.btn-outline-light a {
+.btn-outline-dark a {
     color: white;
 }
 
-.btn-outline-light a:hover {
+.btn-outline-dark a:hover {
     color: black;
 }
