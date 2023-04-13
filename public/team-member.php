@@ -46,7 +46,7 @@ $users = $user -> getAllUsers();
                                     <?= $user['role'] ?>
                                 </td>
                                 <td>
-                                <a href="./order_items.php?order_id=<?= $user['id'] ?>"><i
+                                <a href="#=<?= $user['id'] ?>"><i
                                                 class="fa-solid fa-magnifying-glass"></i></a>
                                 </td>
                             </tr>
