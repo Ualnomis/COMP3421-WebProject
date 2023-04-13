@@ -28,7 +28,7 @@ if($user_role == "seller"){
 }else{
     $user_id = $_SESSION['user_id'];
     $user_data = $user->selectUserByID($user_id);
-    print_r($user_data);
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST" >
                 <div class="form-group pt-2">
                     <label for="id">User ID:</label>
-                    <input type="text" class="form-control" id="id" name="id" value="<?= $user_data['id'] ?>" disabled>
+                    <input  type="text" class="form-control" id="id" name="id" value="<?= $user_data['id'] ?>" disabled>
                     <input type="hidden" name="userid" value="<?= $user_id ?>">
                 </div>
                 <div class="form-group pt-2">
