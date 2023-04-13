@@ -53,6 +53,16 @@ class User
         session_destroy();
         session_unset();
     }
+
+    public function getAllUsers()
+    {
+        $sql = "SELECT id, username, email, role FROM users";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $users = $result->fetch_all(MYSQLI_ASSOC);
+        return $users;
+    }
 }
 
 ?>
