@@ -46,8 +46,7 @@ $users = $user -> getAllUsers();
                                     <?= $user['role'] ?>
                                 </td>
                                 <td>
-                                <a href="#=<?= $user['id'] ?>"><i
-                                                class="fa-solid fa-magnifying-glass"></i></a>
+                                <a href="edit-user.php?userid=<?= $user['id'] ?>"><i class="fa-solid fa-magnifying-glass"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

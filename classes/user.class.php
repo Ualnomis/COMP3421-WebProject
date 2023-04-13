@@ -54,6 +54,18 @@ class User
         session_unset();
     }
 
+    
+    public function selectUserByID($id) 
+    {
+        $sql = "SELECT * FROM users WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $user = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $user;
+    }
+
     public function getAllUsers()
     {
         $sql = "SELECT id, username, email, role FROM users";
@@ -63,6 +75,16 @@ class User
         $users = $result->fetch_all(MYSQLI_ASSOC);
         return $users;
     }
+
+    public function updateUser($email, $role, $password, $id )
+    {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->conn->prepare("UPDATE users SET email=?, role=?, password=? WHERE id=?");
+        $stmt->bind_param("sssi", $email,$role, $hashed_password, $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+
 }
 
 ?>

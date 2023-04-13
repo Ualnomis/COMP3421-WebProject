@@ -79,7 +79,7 @@
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <a href="../public/order-list.php" class="dropdown-item">Order</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="./settings.html" class="dropdown-item">Settings</a>
+                                    <a href="../public/edit-user.php" class="dropdown-item">Settings</a>
                                     <a href="../includes/logout.inc.php" class="dropdown-item">Logout</a>
                                 </div>
                             </div>
