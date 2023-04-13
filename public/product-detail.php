@@ -60,9 +60,7 @@ function renderActionButton($product_data)
             <a href="./edit-product.php?id={$_GET['id']}" class="btn btn-outline-light">
                 Edit
             </a>
-            <button class="btn btn-outline-light mt-3">
-                Delete
-            </button>
+            <a class="btn btn-danger  mt-3" href="./delete-product.php?id={$_GET['id']}">Delete</a>
         </div>
     HTML;
     } else {
