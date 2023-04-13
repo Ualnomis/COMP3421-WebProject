@@ -29,3 +29,11 @@ git clone https://github.com/Ualnomis/COMP3421-WebProject.git
 7. Click SQL tab > paste the sql > run
 8. Go to [http://localhost/COMP3421-WebProject/public/](http://localhost/COMP3421-WebProject/public/) to check the project
 
+admin (seller) accounts:
+```
+email:admin
+password:admin
+```
+
+buyer account:
+use registration page
