@@ -2,6 +2,15 @@
 require_once '../config/db_connection.php';
 require_once('../classes/cart.class.php');
 require_once('../classes/order.class.php');
+
+if (!isset($_SESSION['user_id'])) {
+    echo '<script>window.location.replace("../public/");</script>';
+} else if ($_SESSION['role'] === 'seller') {
+    echo '<script>window.location.replace("../public/");</script>';
+} else if ($_SESSION['role'] === 'buyer') {
+
+}
+
 $user_id = $_SESSION['user_id'];
 
 $cart = new Cart($conn);
