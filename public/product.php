@@ -9,7 +9,7 @@ include_once('../includes/header.inc.php');
 include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
 
-require_once "../classes/product.class.php";
+require_once("../classes/product.class.php");
 
 // Initialize a new Product instance
 $product = new Product($conn);
@@ -32,8 +32,7 @@ function renderProductCard($row)
     }
 
     if ($row["status"] === 'hide' && (!isset($_SESSION["role"]) || !($_SESSION["role"] === "seller"))) {
-        return <<<HTML
-        HTML;
+        return "";
     }
 
     return <<<HTML
@@ -104,6 +103,7 @@ function renderProductCard($row)
 include_once('../includes/page-wrapper-end.inc.php');
 $scripts = "";
 $modals = <<<HTML
+<div></div>
 HTML;
 include_once('../includes/footer.inc.php');
 ?>
