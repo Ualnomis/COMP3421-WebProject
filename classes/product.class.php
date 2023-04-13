@@ -41,6 +41,11 @@ class Product
     {
         return $this->query("UPDATE {$this->table} SET quantity = quantity - ? WHERE id = ? AND status != 'deleted'", "ii", [$quantity_to_decrease, $product_id], true);
     }
+    public function select_by_name_or_description($search_term)
+    {
+        $search_term = "%{$search_term}%";
+        return $this->query("SELECT * FROM {$this->table} WHERE (name LIKE ? OR description LIKE ?) AND status != 'deleted' ORDER BY id DESC", "ss", [$search_term, $search_term]);
+    }
 
     private function query($query, $bind_types = "", $params = [], $return_affected_rows = false)
     {

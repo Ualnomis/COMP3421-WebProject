@@ -3,8 +3,22 @@ $title = "Gifts";
 $styles = <<<HTML
 <link href="../assets/css/product.css" rel="stylesheet">
 HTML;
-$page_title = "Gifts";
+$page_title = "";
+$search_field = <<<HTML
+  <form action="" method="GET">
+<div class="input-group">
+  
+    <div class="input-icon flex-fill">
+        <span class="input-icon-addon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+        </span>
+        <input type="text" value="" name="search" class="form-control" placeholder="Search Gift">
+    </div>
+    <input class="btn btn-dark" type="submit" value="Search!">
 
+</div>
+</form>
+HTML;
 include_once('../includes/header.inc.php');
 include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
@@ -14,8 +28,13 @@ require_once("../classes/product.class.php");
 // Initialize a new Product instance
 $product = new Product($conn);
 
-// Get all products
-$products = $product->select_all();
+if (isset($_GET['search'])) {
+    // Get all products
+    $products = $product->select_by_name_or_description($_GET['search']);
+} else {
+    // Get all products
+    $products = $product->select_all();
+}
 
 function renderProductCard($row)
 {
@@ -59,6 +78,7 @@ function renderProductCard($row)
     HTML;
 }
 
+
 ?>
 
 <!-- Page body -->
@@ -75,7 +95,7 @@ function renderProductCard($row)
             <?php
             if (isset($_SESSION['role']) && $_SESSION["role"] === 'seller') {
                 echo <<<HTML
-                <div class="col-3">
+                <div class="col-md-4 col-lg-3 col-sm-6">
                     <a href="./add-product.php" class="">
                     <div class="card hvr-grow w-100 h-100 d-flex align-items-center justify-content-center text-center">
                         <div class="card-body d-flex align-items-center justify-content-center flex-column">
