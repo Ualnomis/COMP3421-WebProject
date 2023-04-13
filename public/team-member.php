@@ -15,6 +15,17 @@ $page_title = "";
 include_once('../includes/header.inc.php');
 include_once('../includes/navbar.inc.php');
 require_once('../classes/user.class.php');
+
+if (!isset($_SESSION['user_id'])) {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+} else if ($_SESSION['role'] === 'seller') {
+
+} else if ($_SESSION['role'] === 'buyer') {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+}
+
 $user = new User($conn);
 $users = $user->getAllUsers();
 ?>
@@ -22,7 +33,7 @@ $users = $user->getAllUsers();
 <div class="container-xl mt-3">
     <div class="card">
         <div class="card-body">
-            <div class="card-header d-flex justify-content-between"> 
+            <div class="card-header d-flex justify-content-between">
                 <h1 class="card-title">Users</h1>
                 <a href="register.php" class="btn btn-primary add-user-btn">Add User</a>
             </div>
