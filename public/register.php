@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$error) {
         
         $result = $user->register($user_name, $email, $user_password, $role);
-        if ($result) {
+        if ($result && !isset($_SESSION['role'])) {
             // call the login method
             $result = $user->login($email, $user_password);
             $cart = new Cart($conn);
@@ -78,7 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             echo '<script>window.location.replace("register-success.php");</script>';
             exit();
-        } else {
+        } else if ($_SESSION['role'] === 'seller') {
+            echo '<script>window.location.replace("team-member.php");</script>';
+        }else {
             $error = true;
             $errorMessage = 'Registration failed. Email address is already registered.';
         }
