@@ -550,6 +550,73 @@ function edit_Product() {
     });
 }
 
+function listOrderDetail() {
+    const orderDetailsModal = document.getElementById('orderDetailsModal');
+    if (!orderDetailsModal) {
+        location.reload();
+        return;
+    }
+    const orderDetails = document.getElementById('orderDetails');
+    const orderIdInput = document.getElementById('order_id');
+    const viewOrderDetailsButtons = document.getElementsByClassName('view-order-details');
+    const updateOrderStatusForm = document.getElementById('updateOrderStatusForm');
+
+    for (let button of viewOrderDetailsButtons) {
+        button.addEventListener('click', function () {
+            const orderId = button.getAttribute('data-order-id');
+            if (orderIdInput) {
+                orderIdInput.value = orderId;
+            }
+            fetchOrderDetails(orderId);
+        });
+    }
+
+    function fetchOrderDetails(orderId) {
+        // Fetch order details with AJAX and update the modal content
+        // For example:
+        fetch(`./order_items.php?order_id=${orderId}`)
+            .then(response => response.text())
+            .then(html => {
+                orderDetails.innerHTML = html;
+            });
+    }
+
+
+    if (updateOrderStatusForm) {
+        updateOrderStatusForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+    
+            const formData = new FormData(updateOrderStatusForm);
+            const orderId = formData.get('order_id');
+            const orderStatus = formData.get('order_status');
+    
+            updateOrderStatus(orderId, orderStatus);
+        });
+    }
+
+
+    function updateOrderStatus(orderId, orderStatus) {
+        // Send an AJAX request to update the order status
+        // Replace `./update_order_status.php` with the path to your PHP script for updating the order status
+        fetch('./update_order_status.php', {
+            method: 'POST',
+            body: new FormData(updateOrderStatusForm)
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Update the UI to reflect the new status, e.g., close the modal and show a success message
+                    orderDetailsModal.querySelector('.btn-close').click();
+                    alert('Order status updated successfully');
+                } else {
+                    // Show an error message if the update failed
+                    alert('Error updating order status');
+                }
+            });
+    }
+
+}
+
 function init() {
     globalInit();
     addExpiryDateSlash();
@@ -578,7 +645,13 @@ function init() {
         add_Product();
     }
 
+    if (document.querySelector("#list-order")) {
+        console.log("load list-order-detail js");
+        listOrderDetail();
+    }
 }
+
+
 
 function addExpiryDateSlash() {
     const expiryDateInput = document.getElementById('expiry-date');
