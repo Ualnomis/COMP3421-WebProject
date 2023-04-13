@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             echo '<script>window.location.replace("register-success.php");</script>';
             exit();
-        } else if ($_SESSION['role'] === 'seller') {
+        } else if (isset($_SESSION['role']) && $_SESSION['role'] === 'seller') {
             echo '<script>window.location.replace("team-member.php");</script>';
         }else {
             $error = true;
