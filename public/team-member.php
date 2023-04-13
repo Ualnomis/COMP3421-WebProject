@@ -70,8 +70,7 @@ $users = $user->getAllUsers();
                                             <?= $user['role'] ?>
                                         </td>
                                         <td>
-                                            <a href="edit-user.php?userid=<?= $user['id'] ?>"><i
-                                                    class="fa-solid fa-magnifying-glass"></i></a>
+                                            <button class="btn btn-primary" href="edit-user.php?userid=<?= $user['id'] ?>">Edit</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
