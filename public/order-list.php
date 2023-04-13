@@ -96,16 +96,16 @@ foreach ($all_order_status as $order_status) {
                                                 </div>
                                             </td>
                                             <td>
+                                                <button class="btn btn-primary view-order-details" data-bs-toggle="modal"
+                                                    data-bs-target="#orderDetailsModal" data-order-id="<?= $order['id'] ?>"
+                                                    data-order-status="<?= $order['status_id'] ?>">
+                                                    View Details
+                                                </button>
                                                 <?php if ($order['status_id'] === 1 && $_SESSION['role'] == 'buyer'): ?>
+
                                                     <a href="./checkout.php?order_id=<?= $order['id'] ?>"
                                                         class="btn btn-primary">Checkout
                                                         Now</a>
-                                                <?php else: ?>
-                                                    <button class="btn btn-primary view-order-details" data-bs-toggle="modal"
-                                                        data-bs-target="#orderDetailsModal" data-order-id="<?= $order['id'] ?>"
-                                                        data-order-status="<?= $order['status_id'] ?>">
-                                                        View Details
-                                                    </button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -122,8 +122,9 @@ foreach ($all_order_status as $order_status) {
                             <ul class="pagination">
                                 <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                                     <li>
-                                        <a href="?page=<?= $i ?>" class="<?php if ($page === $i)
-                                              echo 'bg-blue-500 text-white'; ?> hover:bg-blue-400 px-3 py-2 rounded"><?= $i ?></a>
+                                        <a href="?page=<?= $i ?>"
+                                            class="<?php if ($page === $i)
+                                                echo 'bg-blue-500 text-white'; ?> hover:bg-blue-400 px-3 py-2 rounded"><?= $i ?></a>
                                     </li>
                                 <?php endfor; ?>
                             </ul>
