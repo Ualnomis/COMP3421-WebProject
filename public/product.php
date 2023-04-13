@@ -29,7 +29,7 @@ $search_field = <<<HTML
         </span>
         <input type="text" value="{$search_result}" name="search" class="form-control" placeholder="Search Gift">
     </div>
-    <input class="btn btn-dark" type="submit" value="Search!">
+    <input class="btn btn-outline-dark" type="submit" value="Search!">
 
 </div>
 </form>
