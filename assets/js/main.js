@@ -454,8 +454,8 @@ function home_canvas() {
     // scene.add(pointLightHelper);
 
 
-    const gridHelper = new THREE.GridHelper(200, 50);
-    scene.add(gridHelper);
+    // const gridHelper = new THREE.GridHelper(200, 50);
+    // scene.add(gridHelper);
     // scene.add(new THREE.AxesHelper(500));
 
     const spotLight = new THREE.SpotLight(0xffffff, 1);
@@ -522,16 +522,16 @@ function home_canvas() {
     camera.position.y = 10
     camera.position.x = 10
 
-    const addStar = () => {
-        const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-        const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
-        const star = new THREE.Mesh(geometry, material);
-        const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-        star.position.set(x, y, z);
-        scene.add(star);
-    }
+    // const addStar = () => {
+    //     const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+    //     const material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+    //     const star = new THREE.Mesh(geometry, material);
+    //     const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+    //     star.position.set(x, y, z);
+    //     scene.add(star);
+    // }
 
-    Array(200).fill().forEach(addStar);
+    // Array(200).fill().forEach(addStar);
 
     // const spaceTexture = new THREE.TextureLoader().load('../assets/images/space.jpg');
     // scene.background = spaceTexture;
