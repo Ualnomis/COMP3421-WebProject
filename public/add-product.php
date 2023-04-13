@@ -11,6 +11,16 @@ include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
 require_once('../classes/product.class.php');
 
+if (!isset($_SESSION['user_id'])) {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+} else if ($_SESSION['role'] === 'seller') {
+    
+} else if ($_SESSION['role'] === 'buyer') {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+}
+
 $product = new Product($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
