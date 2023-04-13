@@ -85,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-group pt-3" >
                     <label for="role">Role:</label>
                     <select class="form-control" id="role" name="role">
-                        <option value="user" <?= ($user_data['role'] == 'user') ? 'selected' : '' ?>>User</option>
-                        <option value="seller" <?= ($user_data['role'] == 'seller') ? 'selected' : '' ?>>seller</option>
+                        <option value="buyer" <?= ($user_data['role'] == 'buyer') ? 'selected' : '' ?>>Buyer</option>
+                        <option value="seller" <?= ($user_data['role'] == 'seller') ? 'selected' : '' ?>>Seller</option>
                     </select>
                 </div>
                 <?php endif; ?>
