@@ -4,6 +4,21 @@ $styles = <<<HTML
 <link href="../assets/css/product.css" rel="stylesheet">
 HTML;
 $page_title = "";
+
+include_once('../includes/header.inc.php');
+include_once('../includes/navbar.inc.php');
+require_once("../classes/product.class.php");
+// Initialize a new Product instance
+$product = new Product($conn);
+$search_result = "";
+if (isset($_GET['search'])) {
+    // Get all products
+    $search_result = $_GET['search'];
+    $products = $product->select_by_name_or_description($search_result);
+} else {
+    // Get all products
+    $products = $product->select_all();
+}
 $search_field = <<<HTML
   <form action="" method="GET">
 <div class="input-group">
@@ -12,29 +27,15 @@ $search_field = <<<HTML
         <span class="input-icon-addon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
         </span>
-        <input type="text" value="" name="search" class="form-control" placeholder="Search Gift">
+        <input type="text" value="{$search_result}" name="search" class="form-control" placeholder="Search Gift">
     </div>
     <input class="btn btn-dark" type="submit" value="Search!">
 
 </div>
 </form>
 HTML;
-include_once('../includes/header.inc.php');
-include_once('../includes/navbar.inc.php');
+
 include_once('../includes/page-wrapper-start.inc.php');
-
-require_once("../classes/product.class.php");
-
-// Initialize a new Product instance
-$product = new Product($conn);
-
-if (isset($_GET['search'])) {
-    // Get all products
-    $products = $product->select_by_name_or_description($_GET['search']);
-} else {
-    // Get all products
-    $products = $product->select_all();
-}
 
 function renderProductCard($row)
 {
