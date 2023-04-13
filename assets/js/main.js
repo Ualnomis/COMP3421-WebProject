@@ -265,9 +265,9 @@ function globalInit() {
                 team_li.classList.remove('active');
                 body.classList.remove('overflow-hidden');
             } else if (currentUrl.includes('team-member.php')) {
-                team_li.classList.remove('active');
+                team_li.classList.add('active');
                 home_li.classList.remove('active');
-                gift_li.classList.add('active');
+                gift_li.classList.remove('active');
                 body.classList.remove('overflow-hidden');
             } else if (currentUrl.includes('product-detail.php')) {
                 team_li.classList.remove('active');
