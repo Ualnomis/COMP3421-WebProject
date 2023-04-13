@@ -42,7 +42,7 @@ function renderProductCard($row)
     $sold_out_badge = $row["quantity"] == 0 ? '<span class="badge bg-red">Sold Out</span>' : "";
     if (isset($_SESSION['role']) && $_SESSION["role"] === 'seller') {
         $cart_footer = <<<HTML
-            <div class="card-footer d-flex justify-content-end">
+            <div class="card-footer d-flex justify-content-end" style="z-index: 2; position: relative;">
         
             <a class="btn btn-outline-dark" href="./edit-product.php?id={$row['id']}">Edit</a>
             <a class="btn btn-danger ms-3" href="./delete-product.php?id={$row['id']}">Delete</a>
@@ -53,25 +53,32 @@ function renderProductCard($row)
         HTML;
     }
 
+
     if ($row["status"] === 'hide' && (!isset($_SESSION["role"]) || !($_SESSION["role"] === "seller"))) {
         return "";
     }
-
+    if ($row['status'] === 'hide') {
+        $cart_footer .= <<<HTML
+            <div class="position-absolute top-0 bottom-0 left-0 right-0 d-flex justify-content-center bg-opacity-75 bg-black align-items-center" style="z-index: 1;">
+                <span class="text-white fs-1 d-flex justify-content-center flex-column align-items-center"><i class="fa-regular fa-eye-slash"></i>Product Hidden</span>
+            </div>
+HTML;
+    }
     return <<<HTML
-        <div class="col-md-4 col-lg-3 col-sm-6">
-            <div class="card hvr-grow w-100 h-100">
-                <a href="./product-detail.php?id={$row['id']}" class="d-block hover:no-underline">
-                <img src="{$row['image_url']}" class="card-img-top img-fiuld h-[250px]" style="object-fit: contain; object-position: center;">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <div>{$row['name']} {$sold_out_badge}</div>
-                            <div>{$row['price']}</div>
-                            <div>{$row['quantity']} left</div>
-                        </div>
+    <div class="col-md-4 col-lg-3 col-sm-6">
+        <div class="card hvr-grow w-100 h-100 position-relative">
+            <a href="./product-detail.php?id={$row['id']}" class="d-block hover:no-underline">
+            <img src="{$row['image_url']}" class="card-img-top img-fiuld h-[250px]" style="object-fit: contain; object-position: center;">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <div>{$row['name']} {$sold_out_badge}</div>
+                        <div>{$row['price']}</div>
+                        <div>{$row['quantity']} left</div>
                     </div>
                 </div>
-                </a>
+            </div>
+            </a>
                 {$cart_footer}
             </div>
         </div>
