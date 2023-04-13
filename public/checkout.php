@@ -9,6 +9,16 @@ require_once('../classes/cart.class.php');
 require_once('../classes/order.class.php');
 include_once('../includes/page-wrapper-start.inc.php');
 
+if (!isset($_SESSION['user_id'])) {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+} else if ($_SESSION['role'] === 'seller') {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+} else if ($_SESSION['role'] === 'buyer') {
+
+}
+
 if (isset($_GET['order_id'])) {
     $order_id = $_GET['order_id'];
     $order = new Order($conn);
@@ -94,16 +104,18 @@ if (isset($_GET['order_id'])) {
                                 </h1>
                                 <div class="col-12 mb-3">
                                     <label class="form-label">Card Number</label>
-                                    <input type="text" class="form-control" placeholder="Card Number" name="cardnumber" pattern="\d{16}" maxlength="16" required>
+                                    <input type="text" class="form-control" placeholder="Card Number" name="cardnumber"
+                                        pattern="\d{16}" maxlength="16" required>
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                     <label class="form-label">Expiry date</label>
-                                    <input type="text" class="form-control" id="expiry-date" placeholder="MM/YY" name="cardexpiry" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" maxlength="5" required>
+                                    <input type="text" class="form-control" id="expiry-date" placeholder="MM/YY"
+                                        name="cardexpiry" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" maxlength="5" required>
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                     <label class="form-label">CVV</label>
-                                    <input type="text" class="form-control" placeholder="CVV" name="cardcvv" value="" maxlength="3"
-                                        required>
+                                    <input type="text" class="form-control" placeholder="CVV" name="cardcvv" value=""
+                                        maxlength="3" required>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end">
                                     <input type="hidden" name="order_id" value="<?= $order_id ?>" />
