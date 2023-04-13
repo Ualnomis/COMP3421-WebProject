@@ -6,6 +6,9 @@ require_once '../classes/order.class.php';
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'User not logged in']);
     exit;
+} else if ($_SESSION['role'] === 'buyer') {
+    echo json_encode(['success' => false, 'message' => 'Invalid Request']);
+    exit;
 }
 
 $order = new Order($conn);
