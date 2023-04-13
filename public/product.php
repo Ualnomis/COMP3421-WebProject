@@ -21,13 +21,15 @@ function renderProductCard($row)
 {
     $sold_out_badge = $row["quantity"] == 0 ? '<span class="badge bg-red">Sold Out</span>' : "";
     if (isset($_SESSION['role']) && $_SESSION["role"] === 'seller') {
-        $btn_edit = <<<HTML
+        $cart_footer = <<<HTML
+            <div class="card-footer d-flex justify-content-end">
+        
             <a class="btn btn-outline-light" href="./edit-product.php?id={$row['id']}">Edit</a>
-            <a class="btn btn-danger" href="./delete-product.php?id={$row['id']}">Delete</a>
+            <a class="btn btn-danger ms-3" href="./delete-product.php?id={$row['id']}">Delete</a>
+            </div>
         HTML;
     } else {
-        $btn_edit = <<<HTML
-        <div></div>
+        $cart_footer = <<<HTML
         HTML;
     }
 
@@ -51,9 +53,7 @@ function renderProductCard($row)
                     </div>
                 </div>
                 </a>
-                <div class="card-footer">
-                    {$btn_edit}
-                </div>
+                {$cart_footer}
             </div>
         </div>
     HTML;
