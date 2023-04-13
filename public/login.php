@@ -52,11 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php endif; ?>
                 <form action="" method="post" autocomplete="off" novalidate>
                     <div class="mb-3">
-                        <label class="form-label">Email address</label>
+                        <label class="form-label required">Email address</label>
                         <input type="email" name="email" class="form-control focus:text-dark" placeholder="your@email.com"
                             autocomplete="off">
                     </div>
                     <div class="mb-2">
+                        <label class="form-label required">Password</label>
                         <div class="input-group input-group-flat">
                             <input id="password" type="password" name="password" class="form-control" placeholder="Your password"
                                 autocomplete="off">

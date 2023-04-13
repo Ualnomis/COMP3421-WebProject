@@ -99,16 +99,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="alert alert-danger"><?php echo $errorMessage; ?></div>
                 <?php endif; ?>
                 <div class="mb-3">
-                    <label class="form-label">User name</label>
+                    <label class="form-label required">User name</label>
                     <input type="text" name="username" class="form-control" placeholder="Enter name" value="<?php echo $user_name?>">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Email address</label>
+                    <label class="form-label required">Email address</label>
                     <input type="email" name="email" class="form-control" placeholder="Enter email" value="<?php echo $email?>">
                 </div>
                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'seller'): ?>
                 <div class="mb-3">
-                    <label for="role" class="form-label">Role:</label>
+                    <label for="role" class="form-label required">Role:</label>
                     <select class="form-control" id="role" name="role">
                         <option value="buyer">Buyer</option>
                         <option value="seller" selected>Seller</option>
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <?php endif; ?>
                 <div class="mb-3">
-                    <label class="form-label">Password</label>
+                    <label class="form-label required">Password</label>
                     <div class="input-group input-group-flat">
                         <input id="password" type="password" name="password" class="form-control" placeholder="Password" value="<?php echo $user_password?>"
                             autocomplete="off">

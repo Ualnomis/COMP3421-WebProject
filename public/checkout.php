@@ -55,40 +55,40 @@ if (isset($_GET['order_id'])) {
                             <div class="row row-cards">
                                 <div class="col-sm-6 col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">First Name</label>
+                                        <label class="form-label required">First Name</label>
                                         <input type="text" class="form-control" placeholder="First Name"
                                             name="buyer-first-name" value="" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Last Name</label>
+                                        <label class="form-label required">Last Name</label>
                                         <input type="text" class="form-control" placeholder="Last Name"
                                             name="buyer-last-name" value="" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Phone Number</label>
+                                        <label class="form-label required">Phone Number</label>
                                         <input type="text" class="form-control" placeholder="Phone Number"
                                             name="buyer-phone" value="" required>
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label class="form-label">Address</label>
+                                    <label class="form-label required">Address</label>
                                     <input type="text" class="form-control" placeholder="Home Address"
                                         name="buyer-home-address" value="" required>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">City</label>
+                                        <label class="form-label required">City</label>
                                         <input type="text" class="form-control" placeholder="City" name="buyer-city"
                                             value="" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">Region</label>
+                                        <label class="form-label required">Region</label>
                                         <select class="form-control form-select" name="buyer-region">
                                             <option value="Hong Kong Island">Hong Kong Island</option>
                                             <option value="Kowloon">Kowloon</option>
@@ -103,17 +103,17 @@ if (isset($_GET['order_id'])) {
                                     <span class="payment payment-provider-mastercard me-2"></span>
                                 </h1>
                                 <div class="col-12 mb-3">
-                                    <label class="form-label">Card Number</label>
+                                    <label class="form-label required">Card Number</label>
                                     <input type="text" class="form-control" placeholder="Card Number" name="cardnumber"
                                         pattern="\d{16}" maxlength="16" required>
                                 </div>
                                 <div class="col-sm-6 col-md-3">
-                                    <label class="form-label">Expiry date</label>
+                                    <label class="form-label required">Expiry date</label>
                                     <input type="text" class="form-control" id="expiry-date" placeholder="MM/YY"
                                         name="cardexpiry" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" maxlength="5" required>
                                 </div>
                                 <div class="col-sm-6 col-md-3">
-                                    <label class="form-label">CVV</label>
+                                    <label class="form-label required">CVV</label>
                                     <input type="text" class="form-control" placeholder="CVV" name="cardcvv" value=""
                                         maxlength="3" required>
                                 </div>
