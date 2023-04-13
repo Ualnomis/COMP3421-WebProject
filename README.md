@@ -20,14 +20,19 @@ git clone https://github.com/Ualnomis/COMP3421-WebProject.git
 
 <img src="MDImage/xampp.jpg" alt= "" width="650" height="400">
 
-5. Go to `sql` folder and Copy the SQL in `db.sql`
+5. Change the project path if necessary
+
+<img src="MDImage/Picture1.png" alt= "" >
+<img src="MDImage/Picture2.png" alt= "" >
+
+6. Go to `sql` folder and Copy the SQL in `giftify.sql`
 ```
-.../sql/db.sql
+.../sql/giftify.sql
 ```
 
-6. Go to [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
-7. Click SQL tab > paste the sql > run
-8. Go to [http://localhost/COMP3421-WebProject/public/](http://localhost/COMP3421-WebProject/public/) to check the project
+7. Go to [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
+8. Click SQL tab > paste the sql > run
+9. Go to [http://localhost/COMP3421-WebProject/public/](http://localhost/COMP3421-WebProject/public/) to check the project
 
 admin (seller) accounts:
 ```
