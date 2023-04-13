@@ -33,7 +33,6 @@ function renderProductCard($row)
 
     if ($row["status"] === 'hide' && (!isset($_SESSION["role"]) || !($_SESSION["role"] === "seller"))) {
         return <<<HTML
-          <div></div>
         HTML;
     }
 
