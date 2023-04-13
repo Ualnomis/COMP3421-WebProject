@@ -41,94 +41,99 @@ foreach ($all_order_status as $order_status) {
 ?>
 <div class="page-body" id="list-order">
     <div class="container-xl mt-3">
-        <div class="row">
-            <div class="col-12">
-                <h1>Order List</h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Date</th>
-                            <th>Total Price</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (is_array($orders) && count($orders) > 0): ?>
-                            <?php foreach ($orders as $order): ?>
-                                <tr class="order-row">
-                                    <td>
-                                        <?= $order['id'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $order['order_date'] ?>
-                                    </td>
-                                    <td>$
-                                        <?= $order['total'] ?>
-                                    </td>
-                                    <td>
-                                        <div class="datagrid-item">
-                                            <div class="datagrid-content">
-                                                <?php if ($order['status_id'] === 1): ?>
-                                                    <span class="status status-red">
-                                                        <?= $order['status_name'] ?>
-                                                    </span>
-                                                <?php endif; ?>
-                                                <?php if ($order['status_id'] === 2): ?>
-                                                    <span class="status status-green">
-                                                        <?= $order['status_name'] ?>
-                                                    </span>
-                                                <?php endif; ?>
-                                                <?php if ($order['status_id'] === 3): ?>
-                                                    <span class="status status-blue">
-                                                        <?= $order['status_name'] ?>
-                                                    </span>
-                                                <?php endif; ?>
-                                                <?php if ($order['status_id'] === 4): ?>
-                                                    <span class="status status-grey">
-                                                        <?= $order['status_name'] ?>
-                                                    </span>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <?php if ($order['status_id'] === 1 && $_SESSION['role'] == 'buyer'): ?>
-                                            <a href="./checkout.php?order_id=<?= $order['id'] ?>" class="btn btn-primary">Checkout
-                                                Now</a>
-                                        <?php else: ?>
-                                            <button class="btn btn-primary view-order-details" data-bs-toggle="modal"
-                                                data-bs-target="#orderDetailsModal" data-order-id="<?= $order['id'] ?>" data-order-status="<?= $order['status_id'] ?>">
-                                                View Details
-                                            </button>
-                                        <?php endif; ?>
-                                    </td>
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Order List</h1>
+                <div class="row row-cards">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Total Price</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="4">No orders found.</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                <?php if (is_array($orders) && count($orders) > 0): ?>
+                                    <?php foreach ($orders as $order): ?>
+                                        <tr class="order-row">
+                                            <td>
+                                                <?= $order['id'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $order['order_date'] ?>
+                                            </td>
+                                            <td>$
+                                                <?= $order['total'] ?>
+                                            </td>
+                                            <td>
+                                                <div class="datagrid-item">
+                                                    <div class="datagrid-content">
+                                                        <?php if ($order['status_id'] === 1): ?>
+                                                            <span class="status status-red">
+                                                                <?= $order['status_name'] ?>
+                                                            </span>
+                                                        <?php endif; ?>
+                                                        <?php if ($order['status_id'] === 2): ?>
+                                                            <span class="status status-green">
+                                                                <?= $order['status_name'] ?>
+                                                            </span>
+                                                        <?php endif; ?>
+                                                        <?php if ($order['status_id'] === 3): ?>
+                                                            <span class="status status-blue">
+                                                                <?= $order['status_name'] ?>
+                                                            </span>
+                                                        <?php endif; ?>
+                                                        <?php if ($order['status_id'] === 4): ?>
+                                                            <span class="status status-grey">
+                                                                <?= $order['status_name'] ?>
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <?php if ($order['status_id'] === 1 && $_SESSION['role'] == 'buyer'): ?>
+                                                    <a href="./checkout.php?order_id=<?= $order['id'] ?>"
+                                                        class="btn btn-primary">Checkout
+                                                        Now</a>
+                                                <?php else: ?>
+                                                    <button class="btn btn-primary view-order-details" data-bs-toggle="modal"
+                                                        data-bs-target="#orderDetailsModal" data-order-id="<?= $order['id'] ?>"
+                                                        data-order-status="<?= $order['status_id'] ?>">
+                                                        View Details
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="4">No orders found.</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
 
-                <div class="flex justify-center mt-5">
-                    <ul class="pagination">
-                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <li>
-                                <a href="?page=<?= $i ?>" class="<?php if ($page === $i)
-                                      echo 'bg-blue-500 text-white'; ?> hover:bg-blue-400 px-3 py-2 rounded"><?= $i ?></a>
-                            </li>
-                        <?php endfor; ?>
-                    </ul>
+                        <div class="flex justify-center mt-5">
+                            <ul class="pagination">
+                                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                    <li>
+                                        <a href="?page=<?= $i ?>" class="<?php if ($page === $i)
+                                              echo 'bg-blue-500 text-white'; ?> hover:bg-blue-400 px-3 py-2 rounded"><?= $i ?></a>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-
 
 
     <?php

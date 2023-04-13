@@ -29,26 +29,31 @@ $cart_items = $cart->getCartItems($cart_id)['cart_items'];
 <div class="page-body" id="cart_detail">
     <div class="container-xl">
         <!-- Content here -->
-        <div class="row">
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table class="table table-vcenter">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Product</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th class="w-1"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="cart-body">
-                        </tbody>
-                        <tfoot id="cart-foot">
-                        </tfoot>
-                    </table>
-                    <div id="cart-checkout">
-                    </div>
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title"></h1>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-vcenter">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Product</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th class="w-1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-body">
+                                </tbody>
+                                <tfoot id="cart-foot">
+                                </tfoot>
+                            </table>
+                            <div id="cart-checkout">
+                            </div>
 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

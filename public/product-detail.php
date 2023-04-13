@@ -96,58 +96,68 @@ HTML;
 <div class="page-body">
     <div class="container-xl">
         <div id="alert-container"></div>
-        <div class="row">
-            <div class="col-md-8 col-sm-12 flex justify-center items-center">
-                <img src="<?= $product_data['image_url']; ?>" class="w-[300px] h-auto" />
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <form method="post" id="add-to-cart-form">
-                    <div class="mb-3">
-                        <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
-                        <label class="form-label">Product Name</label>
-                        <input type="text" class="form-control" value="<?= $product_data['name']; ?>" readonly>
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title"></h1>
+                <div class="row row-cards">
+                    <div class="col-md-8 col-sm-12 flex justify-center items-center">
+                        <img src="<?= $product_data['image_url']; ?>" class="w-[300px] h-auto" />
                     </div>
-                    <div class="mb-3">
-                        <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
-                        <label class="form-label">Product Description:</label>
-                        <input type="text" class="form-control" value="<?= $product_data['description']; ?>" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
-                        <label class="form-label">HK$</label>
-                        <input type="text" class="form-control" value="<?= $product_data['price']; ?>" readonly>
-                    </div>
-
-                    <?php if ((isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
-                        <div class="mb-3">
-                            <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
-                            <label class="form-label">Quantity</label>
-                            <input type="text" class="form-control" value="<?= $product_data['quantity']; ?>" readonly>
-                        </div>
-                    <?php endif; ?>
-
-
-
-
-                    <?php if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
-                        <div class="mt-3">
-                            <label class="form-label">Quantity</label>
-                            <div class="input-group w-50">
-                                <button class="btn btn-outline-dark" id="btn-minus-quantity"
-                                    <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
-                                    -
-                                </button>
-                                <input type="number" class="form-control" name="order-quantity"
-                                    value="<?= $product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>" min="1"
-                                    max="<?= $product_data['quantity']; ?>" step="1" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
-                                <button class="btn btn-outline-dark" id="btn-add-quantity" <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
-                                    +
-                                </button>
+                    <div class="col-md-4 col-sm-12">
+                        <form method="post" id="add-to-cart-form">
+                            <div class="mb-3">
+                                <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
+                                <label class="form-label">Product Name</label>
+                                <input type="text" class="form-control" value="<?= $product_data['name']; ?>" readonly>
                             </div>
-                        </div>
-                    <?php endif; ?>
-                    <?= renderActionButton($product_data); ?>
-                </form>
+                            <div class="mb-3">
+                                <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
+                                <label class="form-label">Product Description:</label>
+                                <input type="text" class="form-control" value="<?= $product_data['description']; ?>"
+                                    readonly>
+                            </div>
+                            <div class="mb-3">
+                                <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
+                                <label class="form-label">HK$</label>
+                                <input type="text" class="form-control" value="<?= $product_data['price']; ?>" readonly>
+                            </div>
+
+                            <?php if ((isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
+                                <div class="mb-3">
+                                    <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
+                                    <label class="form-label">Quantity</label>
+                                    <input type="text" class="form-control" value="<?= $product_data['quantity']; ?>"
+                                        readonly>
+                                </div>
+                            <?php endif; ?>
+
+
+
+
+                            <?php if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
+                                <div class="mt-3">
+                                    <label class="form-label">Quantity</label>
+                                    <div class="input-group w-50">
+                                        <button class="btn btn-outline-dark" id="btn-minus-quantity"
+                                            <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                                            -
+                                        </button>
+                                        <input type="number" class="form-control" name="order-quantity"
+                                            value="<?= $product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>"
+                                            min="1" max="<?= $product_data['quantity']; ?>" step="1"
+                                            <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
+                                        <button class="btn btn-outline-dark" id="btn-add-quantity"
+                                            <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <?= renderActionButton($product_data); ?>
+                        </form>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
