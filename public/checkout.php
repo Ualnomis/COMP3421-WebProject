@@ -38,7 +38,7 @@ if (isset($_GET['order_id'])) {
         <div class="row">
 
             <div class="col-8">
-                <form method="POST" action="../includes/pay.php" id="checkout-form">
+                <form method="POST" action="../includes/pay.inc.php" id="checkout-form">
                     <div class="card">
                         <div class="card-body">
                             <h1 class="card-title">Personal Information</h1>
