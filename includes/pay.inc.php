@@ -3,6 +3,17 @@ require_once '../config/db_connection.php';
 require_once '../classes/cart.class.php';
 require_once '../classes/order.class.php';
 require_once('../classes/product.class.php');
+
+if (!isset($_SESSION['user_id'])) {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+} else if ($_SESSION['role'] === 'seller') {
+    echo '<script>window.location.replace("../public/");</script>';
+    exit;
+} else if ($_SESSION['role'] === 'buyer') {
+
+}
+
 $error_msg = "";
 function isPostDataValid($post_data)
 {
