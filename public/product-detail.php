@@ -27,18 +27,6 @@ $page_title = "Gift Detail";
 include_once('../includes/navbar.inc.php');
 include_once('../includes/page-wrapper-start.inc.php');
 
-// Get the current page number from the URL or set it to 1 if not specified
-$current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
-
-// Set the number of reviews to display per page
-$reviews_per_page = 3;
-
-// Calculate the offset for the current page
-$offset = ($current_page - 1) * $reviews_per_page;
-
-// Get the reviews for the current product and page
-$reviews = $review->selectByProductId($id, $reviews_per_page, $offset);
-
 
 function getTotalReviews($conn, $id)
 {
