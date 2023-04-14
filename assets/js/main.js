@@ -275,7 +275,7 @@ function globalInit() {
                 gift_li.classList.add('active');
                 body.classList.remove('overflow-hidden');
             } else {
-                home_li.classList.add('active');
+                home_li.classList.remove('active');
                 gift_li.classList.remove('active');
                 team_li.classList.remove('active');
                 body.classList.add('overflow-hidden');

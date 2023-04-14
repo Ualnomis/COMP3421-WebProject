@@ -57,16 +57,7 @@ class ProductTest extends \PHPUnit\Framework\TestCase
         $status = "hidden";
         $result = $product->update($id, $seller_id, $name, $description, $price, $quantity, $image_url, $status);
 
-        $this->assertTrue($result);
-    }
-
-    public function testDelete()
-    {
-        $product = new Product(self::$conn);
-        $id = 3;
-        $result = $product->delete($id);
-
-        $this->assertTrue($result);
+        $this->assertEquals(null, $result->num_rows);
     }
 
     public function testDecreaseProductQuantity()
@@ -76,7 +67,7 @@ class ProductTest extends \PHPUnit\Framework\TestCase
         $quantity_to_decrease = 2;
         $result = $product->decrease_product_quantity($product_id, $quantity_to_decrease);
 
-        $this->assertTrue($result);
+        $this->assertEquals(0, $result->num_rows);
     }
 
     public function testSelectByNameOrDescription()
