@@ -181,9 +181,9 @@ $errorMessage = isset($_SESSION['error_message']) ? $_SESSION['error_message'] :
                         <div class="row row-cards">
                             <?php foreach ($order_items as $order_item): ?>
 
-                                <div class="col-2">
+                                <div class="col-2 position-relative">
                                     <img src="<?= $order_item['image_url']; ?>" />
-                                    <span class="badge badge-pill bg-red">
+                                    <span class="badge badge-pill bg-red position-absolute top-0 left-0">
                                         <?= $order_item['quantity'] ?>
                                     </span>
                                 </div>
