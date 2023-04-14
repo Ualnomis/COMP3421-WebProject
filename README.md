@@ -36,7 +36,7 @@ git clone https://github.com/Ualnomis/COMP3421-WebProject.git
 
 admin (seller) accounts:
 ```
-email:admin
+email:admin@giftify.com
 password:admin
 ```
 
