@@ -42,3 +42,6 @@ password:admin
 
 buyer account:
 use registration page
+
+
+DEMO: https://youtu.be/-Rx0fUhu9dI
