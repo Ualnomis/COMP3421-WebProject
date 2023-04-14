@@ -82,7 +82,13 @@ async function updateCartItems() {
                         <form action="../includes/delete-cart-item.inc.php" method="post">
                         <input type="hidden" name="cart_item_id" value="${cartItem.id}">
                         <button type="submit"
-                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M18 6l-12 12"></path>
+                                <path d="M6 6l12 12"></path>
+                            </svg>
+                            </button>
                         </form>
                     </td>
                     </tr>
@@ -274,12 +280,12 @@ function globalInit() {
                 home_li.classList.remove('active');
                 gift_li.classList.add('active');
                 body.classList.remove('overflow-hidden');
-            } else if (currentUrl.includes('edit-user.php') || currentUrl.includes('cart-detail.php')|| currentUrl.includes('order-list.php') ) {
+            } else if (currentUrl.includes('edit-user.php') || currentUrl.includes('cart-detail.php') || currentUrl.includes('order-list.php')) {
                 team_li.classList.remove('active');
                 home_li.classList.remove('active');
                 gift_li.classList.remove('active');
                 body.classList.remove('overflow-hidden');
-            }  else {
+            } else {
                 home_li.classList.add('active');
                 gift_li.classList.remove('active');
                 team_li.classList.remove('active');
@@ -563,18 +569,18 @@ function home_canvas() {
 
 }
 
-const eye = () =>{
+const eye = () => {
     const passwordInput = document.getElementById("password");
     const eyeIcon = document.getElementById("eye");
     const tooltip = new bootstrap.Tooltip(eyeIcon)
     console.log(tooltip);
-    
+
     eyeIcon.addEventListener("click", function () {
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-      } else {
-        passwordInput.type = "password";
-      }
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
     });
 
     tooltip.hide();
@@ -720,12 +726,12 @@ function init() {
         listOrderDetail();
     }
 
-    if(document.querySelector("#login_page")){
+    if (document.querySelector("#login_page")) {
         console.log("load login js");
         eye();
     }
 
-    if(document.querySelector("#register_page")){
+    if (document.querySelector("#register_page")) {
         console.log("load register js");
         eye();
     }
