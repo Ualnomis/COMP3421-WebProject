@@ -27,3 +27,8 @@ html.is-leaving .transition-fade{
 html.is-animating .transition-swipe{
     transform: translateY(100%);
 }
+
+.data-holder {
+    border: #e6e7e9 1px solid !important;
+    cursor: default;
+}

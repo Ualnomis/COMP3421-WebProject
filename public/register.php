@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'seller'): ?>
                 <div class="mb-3">
                     <label for="role" class="form-label required">Role:</label>
-                    <select class="form-control" id="role" name="role">
+                    <select class="form-select" id="role" name="role">
                         <option value="buyer">Buyer</option>
                         <option value="seller" selected>Seller</option>
                     </select>
