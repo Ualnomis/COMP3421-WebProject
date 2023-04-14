@@ -110,7 +110,7 @@ HTML;
                             <div class="mb-3">
                                 <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
                                 <label class="form-label">Product Name</label>
-                                <input type="text" class="form-control data-holder" value="<?= $product_data['name']; ?>" readonly>
+                                <input type="text" class="form-control data-holder" value="<?= htmlspecialchars($product_data['name']); ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
@@ -121,14 +121,14 @@ HTML;
                             <div class="mb-3">
                                 <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
                                 <label class="form-label">HK$</label>
-                                <input type="text" class="form-control data-holder" value="<?= $product_data['price']; ?>" readonly>
+                                <input type="text" class="form-control data-holder" value="<?= htmlspecialchars($product_data['price']); ?>" readonly>
                             </div>
 
                             <?php if ((isset($_SESSION['role']) && $_SESSION['role'] === 'seller')): ?>
                                 <div class="mb-3">
                                     <input type="hidden" name="product-id" value="<?= $product_data['id']; ?>" />
                                     <label class="form-label">Quantity</label>
-                                    <input type="text" class="form-control data-holder" value="<?= $product_data['quantity']; ?>"
+                                    <input type="text" class="form-control data-holder" value="<?= htmlspecialchars($product_data['quantity']); ?>"
                                         readonly>
                                 </div>
                             <?php endif; ?>
@@ -146,7 +146,7 @@ HTML;
                                         </button>
                                         <input type="number" class="form-control" name="order-quantity"
                                             value="<?= $product_data['quantity'] == 0 ? $product_data['quantity'] : 1 ?>"
-                                            min="1" max="<?= $product_data['quantity']; ?>" step="1"
+                                            min="1" max="<?= htmlspecialchars($product_data['quantity']); ?>" step="1"
                                             <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?> pattern="[0-9]*">
                                         <button class="btn btn-outline-dark" id="btn-add-quantity"
                                             <?= $product_data['quantity'] == 0 ? "disabled" : ""; ?>>
