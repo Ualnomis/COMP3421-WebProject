@@ -6,7 +6,6 @@ HTML;
 
 include_once('../includes/header.inc.php');
 include_once('../classes/product.class.php');
-include_once('../classes/review.class.php');
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -22,9 +21,6 @@ if (isset($_GET['id'])) {
     echo '<script>window.location.replace("product.php");</script>';
     exit();
 }
-
-// Create a new instance of the Review class with a database connection
-$review = new Review($conn);
 
 $page_title = "Gift Detail";
 
