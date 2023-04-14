@@ -124,8 +124,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `icon_url`, `role`) VALUES
-(1, 'admin', 'admin', '$2y$10$fNW/xSrNA7svkYmwq.05cO.N3jSUn03OEk0sX6TsuKSBN./DSvpTG', NULL, 'seller'),
-(2, 'abc123', 'abc123', '$2y$10$ea5lEinMxspPJO1fdk12Ku1bGGi1BW2paeqQbpxWmiwhD9w2hJMmi', NULL, 'buyer');
+(1, 'admin', 'admin@giftify.com', '$2y$10$fNW/xSrNA7svkYmwq.05cO.N3jSUn03OEk0sX6TsuKSBN./DSvpTG', NULL, 'seller'),
+(2, 'abc123', 'abc123@polyu.hk', '$2y$10$ea5lEinMxspPJO1fdk12Ku1bGGi1BW2paeqQbpxWmiwhD9w2hJMmi', NULL, 'buyer');
 
 --
 -- 已傾印資料表的索引
@@ -256,19 +256,7 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-
-CREATE TABLE reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    product_id INT,
-    rating INT,
-    review_text TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
--- create the OrderStatus table
+-- create the Order_status table
 CREATE TABLE `Order_Status` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
