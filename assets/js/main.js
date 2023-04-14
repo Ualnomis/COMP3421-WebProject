@@ -746,42 +746,6 @@ function addExpiryDateSlash() {
 
 
 function validateForm() {
-    const form = document.getElementById("checkout-form");
-    const phone = form["buyer-phone"].value;
-    const cardNumber = form["cardnumber"].value;
-    const cardExpiry = form["cardexpiry"].value;
-    const cardCvv = form["cardcvv"].value;
-
-    // Check if the phone number is valid
-    const phoneRegex = /^\d{8}$/;
-    if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid phone number.");
-        return false;
-    }
-
-    // Check if the card number is valid
-    const cardNumberRegex = /^\d{16}$/;
-    if (!cardNumberRegex.test(cardNumber)) {
-        alert("Please enter a valid card number.");
-        return false;
-    }
-
-    // Check if the card expiry date is valid
-    const cardExpiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
-    if (!cardExpiryRegex.test(cardExpiry)) {
-        alert("Please enter a valid expiry date (MM/YY).");
-        return false;
-    }
-
-    // Check if the card CVV is valid
-    const cardCvvRegex = /^\d{3}$/;
-    if (!cardCvvRegex.test(cardCvv)) {
-        alert("Please enter a valid CVV.");
-        return false;
-    }
-
-    // If all validations passed, submit the form
-    return true;
 }
 
 

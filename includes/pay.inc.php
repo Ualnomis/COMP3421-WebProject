@@ -78,7 +78,97 @@ function processOrder($post_data, $conn)
     }
 }
 
+
+$error = false;
+$errorMessage = '';
+
 if (isPostDataValid($_POST)) {
+    $buyerFirstName = $_POST['buyer-first-name'];
+    $buyerLastName = $_POST['buyer-last-name'];
+    $buyerPhone = $_POST['buyer-phone'];
+    $buyerHomeAddress = $_POST['buyer-home-address'];
+    $buyerCity = $_POST['buyer-city'];
+    $buyerRegion = $_POST['buyer-region'];
+    $cardNumber = $_POST['cardnumber'];
+    $cardExpiry = $_POST['cardexpiry'];
+    $cardCVV = $_POST['cardcvv'];
+    
+    // Validate card CVV
+    if (empty($cardCVV)) {
+        $error = true;
+        $errorMessage = 'Please enter your card CVV.';
+    } elseif (!preg_match('/^\d{3}$/', $cardCVV)) {
+        $error = true;
+        $errorMessage = 'Card CVV must be exactly 3 digits long.';
+    }
+
+    // Validate card expiry date
+    if (empty($cardExpiry)) {
+        $error = true;
+        $errorMessage = 'Please enter your card expiry date.';
+    } elseif (!preg_match('/^(0[1-9]|1[0-2])\/?([0-9]{2})$/', $cardExpiry)) {
+        $error = true;
+        $errorMessage = 'Card expiry date must be in the format MM/YY.';
+    }
+
+    // Validate card number
+    if (empty($cardNumber)) {
+        $error = true;
+        $errorMessage = 'Please enter your card number.';
+    } elseif (!preg_match('/^\d{16}$/', $cardNumber)) {
+        $error = true;
+        $errorMessage = 'Card number must be exactly 16 digits long.';
+    }
+    
+    // Validate buyer's region
+    if (empty($buyerRegion)) {
+        $error = true;
+        $errorMessage = 'Please select your region.';
+    }
+
+    // Validate buyer's city
+    if (empty($buyerCity)) {
+        $error = true;
+        $errorMessage = 'Please enter your city.';
+    }
+
+    // Validate buyer's home address
+    if (empty($buyerHomeAddress)) {
+        $error = true;
+        $errorMessage = 'Please enter your home address.';
+    }
+
+    // Validate buyer's phone number
+    if (empty($buyerPhone)) {
+        $error = true;
+        $errorMessage = 'Please enter your phone number.';
+    } elseif (!preg_match('/^[0-9]{8}$/', $buyerPhone)) {
+        $error = true;
+        $errorMessage = 'Phone number can only contain 8 digits.';
+    }
+
+    // Validate buyer's last name
+    if (empty($buyerLastName)) {
+        $error = true;
+        $errorMessage = 'Please enter your last name.';
+    }
+
+    // Validate buyer's first name
+    if (empty($buyerFirstName)) {
+        $error = true;
+        $errorMessage = 'Please enter your first name.';
+    }
+
+
+    if ($error) {
+        $_SESSION['error'] = true;
+        $_SESSION['error_message'] = $errorMessage;
+        $_SESSION['form_data'] = $_POST; // Store the form data
+
+        header('Location: ../public/checkout.php?order_id=' . $_POST['order_id']); // Redirect back to the checkout page
+        exit();
+    }
+
     if (processOrder($_POST, $conn)) {
         echo '<script>window.location.replace("../public/order-list.php");</script>';
     } else {
