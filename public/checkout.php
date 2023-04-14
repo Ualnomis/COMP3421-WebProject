@@ -31,6 +31,10 @@ if (isset($_GET['order_id'])) {
         echo '<script>window.location.replace("product.php");</script>';
         exit();
     }
+    if (!($order_result['buyer_id'] === $_SESSION['user_id'])) {
+        echo '<script>window.location.replace("./");</script>';
+        exit();
+    }
     $order_item_results = $order->get_order_item_by_order_id($order_id);
     $order_items = $order_item_results['order_items'];
     $total_sum_price = $order_item_results['total_sum_price'];
