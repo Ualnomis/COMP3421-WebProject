@@ -85,14 +85,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
                         <div class="form-group pt-2">
                             <label class="form-label required" for="id">User ID:</label>
-                            <input type="text" class="form-control" id="id" name="id" value="<?= $user_data['id'] ?>"
+                            <input type="text" class="form-control" id="id" name="id" value="<?= htmlspecialchars($user_data['id']) ?>"
                                 disabled>
-                            <input type="hidden" name="userid" value="<?= $user_id ?>">
+                            <input type="hidden" name="userid" value="<?= htmlspecialchars($user_id) ?>">
                         </div>
                         <div class="form-group pt-2">
                             <label class="form-label required" for="email">Email:</label>
                             <input type="email" class="form-control" id="email" name="email"
-                                value="<?= $user_data['email'] ?>">
+                                value="<?= htmlspecialchars($user_data['email']) ?>">
                         </div>
                         <?php if ($user_role == "seller"): ?>
                             <div class="form-group pt-3">

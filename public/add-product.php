@@ -122,28 +122,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label class="form-label required">Product Name</label>
                                 <input type="text" class="form-control" name="product-name"
-                                    placeholder="Product Name" value="<?= $name; ?>" />
+                                    placeholder="Product Name" value="<?= htmlspecialchars($name); ?>" />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Product Price</label>
                                 <input type="text" class="form-control" name="product-price"
-                                    placeholder="Product Price" value="<?= $price; ?>" />
+                                    placeholder="Product Price" value="<?= htmlspecialchars($price); ?>" />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Product Quantity</label>
                                 <input type="number" class="form-control" name="product-quantity"
-                                    placeholder="Product Quantity" value="<?= $quantity; ?>" />
+                                    placeholder="Product Quantity" value="<?= htmlspecialchars($quantity); ?>" />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Product Description</label>
                                 <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
-                                    placeholder="Product Description" style="border: black 1px solid;" value="<?= $description; ?>"></textarea>
+                                    placeholder="Product Description" style="border: black 1px solid;" value="<?= htmlspecialchars($description); ?>"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Display</label>
-                                <select class="form-control form-select" name="product-status" value="<?= $status; ?>">
-                                    <option value="show">Show</option>
-                                    <option value="hide">Hide</option>
+                                <select class="form-control form-select" name="product-status" value="<?= htmlspecialchars($status); ?>">
+                                    <option value="<?= htmlspecialchars("show"); ?>">Show</option>
+                                    <option value="<?= htmlspecialchars("hide"); ?>">Hide</option>
                                 </select>
                             </div>
                             <div class="d-flex justify-content-end">

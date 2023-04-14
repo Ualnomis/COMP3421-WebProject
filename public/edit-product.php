@@ -117,13 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php endif; ?>
                     <div class="row row-cards">
                         <div class="col-4 flex flex-wrap justify-center items-center">
-                            <img id="preview" src="<?= $product_data['image_url']; ?>"
+                            <img id="preview" src="<?= htmlspecialchars($product_data['image_url']); ?>"
                                 class="img-fiuld w-[200px] h-auto flex-1" />
                             <div class="d-flex justify-content-center mt-3 flex-1">
                                 <div class="btn btn-outline-dark btn-rounded">
                                     <label class="form-label m-1" for="product-img">Choose file</label>
                                     <input type="hidden" name="product-img-prev"
-                                        value="<?= $product_data['image_url']; ?>">
+                                        value="<?= htmlspecialchars($product_data['image_url']); ?>">
                                     <input type="file" class="form-control d-none" name="product-img" id="product-img"
                                         accept="image/*" multiple="false" />
                                 </div>
@@ -133,32 +133,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label class="form-label required">Product Name</label>
                                 <input type="text" class="form-control required" name="product-name"
-                                    placeholder="Product Name" value="<?= $name; ?>">
+                                    placeholder="Product Name" value="<?= htmlspecialchars($name); ?>">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Product Price</label>
                                 <input type="text" class="form-control" name="product-price"
-                                    placeholder="Product Price" value="<?= $price; ?>">
+                                    placeholder="Product Price" value="<?= htmlspecialchars($price); ?>">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Product Quantity</label>
                                 <input type="number" class="form-control" name="product-quantity"
-                                    placeholder="Product Quantity" min="0" step="1" value="<?= $quantity; ?>">
+                                    placeholder="Product Quantity" min="0" step="1" value="<?= htmlspecialchars($quantity); ?>">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Product Description</label>
                                 <textarea class="form-control" data-bs-toggle="autosize" name="product-description"
                                     placeholder="Product Description"
-                                    style="border: black 1px solid;"><?= $description; ?></textarea>
+                                    style="border: black 1px solid;"><?= htmlspecialchars($description); ?></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Display</label>
                                 <select class="form-control form-select" name="product-status">
-                                    <option value="show" <?php if ($status === 'show') {
+                                    <option value="<?= htmlspecialchars("show"); ?>" <?php if ($status === 'show') {
                                         echo "selected";
                                     } ?>>
                                         Show</option>
-                                    <option value="hide" <?php if ($status === 'hide') {
+                                    <option value="<?= htmlspecialchars("hide"); ?>" <?php if ($status === 'hide') {
                                         echo "selected";
                                     } ?>>
                                         Hide</option>
