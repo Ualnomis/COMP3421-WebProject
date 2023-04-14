@@ -98,29 +98,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Create new account</h2>
                 <?php if ($error): ?>
-                    <div class="alert alert-danger"><?php echo $errorMessage; ?></div>
+                    <div class="alert alert-danger"><?php echo htmlspecialchars($errorMessage); ?></div>
                 <?php endif; ?>
                 <div class="mb-3">
                     <label class="form-label required">User name</label>
-                    <input type="text" name="username" class="form-control" placeholder="Enter name" value="<?php echo $user_name?>">
+                    <input type="text" name="username" class="form-control" placeholder="Enter name" value="<?php echo htmlspecialchars($user_name); ?>">
                 </div>
                 <div class="mb-3">
                     <label class="form-label required">Email address</label>
-                    <input type="email" name="email" class="form-control" placeholder="Enter email" value="<?php echo $email?>">
+                    <input type="email" name="email" class="form-control" placeholder="Enter email" value="<?php echo htmlspecialchars($email); ?>">
                 </div>
                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'seller'): ?>
                 <div class="mb-3">
                     <label for="role" class="form-label required">Role:</label>
                     <select class="form-select" id="role" name="role">
-                        <option value="buyer">Buyer</option>
-                        <option value="seller" selected>Seller</option>
+                        <option value="<?= htmlspecialchars("buyer"); ?>">Buyer</option>
+                        <option value="<?= htmlspecialchars("seller"); ?>" selected>Seller</option>
                     </select>
                 </div>
                 <?php endif; ?>
                 <div class="mb-3">
                     <label class="form-label required">Password</label>
                     <div class="input-group input-group-flat">
-                        <input id="password" type="password" name="password" class="form-control" placeholder="Password" value="<?php echo $user_password?>"
+                        <input id="password" type="password" name="password" class="form-control" placeholder="Password" value="<?php echo htmlspecialchars($user_password); ?>"
                             autocomplete="off">
                         <span class="input-group-text border-[#6B7280]" id="eye">
                             <a href="#" class="link-secondary" title="Show password"
